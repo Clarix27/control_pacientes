@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="css/estilo_reg_titular.css">
+  <title>Registro de Paciente - DIF Escuinapa</title>
+</head>
+<body>
+  <div class="form-container">
+    <h2 class="form-title">Registro de Paciente</h2>
+    <form>
+      <div class="form-row">
+        <div class="form-group">
+          <input type="text" placeholder="NOMBRE" required>
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="APELLIDO PATERNO" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <input type="text" placeholder="APELLIDO MATERNO" required>
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="DOMICILIO" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <input type="text" placeholder="PUESTO" required>
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="DIRECCIÓN" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <select required>
+          <option value="" disabled selected>CATEGORÍA</option>
+          <option value="confianza">Confianza</option>
+          <option value="sindicalizado">Sindicalizado</option>
+          <option value="seguridad">Seguridad Pública</option>
+        </select>
+      </div>
+      <button type="submit" class="submit-btn">Enviar</button>
+    </form>
+  </div>
+</body>
+</html>
