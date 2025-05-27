@@ -4,7 +4,7 @@
     $user = $_POST['user'] ?? 'Sec-0';
     $contra = $_POST['contrasena'] ?? 'secretari';
 
-
+    // Consulta
     $sql = $pdo->prepare("SELECT * FROM usuario WHERE nom_usuario = :usuario AND contraseña = :contra");
     $sql->bindParam(':usuario', $user, PDO::PARAM_STR);
     $sql->bindParam(':contra', $contra, PDO::PARAM_STR);
