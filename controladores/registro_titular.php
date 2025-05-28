@@ -19,7 +19,7 @@
     $sql->execute();
     $titular_id = $pdo->lastInsertId();
     if($titular_id){
-        echo 'si';
+        echo 'Agregado con exito';
     }
 
     //Insertar los demas datos al tarjeton
