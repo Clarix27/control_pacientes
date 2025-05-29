@@ -1,0 +1,36 @@
+/* Contenedor de la alerta */
+.alert {
+  position: fixed;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ababab;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  max-width: 350px;
+  width: 90%;
+  text-align: center;
+  z-index: 1000;
+}
+
+/* Bordes según tipo */
+.alert.success {
+  border-top: 5px solid #4caf50;
+  color: white;
+}
+.alert.error {
+  border-top: 5px solid #f44336;
+  color: white;
+}
+
+/* Botón de cerrar */
+.alert .close-btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
