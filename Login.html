@@ -3,21 +3,121 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="css/estilo_login.css">
   <title>Control de Pacientes - DIF Escuinapa</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: #ffffff;
+  }
+
+  .navbar {
+    background: #CC1A1A;
+    padding: 25px 30px;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    text-transform: uppercase;
+  }
+
+  .main-content {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .form-container {
+    background: #CC1A1A;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(214, 48, 49, 0.3);
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .form-title {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .form-group {
+    margin-bottom: 30px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+    color: #333;
+    outline: none;
+    font-weight: normal;
+    text-transform: none;
+  }
+
+  .form-group input::placeholder {
+    color: #999;
+    font-weight: normal;
+  }
+
+  .submit-btn {
+    padding: 12px 24px;
+    background: #00b894;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+  }
+
+  .submit-btn:hover {
+    background: #00a085;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
+  }
+</style>
 <body>
-  <div class="form-container">
-    <h2 class="form-title">Control de Pacientes</h2>
-    <form>
-      <div class="form-group">
-        <input type="email" placeholder="CORREO" required>
-      </div>
-      <div class="form-group">
-        <input type="password" placeholder="CONTRASEÑA" required>
-      </div>
-      <button type="submit" class="submit-btn">Enviar</button>
-    </form>
+  <div class="navbar">
+    CONTROL DE PACIENTES
+  </div>
+
+  <div class="main-content">
+    <div class="form-container">
+      <h2 class="form-title">Iniciar sesion</h2>
+      <form>
+        <div class="form-group">
+          <input type="email" placeholder="Correo" required>
+        </div>
+        <div class="form-group">
+          <input type="password" placeholder="Contraseña" required>
+        </div>
+        <button type="submit" class="submit-btn">Enviar</button>
+      </form>
+    </div>
   </div>
 </body>
 </html>
