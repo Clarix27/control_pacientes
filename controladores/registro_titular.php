@@ -1,14 +1,27 @@
 <?php
+    header('Content-Type: application/json');
     require_once('conexion.php');
 
-    $nombre = $_POST['nombre'] ?? 'jose';
-    $a_paterno = $_POST['apaterno'] ?? 'perez';
-    $a_materno = $_POST['amaterno'] ?? NULL;
-    $domicilio = $_POST['domicilio'] ?? 'Francisco I Madero';
-    $puesto = $_POST['puesto'] ?? 'Auxiliar de Despensas';
-    $direccion = $_POST['direccion'] ?? 'Sistema Dif';
-    $categoria = $_POST['categoria'] ?? 'Confianza';
-    $folio = $_POST['folio'] ?? 'F-002';
+    $required = ['nombre','apaterno','domicilio','puesto','direccion','categoria'];
+    foreach ($required as $field) {
+        // Si no existe la clave O está vacía (excepto '0')
+        if (!isset($_POST[$field]) || trim((string)$_POST[$field]) === '') {
+            echo json_encode([
+                'success' => false,
+                'message' => "Falta el campo obligatorio: $field"
+            ]);
+            exit;
+        }
+    }
+
+    $nombre     = trim($_POST['nombre']);
+    $a_paterno  = trim($_POST['apaterno']);
+    $a_materno  = isset($_POST['amaterno']) ? trim($_POST['amaterno']) : null;
+    $domicilio  = trim($_POST['domicilio']);
+    $puesto     = trim($_POST['puesto']);
+    $direccion  = trim($_POST['direccion']);
+    $categoria  = trim($_POST['categoria']);
+    $folio      = trim('Folio');
 
     //Insertar el titular
     $sql = $pdo->prepare("INSERT INTO titular(nombre, a_paterno, a_materno, categoria) VALUES(:nombre, :a_paterno, :a_materno, :categoria)");
@@ -18,8 +31,13 @@
     $sql->bindParam(':categoria', $categoria, PDO::PARAM_STR);
     $sql->execute();
     $titular_id = $pdo->lastInsertId();
-    if($titular_id){
-        echo 'si';
+
+    if (!isset($titular_id)) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'No se pudo registrar el titular!'
+        ]);
+        exit;
     }
 
     //Insertar los demas datos al tarjeton
@@ -29,6 +47,19 @@
     $sql2->bindParam(':direccion', $direccion, PDO::PARAM_STR);
     $sql2->bindParam(':fk_titular', $titular_id, PDO::PARAM_INT);
     $sql2->execute();
+    $tarjeton_id = $pdo->lastInsertId();
 
-    var_dump($sql2);
+    if ($tarjeton_id) {
+        echo json_encode([
+            'success' => true,
+            'message' => ' Registrado con Exito el Titular: ' . $nombre
+        ]);
+        exit;
+    }else{
+        echo json_encode([
+            'success' => false,
+            'message' => 'Ocurrio un error con el registro!!!'
+        ]);
+        exit;
+    }
 ?>
