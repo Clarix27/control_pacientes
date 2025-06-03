@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -8,126 +8,12 @@
   <title>Registro de Paciente - DIF Escuinapa</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  html, body {
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background: #ffffff;
-  }
-
-  .navbar {
-    background: #CC1A1A;
-    padding: 25px 30px;
-    color: white;
-    font-weight: bold;
-    font-size: 24px;
-    text-transform: uppercase;
-  }
-
-  .main-content {
-    min-height: calc(100vh - 80px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-
-  .form-container {
-    position: relative;
-    background: #CC1A1A;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 20px 40px rgba(214, 48, 49, 0.3);
-    width: 100%;
-    max-width: 600px;
-  }
-
-  .back-icon {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-    text-decoration: none;
-  }
-
-  .form-title {
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-
-  .form-row {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-  }
-
-  .form-row .form-group {
-    flex: 1;
-  }
-
-  .form-group input,
-  .form-group select {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    background: white;
-    color: #000;
-    outline: none;
-    font-weight: normal;
-    text-transform: none;
-  }
-
-  .form-group input::placeholder {
-    color: #999;
-    font-weight: normal;
-  }
-
-  .form-group select option {
-    color: #000;
-  }
-
-  .submit-btn {
-    padding: 12px 24px;
-    background: #00b894;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 20px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
-  }
-
-  .submit-btn:hover {
-    background: #00a085;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
-  }
-</style>
 <body>
 <div class="navbar">
     CONTROL DE PACIENTES
-  </div>
+</div>
 
-  <div class="main-content">
+<div class="main-content">
   <div class="form-container">
     <h2 class="form-title">Registro de Paciente</h2>
     <form id="formTitular">
@@ -144,17 +30,52 @@
           <input type="text" name="amaterno" placeholder="APELLIDO MATERNO">
         </div>
         <div class="form-group">
-          <input type="text" name="domicilio" placeholder="DOMICILIO" required>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
           <input type="text" name="puesto" placeholder="PUESTO" required>
         </div>
-        <div class="form-group">
-          <input type="text" name="direccion" placeholder="DIRECCIÓN" required>
+      </div>
+
+<div class="form-group" id="textoDomicilio">
+  <div onclick="mostrarDomicilio()" style="
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #f0f8ff;
+    border: 1px solid #b3d1ff;
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: #1a73e8;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  " onmouseover="this.style.backgroundColor='#e0efff'" onmouseout="this.style.backgroundColor='#f0f8ff'">
+    <i class="fas fa-map-marker-alt"></i>
+    Agregar domicilio completo
+  </div>
+</div>
+
+
+      <!-- Campos ocultos de domicilio -->
+      <div id="camposDomicilio" style="display:none;">
+        <div class="form-row">
+          <div class="form-group">
+            <input type="text" name="calle" placeholder="CALLE">
+          </div>
+          <div class="form-group">
+            <input type="text" name="num_casa" placeholder="NÚMERO DE CASA">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <input type="text" name="colonia" placeholder="COLONIA">
+          </div>
+          <div class="form-group">
+            <input type="text" name="municipio" placeholder="MUNICIPIO">
+          </div>
         </div>
       </div>
+
       <div class="form-group">
         <select name="categoria" required>
           <option value="" disabled selected>CATEGORÍA</option>
@@ -166,8 +87,14 @@
       <button type="submit" class="submit-btn">Enviar</button>
     </form>
   </div>
+</div>
 
-  <!-- El JS inyectará aquí las alertas, no necesitas más contenedores -->
-  <script src="js/registro_titular.js"></script>
+<script>
+  function mostrarDomicilio() {
+    document.getElementById("textoDomicilio").style.display = "none";
+    document.getElementById("camposDomicilio").style.display = "block";
+  }
+</script>
+<script src="js/registro_titular.js"></script>
 </body>
 </html>

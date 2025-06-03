@@ -65,11 +65,6 @@
       color: #000;
     }
 
-    .menu-item p {
-      font-size: 18px;
-      font-weight: bold;
-    }
-
     @media (max-width: 1100px) {
       .menu {
         grid-template-columns: repeat(3, 1fr);
