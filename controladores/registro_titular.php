@@ -1,6 +1,7 @@
 <?php
     header('Content-Type: application/json');
     require_once('conexion.php');
+    $pdo = Conexion::getPDO();
 
     $required = ['nombre','apaterno','domicilio','puesto','direccion','categoria'];
     foreach ($required as $field) {
