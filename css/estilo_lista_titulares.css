@@ -1,0 +1,141 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+    }
+
+    .navbar {
+      background: #CC1A1A;
+      color: white;
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .navbar-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-left {
+      justify-content: flex-start;
+    }
+
+    .navbar-center {
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .navbar-right {
+      justify-content: flex-end;
+    }
+
+    .navbar-title {
+      font-weight: bold;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+
+    .navbar-center a {
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 30px;
+      padding: 5px 10px;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 30px;
+    }
+
+    .search-box i {
+      color: black;
+      margin-right: 5px;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    .filter {
+      background: #eee;
+      padding: 15px 20px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    .filter label {
+      font-weight: bold;
+    }
+
+    .filter select {
+      margin-left: 10px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 15px;
+      border: 1px solid #aaa;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #ccc;
+      font-weight: bold;
+    }
+
+    .badge {
+      background: #9CD8D9;
+      color: black;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    .btn-icon {
+      background: none;
+      border: none;
+      color: #000;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .btn-icon:hover {
+      color: #00b894;
+    }
+
+    .icon-link {
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+    }

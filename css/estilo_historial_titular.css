@@ -1,0 +1,174 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+    }
+
+    .navbar {
+      background: #CC1A1A;
+      color: white;
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .navbar-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-left {
+      justify-content: flex-start;
+    }
+
+    .navbar-center {
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .navbar-right {
+      justify-content: flex-end;
+    }
+
+    .navbar-title {
+      font-weight: bold;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+
+    .navbar-center a {
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 30px;
+      padding: 5px 10px;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 30px;
+    }
+
+    .search-box i {
+      color: black;
+      margin-right: 5px;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    .card {
+      background: #eee;
+      padding: 30px 20px 20px 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      position: relative;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .etiqueta {
+      position: absolute;
+      top: -12px;
+      left: 10px;
+      background: #6ec1e4;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .detalle-cita {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #9CD8D9;
+      color: black;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .card h4 {
+      text-transform: uppercase;
+      font-weight: bold;
+      margin-bottom: 15px;
+      font-size: 15px;
+      color: #555;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px 40px;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .tabla-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background: #ccc;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .detalle-cita-afiliado {
+      background: #9CD8D9;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      color: black;
+      cursor: pointer;
+    }
+
+    .btn-agregar {
+      background: #ffdb58;
+      color: black;
+      font-weight: bold;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      float: right;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
