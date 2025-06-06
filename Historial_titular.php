@@ -21,6 +21,29 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/estilo_historial_titular.css">
 </head>
+<style>
+.back-button {
+  color: #333;
+  font-size: 30px; 
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+}
+
+.back-button:hover {
+  color: #000;
+}
+
+.back-text {
+  font-size: 18px;  
+  font-weight: normal;
+}
+
+
+
+</style>
 <body>
 
   <div class="navbar">
@@ -39,6 +62,16 @@
       </div>
     </div>
   </div>
+<!-- Flecha de regreso abajo del navbar, esquina izquierda -->
+<div style="margin: 15px 0 0 20px;">
+  <a href="lista_titulares.php" class="back-button" title="Regresar">
+    <i class="fas fa-arrow-left"></i>
+    <span class="back-text">Regresar</span>
+  </a>
+</div>
+
+
+
 
   <div class="content">
     <div class="card">
