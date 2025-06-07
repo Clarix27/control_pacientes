@@ -11,7 +11,6 @@
     $titular = titular_id($pk_titular);
   }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,6 +19,8 @@
   <title>Historial Médico - DIF Escuinapa</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/estilo_historial_titular.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <style>
 .back-button {
@@ -40,28 +41,36 @@
   font-size: 18px;  
   font-weight: normal;
 }
+.titulo-pagina {
+ 
+ font-size: 28px;
+ font-weight: bold;
+ color: #333;
+}
 
+.titulo-container-subtle {
+ background: #9CD8D9;
+ border-left: 8px solid #CC1A1A;
+ padding: 2px 5px;
+ margin: 20px 0 10px 0;
+ box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+
+}
+
+.titulo-container-subtle h2 {
+ margin: 0;
+ font-size: 21px;
+ font-weight: 600;
+ text-align: center;
+ color: #2c3e50;
+}
 
 
 </style>
 <body>
+<?php include 'menu.php'?>
 
-  <div class="navbar">
-    <div class="navbar-section navbar-left">
-      <span class="navbar-title">Control de Pacientes</span>
-    </div>
-    <div class="navbar-section navbar-center">
-      <a href="Inicio.html">Inicio</a>
-      <a href="#">Expedientes</a>
-      <a href="#">Pacientes</a>
-    </div>
-    <div class="navbar-section navbar-right">
-      <div class="search-box">
-        <i class="fas fa-search"></i>
-        <input type="text" placeholder="Buscar paciente">
-      </div>
-    </div>
-  </div>
+
 <!-- Flecha de regreso abajo del navbar, esquina izquierda -->
 <div style="margin: 15px 0 0 20px;">
   <a href="lista_titulares.php" class="back-button" title="Regresar">
@@ -70,12 +79,12 @@
   </a>
 </div>
 
-
-
+    <div  class="titulo-container-subtle">
+    <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">HISTORIAL CLÍNICO </h2>
+    </div>
 
   <div class="content">
     <div class="card">
-      <span class="etiqueta">Historial Médico</span>
       <button class="detalle-cita">Detalle cita</button>
       <h4>Sistema Municipal para el Desarrollo Integral de la Familia del Municipio de Escuinapa</h4>
       <div class="info-grid">
