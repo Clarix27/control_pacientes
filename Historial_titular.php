@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="css/estilo_historial_titular.css">
   <link rel="stylesheet" href="css/menu.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <style>
 .back-button {
@@ -65,6 +66,14 @@
  color: #2c3e50;
 }
 
+a i {
+  text-decoration: none;
+}
+a {
+  text-decoration: none;
+}
+
+
 
 </style>
 <body>
@@ -85,7 +94,15 @@
 
   <div class="content">
     <div class="card">
-      <button class="detalle-cita">Detalle cita</button>
+      <div style="float: right; margin-bottom: 10px;">
+  <a href="ver_receta.php?id=<?= $pk_titular ?>" title="Ver Recetas">
+    <i class="fas fa-envelope-open-text" style="font-size: 18px; margin-right: 12px; color: #27ae60;"></i>
+  </a>
+  <a href="agregar_receta.php?id=<?= $pk_titular ?>" title="Agregar Receta">
+    <i class="fas fa-file-medical" style="font-size: 18px; color: #f39c12;"></i>
+  </a>
+</div>
+
       <h4>Sistema Municipal para el Desarrollo Integral de la Familia del Municipio de Escuinapa</h4>
       <div class="info-grid">
         <div><strong>Paciente: </strong><?= htmlspecialchars($titular['nombre'].' '.$titular['a_paterno'].' '.$titular['a_materno'], ENT_QUOTES, 'UTF-8') ?></div>
@@ -105,32 +122,41 @@
           <th>Edad</th>
           <th>Sexo</th>
           <th>Parentesco</th>
-          <th>Ver Citas</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <?php if (empty($beneficiarios)): ?>
-          <tr>
-            <td colspan="6">No se encontraron afiliados.</td>
-          </tr>
-        <?php else: ?>
-          <?php foreach ($beneficiarios as $fila): ?>
-            <tr>
-              <td><?= htmlspecialchars($fila['nombre'].' '.$fila['a_paterno'].' '.$fila['a_materno'], ENT_QUOTES, 'UTF-8') ?></td>
-              <td><?= htmlspecialchars($fila['edad'].' años', ENT_QUOTES, 'UTF-8') ?></td>
-              <td><?= htmlspecialchars($fila['sexo'], ENT_QUOTES, 'UTF-8') ?></td>
-              <td><?= htmlspecialchars($fila['parentesco'], ENT_QUOTES, 'UTF-8') ?></td>
-              <td>
-                <a href="Detalle_cita.php?id=<?= urlencode($titular['pk_titular']) ?>">
-                  <button class="detalle-cita-afiliado" title="Detalle cita">
-                    Detalle cita
-                  </button>
-                </a>
-              </td>
-            </tr>
-          <?php endforeach; ?>
-        <?php endif; ?>
-      </tbody>
+  <?php if (empty($beneficiarios)): ?>
+    <tr>
+      <td colspan="6">No se encontraron afiliados.</td>
+    </tr>
+  <?php else: ?>
+    <?php foreach ($beneficiarios as $fila): ?>
+      <tr>
+        <td><?= htmlspecialchars($fila['nombre'].' '.$fila['a_paterno'].' '.$fila['a_materno'], ENT_QUOTES, 'UTF-8') ?></td>
+        <td><?= htmlspecialchars($fila['edad'].' años', ENT_QUOTES, 'UTF-8') ?></td>
+        <td><?= htmlspecialchars($fila['sexo'], ENT_QUOTES, 'UTF-8') ?></td>
+        <td><?= htmlspecialchars($fila['parentesco'], ENT_QUOTES, 'UTF-8') ?></td>
+        <td>
+  <a href="editar_afiliado.php" title="Editar">
+    <i class="fas fa-pen-to-square" style="margin-right: 10px; color: #2980b9;"></i>
+  </a>
+  <a href="ver_receta.php" title="Ver Recetas">
+    <i class="fas fa-envelope-open-text" style="margin-right: 10px; color: #27ae60;"></i>
+  </a>
+  <a href="agregar_receta.php" title="Agregar Receta">
+    <i class="fas fa-file-medical" style="margin-right: 10px; color: #f39c12;"></i>
+  </a>
+  <a href="eliminar_afiliado.php" title="Eliminar" onclick="return confirm('¿Seguro que deseas eliminar este afiliado?');">
+    <i class="fas fa-trash" style="color: #c0392b;"></i>
+  </a>
+</td>
+
+      </tr>
+    <?php endforeach; ?>
+  <?php endif; ?>
+</tbody>
+
     </table>
     </div>
   </div>
