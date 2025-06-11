@@ -11,38 +11,60 @@
     }
 
     .navbar {
-      background: #CC1A1A;
-      color: white;
-      padding: 25px 30px;
+      background-color: #e93333; /* Color similar al de la imagen */
       display: flex;
-      align-items: center;
       justify-content: space-between;
-    }
-
-    .navbar-section {
-      flex: 1;
-      display: flex;
       align-items: center;
-    }
-
-    .navbar-title {
-      font-weight: bold;
-      font-size: 24px;
+      padding: 15px 25px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      color: #ffffff;
       text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-
-    .navbar-center {
-      justify-content: flex-end;
-      gap: 30px;
+    
+    .logo img {
+      height: 60px;
     }
-
-    .navbar-center a {
+    
+    .titulo-navbar {
+      font-weight: 800;
+      font-size: 22px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .icono-config img {
+      height: 35px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .icono-config img:hover {
+      transform: scale(1.1);
+    }
+    
+    .navbar-menu {
+      background-color: #CC1A1A;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 15px 0;
+    }
+    
+    .navbar-menu a {
       color: white;
       font-weight: bold;
       font-size: 16px;
-      text-decoration: none;
       text-transform: uppercase;
+      text-decoration: none;
     }
+    
+    .navbar-menu a:hover {
+      text-decoration: underline;
+    }
+    
 
     .back-button {
       color: #333;
@@ -71,17 +93,18 @@
 
     .form-container {
       position: relative;
-      background: #CC1A1A;
+      background:#9CD8D9;
       padding: 40px;
       border-radius: 15px;
-      box-shadow: 0 20px 40px rgba(214, 48, 49, 0.3);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
       width: 100%;
       max-width: 600px;
-      margin-top: 60px;
+      margin-top: 5px;
+      
     }
 
     .form-title {
-      color: white;
+      color: rgb(94, 87, 87);
       font-size: 24px;
       font-weight: bold;
       text-align: center;
@@ -95,7 +118,7 @@
     }
 
     .form-row .form-group {
-      flex: 1;
+      flex: 4;
     }
 
     .form-group input,
@@ -121,7 +144,7 @@
 
     .submit-btn {
       padding: 12px 24px;
-      background: #00b894;
+      background: #00b844;
       color: white;
       border: none;
       border-radius: 8px;

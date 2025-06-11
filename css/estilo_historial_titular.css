@@ -162,7 +162,7 @@
     }
 
     .btn-agregar {
-      background: #9CD8D9;
+      background: #0ed142;
       color: black;
       font-weight: bold;
       padding: 6px 12px;
@@ -172,3 +172,4 @@
       margin-bottom: 10px;
       cursor: pointer;
     }
+    /* Título centrado simple */

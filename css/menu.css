@@ -1,0 +1,84 @@
+.navbar {
+  background-color: #e93333; /* Color similar al de la imagen */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px; 
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 5px ;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+  
+  /* Logotipo DIF a la izquierda (fuera si lo deseas con posición absoluta) */
+  .navbar .logo {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+  }
+  /* Icono engranaje a la derecha */
+  .navbar .icono-config {
+    margin-left: 20px;
+    cursor: pointer;
+  }
+  .icono-config img {
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .icono-config img:hover {
+    transform: scale(1.1);
+  }
+
+  .navbar-section.navbar-center {
+    display: flex;
+    gap: 30px;
+    justify-content: flex-end;
+    flex: 1;
+  }
+  
+  
+  .navbar-section.navbar-center a {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+  
+  .navbar-section.navbar-center a:hover {
+    color: #ffeaea;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  }
+  .navbar-menu {
+    background-color: #CC1A1A;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 15px 0;
+  }
+  
+  .navbar-menu a {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  
+  .navbar-menu a:hover {
+    text-decoration: underline;
+  }
+  

@@ -6,25 +6,33 @@
   <title>Menú Principal - Control de Pacientes</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/estilo_inicio.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
   <div class="page">
-    <div class="navbar">
-      CONTROL DE PACIENTES DIF
-    </div>
+    
+      <div class="logo">
+        <img src="img/logo_dif.jpeg" alt="Logo DIF" style="height: 70px; margin-left: 20px; margin-top: 10px;">
+      </div>
+      <div class="navbar">
+        CONTROL DE PACIENTES DIF
+        <div class="icono-config">
+          <a href="logout.php" title="Cerrar sesión">
+            <img src="img/ruta_icono_config.png" alt="Cerrar sesión" style="height: 35px;">
+          </a>
+        </div>
+      </div>      
+      
     <div class="center-content">
       <div class="menu">
-        <div class="menu-item" onclick="location.href='Registro_titular.html'" style="cursor: pointer;">
+        <div class="menu-item" onclick="location.href='Registro_titular.php'" style="cursor: pointer;">
           <i class="fas fa-user-plus"></i>
-          <p>Agregar Paciente</p>
-        </div>
-        <div class="menu-item">
-          <i class="fas fa-file-medical"></i>
-          <p>Agregar Receta</p>
+          <p>Agregar Titular</p>
         </div>
         <div class="menu-item" onclick="location.href='Lista_titulares.php'" style="cursor: pointer;">
           <i class="fas fa-users"></i>
-          <p>Lista De Pacientes</p>
+          <p>Lista De Pacientes DIF</p>
         </div>
         <div class="menu-item">
           <i class="fas fa-folder-open"></i>

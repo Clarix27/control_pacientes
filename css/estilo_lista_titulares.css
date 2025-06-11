@@ -139,3 +139,96 @@
       display: flex;
       justify-content: center;
     }
+
+/* Título centrado simple */
+.titulo-pagina {
+ 
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* O si prefieres con clase diferente */
+.page-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin: 20px 0;
+  padding: 15px;
+  
+}
+
+.titulo-container-subtle {
+  background: #9CD8D9;
+  border-left: 8px solid #CC1A1A;
+  padding: 2px 5px;
+  margin: 20px 0 10px 0;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+ 
+}
+
+.titulo-container-subtle h2 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 600;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.acciones-container {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  min-width: 120px;
+}
+
+.btn-accion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-accion:hover {
+  transform: scale(1.1);
+  text-decoration: none;
+  color: white;
+}
+
+.btn-editar {
+  background: #3498db;
+}
+.btn-editar:hover {
+  background: #2980b9;
+}
+
+.btn-historial {
+  background: #27ae60;
+}
+.btn-historial:hover {
+  background: #229954;
+}
+
+.btn-agregar {
+  background: #f39c12;
+}
+.btn-agregar:hover {
+  background: #e67e22;
+}
+
+.btn-eliminar {
+  background: #e74c3c;
+}
+.btn-eliminar:hover {
+  background: #c0392b;
+}

@@ -7,25 +7,14 @@
   <link rel="stylesheet" href="css/estilo_reg_titular.css">
   <link rel="stylesheet" href="css/alerta_titular.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <link rel="stylesheet" href="css/menu.css">
   <style>
     
   </style>
 </head>
 
 <body>
-
-  <!-- NAVBAR -->
-  <div class="navbar">
-    <div class="navbar-section">
-      <div class="navbar-title">CONTROL DE PACIENTES DIF</div>
-    </div>
-    <div class="navbar-section navbar-center">
-      <a href="Inicio.html">Inicio</a>
-      <a href="#">Expedientes</a>
-      <a href="#">Pacientes</a>
-    </div>
-  </div>
+<?php include 'menu.php'?>
 
   <!-- BOTÓN REGRESAR -->
   <div style="margin: 15px 0 0 20px;">
