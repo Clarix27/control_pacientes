@@ -111,7 +111,7 @@
     </div>
 
     <div class="tabla-container">
-      <button class="btn-agregar">Agregar afiliado</button>
+      <button class="btn-agregar" onclick="location.href='Registro_afiliado.php'">Agregar afiliado</button>
       <table>
         <thead>
           <tr>
