@@ -187,68 +187,75 @@
 
   <div  class="titulo-container-subtle">
     <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">RECETA MEDICA</h2>
-    </div>
-
-  <div class="content">
-    <div class="tabla-datos">
-      <table>
-        <tr>
-          <td>
-            <label>Nombre Paciente:</label>
-            <input type="text" value="<?= htmlspecialchars($beneficiario['nombre'], ENT_QUOTES, 'UTF-8') ?>" name="p_nombre" disabled>
-          </td>
-          <td>
-            <label>Apellido Paterno Paciente:</label>
-            <input type="text" value="<?= htmlspecialchars($beneficiario['a_paterno'], ENT_QUOTES, 'UTF-8') ?>"  name="p_paterno" disabled>
-          </td>
-          <td>
-            <label>Apellido Materno Paciente:</label>
-            <input type="text" value="<?= htmlspecialchars($b_materno, ENT_QUOTES, 'UTF-8') ?>"  name="p_materno" disabled>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label>Nombre Titular:</label>
-            <input type="text" value="<?= htmlspecialchars($titular['nombre'], ENT_QUOTES, 'UTF-8') ?>" disabled>
-          </td>
-          <td>
-            <label>Apellido Paterno Titular:</label>
-            <input type="text" value="<?= htmlspecialchars($titular['a_paterno'], ENT_QUOTES, 'UTF-8') ?>" disabled>
-          </td>
-          <td>
-            <label>Apellido Materno Titular:</label>
-            <input type="text" value="<?= htmlspecialchars($t_materno, ENT_QUOTES, 'UTF-8') ?>" disabled>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label>Fecha:</label>
-            <input type="date">
-          </td>
-          <td>
-            <label>Núm. de Tarjetón:</label>
-            <input type="text">
-          </td>
-          <td>
-            <label>Área de Trabajo:</label>
-            <input type="text">
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="rx-container">
-      <label>RX:</label>
-      <textarea placeholder="Escribe la receta aquí..."></textarea>
-    </div>
   </div>
+
+  <form id="formRecetas">
+    <div class="content">
+      <div class="tabla-datos">
+        <table>
+          <tr>
+            <td>
+              <label>Nombre Paciente:</label>
+              <input type="text" value="<?= htmlspecialchars($beneficiario['nombre'], ENT_QUOTES, 'UTF-8') ?>" name="p_nombre" readonly>
+            </td>
+            <td>
+              <label>Apellido Paterno Paciente:</label>
+              <input type="text" value="<?= htmlspecialchars($beneficiario['a_paterno'], ENT_QUOTES, 'UTF-8') ?>"  name="p_paterno" readonly>
+            </td>
+            <td>
+              <label>Apellido Materno Paciente:</label>
+              <input type="text" value="<?= htmlspecialchars($b_materno, ENT_QUOTES, 'UTF-8') ?>"  name="p_materno" readonly>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Nombre Titular:</label>
+              <input type="text" value="<?= htmlspecialchars($titular['nombre'], ENT_QUOTES, 'UTF-8') ?>" disabled>
+            </td>
+            <td>
+              <label>Apellido Paterno Titular:</label>
+              <input type="text" value="<?= htmlspecialchars($titular['a_paterno'], ENT_QUOTES, 'UTF-8') ?>" disabled>
+            </td>
+            <td>
+              <label>Apellido Materno Titular:</label>
+              <input type="text" value="<?= htmlspecialchars($t_materno, ENT_QUOTES, 'UTF-8') ?>" disabled>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Fecha:</label>
+              <input type="date">
+            </td>
+            <td>
+              <label>Núm. de Tarjetón:</label>
+              <input type="text">
+            </td>
+            <td>
+              <label>Área de Trabajo:</label>
+              <input type="text">
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="rx-container">
+        <label>RX:</label>
+        <textarea placeholder="Escribe la receta aquí..."></textarea>
+      </div>
+    </div>
+
+    <!-- Campo oculto que no se muestra -->
+    <input type="hidden" name="pk_beneficiario" value="<?= htmlspecialchars($id_beneficiario, ENT_QUOTES, 'UTF-8') ?>">
+    <!-- Campo oculto que no se muestra -->
+    <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($id_titular, ENT_QUOTES, 'UTF-8') ?>">
+  </form>
 
   <div style="text-align: center; margin: 30px 0;">
     <button type="submit" class="btn-submit">
       <i class="fas fa-paper-plane"></i> Guardar Receta
     </button>
   </div>
-  
+
   <script src="js/recetas.js"></script>
 </body>
 </html>
