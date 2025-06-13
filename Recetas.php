@@ -35,7 +35,7 @@
     }
 
     .back-text {
-      font-size: 16px;
+      font-size: 18px;
     }
 
     .titulo-container-subtle {
@@ -121,22 +121,48 @@
       background: #fff;
     }
 
-    /* Responsive */
-    @media screen and (max-width: 768px) {
-      .tabla-datos table {
-        display: block;
-      }
+    .titulo-pagina {
+ font-size: 28px;
+ font-weight: bold;
+ color: #333;
+}
 
-      .tabla-datos td {
-        display: block;
-        width: 100% !important;
-        margin-bottom: 15px;
-      }
+.titulo-container-subtle {
+  width: 100%;
+  margin: 20px 0 10px 0;
+  padding: 2px 5px;
+  background: #9CD8D9;
+  border-left: 8px solid #CC1A1A;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
 
-      .titulo-container-subtle {
-        font-size: 18px;
-      }
-    }
+
+.titulo-container-subtle h2 {
+ margin: 0;
+ font-size: 21px;
+ font-weight: 600;
+ text-align: center;
+ color: #2c3e50;
+}
+
+.btn-submit {
+  background-color: #9CD8D9; /* azul brillante */
+  color: white;
+  font-size: 16px;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-submit:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
   </style>
 </head>
 <body>
@@ -148,9 +174,9 @@
     <span class="back-text">Regresar</span>
   </a>
 
-  <div class="titulo-container-subtle">
-    RECETA MÉDICA
-  </div>
+  <div  class="titulo-container-subtle">
+    <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">RECETA MEDICA</h2>
+    </div>
 
   <div class="content">
     <div class="tabla-datos">
@@ -205,6 +231,13 @@
       <textarea placeholder="Escribe la receta aquí..."></textarea>
     </div>
   </div>
+
+  <div style="text-align: center; margin: 30px 0;">
+  <button type="submit" class="btn-submit">
+    <i class="fas fa-paper-plane"></i> Guardar Receta
+  </button>
+</div>
+
 
 </body>
 </html>

@@ -232,3 +232,51 @@
 .btn-eliminar:hover {
   background: #c0392b;
 }
+
+.filter {
+  background: #eee;
+  padding: 15px 20px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-right {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 30px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 30px;
+  width: 200px;
+}
+
+.search-box i {
+  color: #666;
+  margin-right: 5px;
+}
+
