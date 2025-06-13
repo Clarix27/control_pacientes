@@ -50,15 +50,24 @@
 
   <div class="content">
     <div class="filter">
-      <label for="categoria">Filtro de búsqueda - Categoría:</label>
-      <select id="categoria">
-        <option value="" disabled selected>Categoría</option>
-        <option value="confianza">Confianza</option>
-        <option value="sindicalizado">Sindicalizado</option>
-        <option value="seguridad">Seguridad Pública</option>
-      </select>
-      
+  <div class="filter-left">
+    <label for="categoria">Filtro de búsqueda - Categoría:</label>
+    <select id="categoria">
+      <option value="" disabled selected>Categoría</option>
+      <option value="confianza">Confianza</option>
+      <option value="sindicalizado">Sindicalizado</option>
+      <option value="seguridad">Seguridad Pública</option>
+    </select>
+  </div>
+
+  <div class="filter-right">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Buscar paciente...">
     </div>
+  </div>
+</div>
+
 
     <!-- Tabla para mostrar la información del titular. -->
     <table>

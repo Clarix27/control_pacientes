@@ -50,7 +50,7 @@
     .page {
       display: flex;
       flex-direction: column;
-      height: 100%;
+      height: 100%; 
     }
 
 .center-content {
@@ -62,11 +62,13 @@
 }
 
 
-.menu {
+    .menu {
   display: flex;
-  gap: 40px; /* espacio entre cuadros */
   flex-wrap: wrap;
+  gap: 20px;
   justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 .menu-item {
