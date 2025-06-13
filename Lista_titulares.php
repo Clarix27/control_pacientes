@@ -2,7 +2,6 @@
   require_once 'controladores/info_titular.php';
   $datos_titular = info_titilar();
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,24 +10,42 @@
   <title>Listado de Pacientes - DIF Escuinapa</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/estilo_lista_titulares.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<style>
+  .back-button {
+  color: #333;
+  font-size: 30px; 
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+}
 
-  <div class="navbar">
-    <div class="navbar-section navbar-left">
-      <span class="navbar-title">Control de Pacientes</span>
-    </div>
-    <div class="navbar-section navbar-center">
-      <a href="Inicio.html">Inicio</a>
-      <a href="#">Expedientes</a>
-      <a href="#">Pacientes</a>
-    </div>
-    <div class="navbar-section navbar-right">
-      <div class="search-box">
-        <i class="fas fa-search"></i>
-        <input type="text" placeholder="Buscar paciente">
-      </div>
-    </div>
+.back-button:hover {
+  color: #000;
+}
+
+.back-text {
+  font-size: 18px;  
+  font-weight: normal;
+ 
+}
+</style>
+<body>
+<?php include 'menu.php'?>
+
+  <div style="margin: 15px 0 0 20px;">
+  <a href="inicio.html" class="back-button" title="Regresar">
+    <i class="fas fa-arrow-left"></i>
+    <span class="back-text">Regresar</span>
+  </a>
+</div>
+ 
+  <div  class="titulo-container-subtle">
+   <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA DE PACIENTES AFILIADOS AL DIF</h2>
   </div>
 
   <div class="content">
@@ -40,6 +57,7 @@
         <option value="sindicalizado">Sindicalizado</option>
         <option value="seguridad">Seguridad Pública</option>
       </select>
+      
     </div>
 
     <!-- Tabla para mostrar la información del titular. -->
@@ -51,7 +69,7 @@
           <th>Puesto</th>
           <th>Dirección</th>
           <th>Dependencia</th>
-          <th>Ver Historial</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -67,14 +85,21 @@
               <td><strong><?= htmlspecialchars($fila['puesto'], ENT_QUOTES, 'UTF-8') ?></strong></td>
               <td><?= htmlspecialchars($fila['direccion'], ENT_QUOTES, 'UTF-8') ?></td>
               <td><span class="badge"><?= htmlspecialchars($fila['categoria'], ENT_QUOTES, 'UTF-8') ?></span></td>
-              <td>
-                <!-- Supongamos que tienes una página Historial_titular.php que recibe ?id= -->
-                <a href="Historial_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="icon-link">
-                  <button class="btn-icon" title="Ver historial">
-                    <i class="fas fa-notes-medical"></i>
-                  </button>
-                </a>
-              </td>
+                
+                <!-- ACCIONES -->
+                <td>
+                  <div class="acciones-container">
+                    <a href="editar_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-editar" title="Editar">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="eliminar_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-eliminar" title="Eliminar" onclick="return confirm('¿Seguro?')">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                    <a href="Historial_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-historial" title="Historial">
+                      <i class="fas fa-file-medical"></i>
+                    </a>
+                  </div>
+                </td>
             </tr>
           <?php endforeach; ?>
         <?php endif; ?>

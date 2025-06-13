@@ -11,12 +11,40 @@
     }
 
     .navbar {
-      background: #CC1A1A;
-      padding: 25px 30px; /* Agrandado */
-      color: white;
-      font-weight: bold;
-      font-size: 24px; /* Agrandado */
+      background-color: #e93333; /* Color similar al de la imagen */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px; 
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      color: #ffffff;
       text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-top: 5px;
+    }
+    
+    /* Logotipo DIF a la izquierda (fuera si lo deseas con posición absoluta) */
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 20px;
+      color: white;
+    }
+    /* Icono engranaje a la derecha */
+    .navbar .icono-config {
+      margin-left: 20px;
+      cursor: pointer;
+    }
+    .icono-config img {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .icono-config img:hover {
+      transform: scale(1.1);
     }
 
     .page {
@@ -25,45 +53,49 @@
       height: 100%;
     }
 
-    .center-content {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+.center-content {
+  min-height: calc(100vh - 150px); /* altura de toda la pantalla menos navbar y logo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px; 
+}
 
-    .menu {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 30px;
-      padding: 20px;
-      max-width: 1200px;
-    }
 
-    .menu-item {
-      background: #9CD8D9;
-      padding: 40px 20px;
-      width: 200px;
-      height: 200px;
-      text-align: center;
-      border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-      transition: transform 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+.menu {
+  display: flex;
+  gap: 40px; /* espacio entre cuadros */
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-    .menu-item:hover {
-      transform: translateY(-5px);
-    }
+.menu-item {
+  background-color: #a2d9dd;
+  border-radius: 12px;
+  padding: 25px;
+  width: 180px;
+  height: 180px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
 
-    .menu-item i {
-      font-size: 60px;
-      margin-bottom: 20px;
-      color: #000;
-    }
+.menu-item:hover {
+  transform: translateY(-5px);
+}
+
+.menu-item i {
+  font-size: 36px;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.menu-item p {
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+}
+
 
     @media (max-width: 1100px) {
       .menu {
