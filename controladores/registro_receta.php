@@ -2,9 +2,8 @@
     require_once 'conexion.php';
     $pdo = Conexion::getPDO();
 
-    $t_nombre     = trim($_POST['t_nombre']     ?? 'Chamo');
-    $t_paterno  = trim($_POST['t_paterno']   ?? 'mm');
-    $t_materno  = isset($_POST['t_materno']) ? trim($_POST['amaterno']) : null;
+    $id_beneficiario = isset($_POST['pk_beneficiario']) ? trim($_POST['amaterno']) : 1;
+    $id_titular = isset($_POST['pk_titular']) ? trim($_POST['amaterno']) : 2;
     $p_nombre     = trim($_POST['p_nombre']     ?? 'Paco');
     $p_paterno  = trim($_POST['p_paterno']   ?? 'El chato');
     //$p_materno  = isset($_POST['p_materno']) ? trim($_POST['amaterno']) : null;
@@ -19,28 +18,27 @@
     $pago = 0;
     $tipo_consulta = 'Consulta General';
 
-    // Obtener el id del tarjeton del titular.
-    function tarjeton_id($t_nombre, $t_paterno) {
+    // Obtener el folio del tarjeton del titular.
+    function tarjeton_folio($num_tarjeton, $id) {
         $pdo = Conexion::getPDO();
-        $stmt = $pdo->prepare("SELECT tar.pk_tarjeton FROM titular t INNER JOIN tarjeton tar ON t.pk_titular=tar.fk_titular WHERE t.nombre=:nombre AND t.a_paterno = :apaterno");
-        $stmt->bindParam(':nombre', $t_nombre, PDO::PARAM_STR);
-        $stmt->bindParam(':apaterno', $t_paterno, PDO::PARAM_STR);
+        $stmt = $pdo->prepare("SELECT pk_tarjeton, folio FROM tarjeton WHERE folio = :folio AND fk_titular = :id");
+        $stmt->bindParam(':folio', $num_tarjeton, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     // Obtner el parentesco del paciente que quieren registrar.
-    function traerParentesco($id, $nombre, $apaterno) {
+    function traerParentesco($id_b, $id_t) {
         $pdo = Conexion::getPDO();
-        $sql1 = $pdo->prepare("SELECT b.parentesco, ti.pk_titular FROM beneficiarios b INNER JOIN tarjeton tar ON b.fk_tarjeton=tar.pk_tarjeton INNER JOIN titular ti ON tar.fk_titular=ti.pk_titular WHERE b.nombre = :nombre AND b.a_paterno = :apaterno AND b.fk_tarjeton = :id");
-        $sql1->bindParam(':id', $id, PDO::PARAM_INT);
-        $sql1->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-        $sql1->bindParam(':apaterno', $apaterno, PDO::PARAM_STR);
+        $sql1 = $pdo->prepare("SELECT parentesco FROM beneficiarios WHERE pk_beneficiario = :id_b AND fk_tarjeton = :id_t");
+        $sql1->bindParam(':id_b', $id_b, PDO::PARAM_INT);
+        $sql1->bindParam(':id_t', $id_t, PDO::PARAM_INT);
         $sql1->execute();
         return $sql1->fetch(PDO::FETCH_ASSOC); 
     }
 
-    function insertar_paciente($nombre, $apaterno, $amaterno, $parentesco ,$fk): int {
+    function insertar_paciente($nombre, $apaterno, $amaterno, $parentesco , $fk): int {
         $pdo = Conexion::getPDO();
         $stmt = $pdo->prepare("INSERT INTO paciente(nombre, a_paterno, a_materno, parentesco, fk_titular) VALUES(:nombre, :apaterno, :amaterno, :parentesco, :fk)");
         $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
@@ -81,19 +79,27 @@
 
     /// Probando las funciones.
     try {
-        $tarjeton = tarjeton_id($t_nombre, $t_paterno);
+        $tarjeton = tarjeton_folio($num_tarjeton, $folio);
         $id_tarjeton = $tarjeton['pk_tarjeton'];
+        $folio = $tarjeton['folio'];
+
         //     
-        $beneficiario = traerParentesco($id_tarjeton, $p_nombre, $p_paterno);
+        $beneficiario = traerParentesco($id_beneficiario, $id_tarjeton);
         $parentesco = $beneficiario['parentesco'];
-        $id_titular = $beneficiario['pk_titular'];
+
         //
         $paciente_id = insertar_paciente($p_nombre, $p_paterno, $p_materno, $parentesco, $id_titular);
         //
         $receta_id = insertar_receta($rx, $folio, $fk_empleado);
         //
         $consulta_id = registrar_consulta($fecha, $pago, $turno, $tipo_consulta, $id_titular, $paciente_id, $receta_id, $fk_empleado);
-        echo "Checa la bd.";
+        
+        // Devolver JSON de éxito
+        echo json_encode([
+            'success' => true,
+            'message' => "Se Registro con Exito la Receta al Paciente: $p_nombre $a_paterno"
+        ]);
+        exit;
     } catch (PDOException $e) {
         //throw $th;
         echo "Ocurrió un error de base de datos: " . $e->getMessage();

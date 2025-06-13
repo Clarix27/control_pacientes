@@ -1,3 +1,14 @@
+<?php
+  require_once 'controladores/info_titular.php';
+  $id_titular = $_GET['id_t'];
+  $id_beneficiario = $_GET['id_b'];
+
+  $titular = titular_id($id_titular);
+  $beneficiario = info_beneficiario($id_beneficiario);
+  $b_materno = $beneficiario['a_materno'] ?? '';
+  $t_materno = $beneficiario['a_materno'] ?? '';
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -143,7 +154,7 @@
 
   <?php include 'menu.php' ?>
 
-  <a href="historial_titular.php" class="back-button">
+  <a href="Historial_titular.php?id=<?=urlencode($id_titular)?>" class="back-button">
     <i class="fas fa-arrow-left"></i>
     <span class="back-text">Regresar</span>
   </a>
@@ -158,29 +169,29 @@
         <tr>
           <td>
             <label>Nombre Paciente:</label>
-            <input type="text">
+            <input type="text" value="<?= htmlspecialchars($beneficiario['nombre'], ENT_QUOTES, 'UTF-8') ?>" name="p_nombre" disabled>
           </td>
           <td>
             <label>Apellido Paterno Paciente:</label>
-            <input type="text">
+            <input type="text" value="<?= htmlspecialchars($beneficiario['a_paterno'], ENT_QUOTES, 'UTF-8') ?>"  name="p_paterno" disabled>
           </td>
           <td>
             <label>Apellido Materno Paciente:</label>
-            <input type="text">
+            <input type="text" value="<?= htmlspecialchars($b_materno, ENT_QUOTES, 'UTF-8') ?>"  name="p_materno" disabled>
           </td>
         </tr>
         <tr>
           <td>
             <label>Nombre Titular:</label>
-            <input type="text">
+            <input type="text" value="<?= htmlspecialchars($titular['nombre'], ENT_QUOTES, 'UTF-8') ?>" disabled>
           </td>
           <td>
             <label>Apellido Paterno Titular:</label>
-            <input type="text">
+            <input type="text" value="<?= htmlspecialchars($titular['a_paterno'], ENT_QUOTES, 'UTF-8') ?>" disabled>
           </td>
           <td>
             <label>Apellido Materno Titular:</label>
-            <input type="text">
+            <input type="text" value="<?= htmlspecialchars($t_materno, ENT_QUOTES, 'UTF-8') ?>" disabled>
           </td>
         </tr>
         <tr>
@@ -205,6 +216,7 @@
       <textarea placeholder="Escribe la receta aquí..."></textarea>
     </div>
   </div>
-
+  
+  <script src="js/recetas.js"></script>
 </body>
 </html>
