@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
   <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/alerta_receta.css">
   <style>
     * {
       margin: 0;
@@ -133,47 +134,46 @@
     }
 
     .titulo-pagina {
- font-size: 28px;
- font-weight: bold;
- color: #333;
-}
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    }
 
-.titulo-container-subtle {
-  width: 100%;
-  margin: 20px 0 10px 0;
-  padding: 2px 5px;
-  background: #9CD8D9;
-  border-left: 8px solid #CC1A1A;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-}
+    .titulo-container-subtle {
+      width: 100%;
+      margin: 20px 0 10px 0;
+      padding: 2px 5px;
+      background: #9CD8D9;
+      border-left: 8px solid #CC1A1A;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    }
 
 
-.titulo-container-subtle h2 {
- margin: 0;
- font-size: 21px;
- font-weight: 600;
- text-align: center;
- color: #2c3e50;
-}
+    .titulo-container-subtle h2 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 600;
+    text-align: center;
+    color: #2c3e50;
+    }
 
-.btn-submit {
-  background-color: #9CD8D9; /* azul brillante */
-  color: white;
-  font-size: 16px;
-  padding: 12px 30px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
+    .btn-submit {
+      background-color: #9CD8D9; /* azul brillante */
+      color: white;
+      font-size: 16px;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
-.btn-submit:hover {
-  background-color: #2980b9;
-  transform: scale(1.05);
-}
-
+    .btn-submit:hover {
+      background-color: #2980b9;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
@@ -224,15 +224,15 @@
           <tr>
             <td>
               <label>Fecha:</label>
-              <input type="date">
+              <input type="date" name="fecha">
             </td>
             <td>
               <label>Núm. de Tarjetón:</label>
-              <input type="text">
+              <input type="text" name="num_tarjeton">
             </td>
             <td>
               <label>Área de Trabajo:</label>
-              <input type="text">
+              <input type="text" name="area_trabajo">
             </td>
           </tr>
         </table>
@@ -240,7 +240,7 @@
 
       <div class="rx-container">
         <label>RX:</label>
-        <textarea placeholder="Escribe la receta aquí..."></textarea>
+        <textarea name="rx" placeholder="Escribe la receta aquí..."></textarea>
       </div>
     </div>
 
@@ -248,13 +248,13 @@
     <input type="hidden" name="pk_beneficiario" value="<?= htmlspecialchars($id_beneficiario, ENT_QUOTES, 'UTF-8') ?>">
     <!-- Campo oculto que no se muestra -->
     <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($id_titular, ENT_QUOTES, 'UTF-8') ?>">
-  </form>
 
-  <div style="text-align: center; margin: 30px 0;">
-    <button type="submit" class="btn-submit">
-      <i class="fas fa-paper-plane"></i> Guardar Receta
-    </button>
-  </div>
+    <div style="text-align: center; margin: 30px 0;">
+      <button type="submit" class="btn-submit">
+        <i class="fas fa-paper-plane"></i> Guardar Receta
+      </button>
+    </div>
+  </form>
 
   <script src="js/recetas.js"></script>
 </body>

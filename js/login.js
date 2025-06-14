@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     box.querySelector('.close-btn')
        .addEventListener('click', () => box.remove());
 
-    // Si fue exitoso, redirige tras 2 segundos
+    // Si fue exitoso, redirige tras 1 segundo
     if (isSuccess) {
       setTimeout(() => {
         // opcional: box.remove();

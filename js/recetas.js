@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
     } catch (error) {
-      showAlert('Error de conexión. Intenta de nuevo.', false);
+      showAlert('Ocurrio un error al registrar algo.', false);
     }
   });
 
@@ -51,5 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cierre manual con la X
     box.querySelector('.close-btn')
        .addEventListener('click', () => box.remove());
+    
+    // Si fue exitoso, redirige tras 2 segundos
+    if (isSuccess) {
+      setTimeout(() => {
+        // opcional: box.remove();
+        window.location.href = 'Lista_titulares.php'; // <- Ajusta aquí tu página de destino
+      }, 2000);
+    }
   }
 });
