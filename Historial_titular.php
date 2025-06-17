@@ -79,7 +79,7 @@
 
   <!-- Flecha de regreso abajo del navbar, esquina izquierda -->
   <div style="margin: 15px 0 0 20px;">
-    <a href="Lista_titulares.php" class="back-button" title="Regresar">
+    <a href="Lista_titulares.php?id=<?=urlencode($pk_titular)?>" class="back-button" title="Regresar">
       <i class="fas fa-arrow-left"></i>
       <span class="back-text">Regresar</span>
     </a>
@@ -111,7 +111,7 @@
     </div>
 
     <div class="tabla-container">
-      <button class="btn-agregar" onclick="location.href='Registro_afiliado.php'">Agregar afiliado</button>
+      <button class="btn-agregar" onclick="location.href='Registro_afiliado.php?id=<?= urlencode($pk_titular) ?>'">Agregar afiliado</button>
       <table>
         <thead>
           <tr>

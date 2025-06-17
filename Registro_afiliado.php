@@ -1,4 +1,6 @@
-
+<?php 
+  $pk_titular = $_GET['id'];
+?>
 <!DOCTYPE html> 
 <html lang="es">
 <head>
@@ -19,7 +21,7 @@
 
   <!-- BOTÓN REGRESAR -->
   <div style="margin: 15px 0 0 20px;">
-    <a href="Historial_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="back-button" title="Regresar">
+    <a href="Historial_titular.php?id=<?= urlencode($pk_titular) ?>" class="back-button" title="Regresar">
       <i class="fas fa-arrow-left"></i>
       <span class="back-text">Regresar</span>
     </a>
@@ -29,40 +31,51 @@
   <div class="main-content">
     <div class="form-container">
       <h2 class="form-title">Registro del afiliado</h2>
-      <form id="formTitular">
+      <form id="formBeneficiario">
         <div class="form-row">
           <div class="form-group">
-            <input type="text" name="nombre" placeholder="Nombre" required>
+            <input type="text" name="nombre" placeholder="Nombre">
           </div>
           <div class="form-group">
-            <input type="text" name="apaterno" placeholder="Apellido paterno" required>
+            <input type="text" name="apaterno" placeholder="Apellido Paterno">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <input type="text" name="amaterno" placeholder="Apellido materno">
+            <input type="text" name="amaterno" placeholder="Apellido Materno">
           </div>
           <div class="form-group">
-            <input type="text" name="edad" placeholder="Edad" required>
+            <input type="number" min="0"  max="200" name="edad" placeholder="Edad">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <input type="text" name="sexo" placeholder="Sexo">
+            <select id="opciones" name="sexo">
+              <option value="">-- Selecciona el Sexo --</option>
+              <option value="M">M</option>
+              <option value="F">F</option>
+              <option value="N">Otro</option>
+            </select>
           </div>
           <div class="form-group">
-            <input type="text" name="parentesco" placeholder="Parentesco">
+            <select id="opciones" name="parentesco">
+              <option value="">-- Selecciona el Parentesco --</option>
+              <option value="Esposo">Esposo</option>
+              <option value="Hija">Hija</option>
+              <option value="Hijo">Hijo</option>
+            </select>
           </div>
         </div>
-
+        <!-- Campo oculto que no se muestra -->
+        <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($pk_titular, ENT_QUOTES, 'UTF-8') ?>">
         <button type="submit" class="submit-btn">Enviar</button>
       </form>
     </div>
   </div>
 
-  <script src="js/.js"></script>
+  <script src="js/registro_afiliado.js"></script>
 </body>
 </html>
 
