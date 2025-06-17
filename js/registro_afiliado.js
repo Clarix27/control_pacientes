@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('formRecetas');
+  const form = document.getElementById('formBeneficiario');
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -9,12 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       // Envía la petición al backend
-      const res = await fetch('controladores/registro_receta.php', {
+      const res = await fetch('controladores/registro_familiares.php', {
         method: 'POST',
         body: formData
       });
 
-      const json = await res.json();
+      const text = await res.text();
+      console.log('RESPUESTA CRUDA:', text);
+      const json = JSON.parse(text);
+
+      //const json = await res.json();
       showAlert(json.message, json.success);
 
       // Si fue exitoso, limpia el formulario
@@ -51,13 +55,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cierre manual con la X
     box.querySelector('.close-btn')
        .addEventListener('click', () => box.remove());
-    
-    // Si fue exitoso, redirige tras 2 segundos
-    if (isSuccess) {
-      setTimeout(() => {
-        // opcional: box.remove();
-        window.location.href = 'Lista_titulares.php'; // <- Ajusta aquí tu página de destino
-      }, 2000);
-    }
   }
 });

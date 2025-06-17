@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
   <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/alerta_receta.css">
   <style>
     * {
       margin: 0;
@@ -133,47 +134,46 @@
     }
 
     .titulo-pagina {
- font-size: 28px;
- font-weight: bold;
- color: #333;
-}
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    }
 
-.titulo-container-subtle {
-  width: 100%;
-  margin: 20px 0 10px 0;
-  padding: 2px 5px;
-  background: #9CD8D9;
-  border-left: 8px solid #CC1A1A;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-}
+    .titulo-container-subtle {
+      width: 100%;
+      margin: 20px 0 10px 0;
+      padding: 2px 5px;
+      background: #9CD8D9;
+      border-left: 8px solid #CC1A1A;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    }
 
 
-.titulo-container-subtle h2 {
- margin: 0;
- font-size: 21px;
- font-weight: 600;
- text-align: center;
- color: #2c3e50;
-}
+    .titulo-container-subtle h2 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 600;
+    text-align: center;
+    color: #2c3e50;
+    }
 
-.btn-submit {
-  background-color: #9CD8D9; /* azul brillante */
-  color: white;
-  font-size: 16px;
-  padding: 12px 30px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
+    .btn-submit {
+      background-color: #9CD8D9; /* azul brillante */
+      color: white;
+      font-size: 16px;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
-.btn-submit:hover {
-  background-color: #2980b9;
-  transform: scale(1.05);
-}
-
+    .btn-submit:hover {
+      background-color: #2980b9;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
@@ -187,68 +187,77 @@
 
   <div  class="titulo-container-subtle">
     <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">RECETA MEDICA</h2>
-    </div>
-
-  <div class="content">
-    <div class="tabla-datos">
-      <table>
-        <tr>
-          <td>
-            <label>Nombre Paciente:</label>
-            <input type="text" value="<?= htmlspecialchars($beneficiario['nombre'], ENT_QUOTES, 'UTF-8') ?>" name="p_nombre" disabled>
-          </td>
-          <td>
-            <label>Apellido Paterno Paciente:</label>
-            <input type="text" value="<?= htmlspecialchars($beneficiario['a_paterno'], ENT_QUOTES, 'UTF-8') ?>"  name="p_paterno" disabled>
-          </td>
-          <td>
-            <label>Apellido Materno Paciente:</label>
-            <input type="text" value="<?= htmlspecialchars($b_materno, ENT_QUOTES, 'UTF-8') ?>"  name="p_materno" disabled>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label>Nombre Titular:</label>
-            <input type="text" value="<?= htmlspecialchars($titular['nombre'], ENT_QUOTES, 'UTF-8') ?>" disabled>
-          </td>
-          <td>
-            <label>Apellido Paterno Titular:</label>
-            <input type="text" value="<?= htmlspecialchars($titular['a_paterno'], ENT_QUOTES, 'UTF-8') ?>" disabled>
-          </td>
-          <td>
-            <label>Apellido Materno Titular:</label>
-            <input type="text" value="<?= htmlspecialchars($t_materno, ENT_QUOTES, 'UTF-8') ?>" disabled>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label>Fecha:</label>
-            <input type="date">
-          </td>
-          <td>
-            <label>Núm. de Tarjetón:</label>
-            <input type="text">
-          </td>
-          <td>
-            <label>Área de Trabajo:</label>
-            <input type="text">
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="rx-container">
-      <label>RX:</label>
-      <textarea placeholder="Escribe la receta aquí..."></textarea>
-    </div>
   </div>
 
-  <div style="text-align: center; margin: 30px 0;">
-    <button type="submit" class="btn-submit">
-      <i class="fas fa-paper-plane"></i> Guardar Receta
-    </button>
-  </div>
-  
+  <form id="formRecetas">
+    <div class="content">
+      <div class="tabla-datos">
+        <table>
+          <tr>
+            <td>
+              <label>Nombre Paciente:</label>
+              <input type="text" value="<?= htmlspecialchars($beneficiario['nombre'], ENT_QUOTES, 'UTF-8') ?>" name="p_nombre" readonly>
+            </td>
+            <td>
+              <label>Apellido Paterno Paciente:</label>
+              <input type="text" value="<?= htmlspecialchars($beneficiario['a_paterno'], ENT_QUOTES, 'UTF-8') ?>"  name="p_paterno" readonly>
+            </td>
+            <td>
+              <label>Apellido Materno Paciente:</label>
+              <input type="text" value="<?= htmlspecialchars($b_materno, ENT_QUOTES, 'UTF-8') ?>"  name="p_materno" readonly>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Nombre Titular:</label>
+              <input type="text" value="<?= htmlspecialchars($titular['nombre'], ENT_QUOTES, 'UTF-8') ?>" disabled>
+            </td>
+            <td>
+              <label>Apellido Paterno Titular:</label>
+              <input type="text" value="<?= htmlspecialchars($titular['a_paterno'], ENT_QUOTES, 'UTF-8') ?>" disabled>
+            </td>
+            <td>
+              <label>Apellido Materno Titular:</label>
+              <input type="text" value="<?= htmlspecialchars($t_materno, ENT_QUOTES, 'UTF-8') ?>" disabled>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Fecha:</label>
+              <input type="date" name="fecha">
+            </td>
+            <td>
+              <label>Núm. de Tarjetón:</label>
+              <input type="text" name="num_tarjeton">
+            </td>
+            <td>
+              <label>Área de Trabajo:</label>
+              <input type="text" name="area_trabajo">
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="rx-container">
+        <label>RX:</label>
+        <textarea name="rx" placeholder="Escribe la receta aquí..."></textarea>
+      </div>
+    </div>
+
+    <!-- Campo oculto que no se muestra -->
+    <input type="hidden" name="pk_beneficiario" value="<?= htmlspecialchars($id_beneficiario, ENT_QUOTES, 'UTF-8') ?>">
+    <!-- Campo oculto que no se muestra -->
+    <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($id_titular, ENT_QUOTES, 'UTF-8') ?>">
+
+    <div style="text-align: center; margin: 30px 0;">
+      <button type="submit" class="btn-submit">
+        <i class="fas fa-paper-plane"></i> Guardar Receta
+      </button>
+    </div>
+  </form>
+
   <script src="js/recetas.js"></script>
 </body>
 </html>
+
+

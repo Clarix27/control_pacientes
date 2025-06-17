@@ -1,5 +1,6 @@
 <?php
   require_once 'controladores/info_titular.php';
+  $pk_titular = true;
   $datos_titular = info_titilar();
 ?>
 <!DOCTYPE html>
@@ -15,30 +16,30 @@
 </head>
 <style>
   .back-button {
-  color: #333;
-  font-size: 30px; 
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: color 0.3s ease;
-}
+    color: #333;
+    font-size: 30px; 
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease;
+  }
 
-.back-button:hover {
-  color: #000;
-}
+  .back-button:hover {
+    color: #000;
+  }
 
-.back-text {
-  font-size: 18px;  
-  font-weight: normal;
- 
-}
+  .back-text {
+    font-size: 18px;  
+    font-weight: normal;
+  
+  }
 </style>
 <body>
 <?php include 'menu.php'?>
 
   <div style="margin: 15px 0 0 20px;">
-  <a href="inicio.html" class="back-button" title="Regresar">
+  <a href="Inicio.html?id=<?=urlencode($pk_titular)?>" class="back-button" title="Regresar">
     <i class="fas fa-arrow-left"></i>
     <span class="back-text">Regresar</span>
   </a>
@@ -118,3 +119,5 @@
 
 </body>
 </html>
+
+

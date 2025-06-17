@@ -1,28 +1,13 @@
 <?php
+    header('Content-Type: application/json');
     require_once 'conexion.php';
     $pdo = Conexion::getPDO();
-
-    $id_beneficiario = isset($_POST['pk_beneficiario']) ? trim($_POST['amaterno']) : 1;
-    $id_titular = isset($_POST['pk_titular']) ? trim($_POST['amaterno']) : 2;
-    $p_nombre     = trim($_POST['p_nombre']     ?? 'Paco');
-    $p_paterno  = trim($_POST['p_paterno']   ?? 'El chato');
-    //$p_materno  = isset($_POST['p_materno']) ? trim($_POST['amaterno']) : null;
-    $p_materno  = isset($_POST['p_materno']) ?? 'huvos';
-    $fecha = isset($_POST['t_materno']) ? trim($_POST['amaterno']) : '2025-06-05';
-    $num_tarjeton = $_POST['num_tarjeton'] ?? 'F-003';
-    $area_trabajo = $_POST['area_trabajo'] ?? 'ejemplo';
-    $rx = $_POST['rx'] ?? 'ndldkdak';
-    $folio = 'Ejemplo';
-    $fk_empleado = 1;
-    $turno = 'Sin turno';
-    $pago = 0;
-    $tipo_consulta = 'Consulta General';
 
     // Obtener el folio del tarjeton del titular.
     function tarjeton_folio($num_tarjeton, $id) {
         $pdo = Conexion::getPDO();
         $stmt = $pdo->prepare("SELECT pk_tarjeton, folio FROM tarjeton WHERE folio = :folio AND fk_titular = :id");
-        $stmt->bindParam(':folio', $num_tarjeton, PDO::PARAM_INT);
+        $stmt->bindParam(':folio', $num_tarjeton, PDO::PARAM_STR);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -79,31 +64,97 @@
 
     /// Probando las funciones.
     try {
-        $tarjeton = tarjeton_folio($num_tarjeton, $folio);
-        $id_tarjeton = $tarjeton['pk_tarjeton'];
-        $folio = $tarjeton['folio'];
+        // Recolección de id.
+        $id_beneficiario = !empty($_POST['pk_beneficiario']) ? (int) $_POST['pk_beneficiario'] : false;
+        $id_titular = !empty($_POST['pk_titular']) ? (int) $_POST['pk_titular'] : false;
 
-        //     
+        // Datos del beneficiario.
+        $p_nombre     = trim($_POST['p_nombre']     ?? '');
+        $p_paterno  = trim($_POST['p_paterno']   ?? '');
+        $p_materno  = isset($_POST['p_materno']) ? trim($_POST['p_materno']) : null;
+
+        // Datos de la receta.
+        $fecha = isset($_POST['fecha']) ? trim($_POST['fecha']) : date('Y-m-d');
+        $num_tarjeton = isset($_POST['num_tarjeton']) ? trim($_POST['num_tarjeton']) : null;
+        $rx = isset($_POST['rx']) ? trim($_POST['rx']) : false;
+
+        // Por recebizar.
+        $area_trabajo = $_POST['area_trabajo'] ?? 'ejemplo';
+        $fk_empleado = 1;
+        $turno = 'Sin turno';
+        $pago = 0;
+        $tipo_consulta = 'Consulta General';
+
+        // Validar campos obligatorios de titular/tarjetón
+        $requiredTitular = ['fecha','num_tarjeton','rx'];
+        foreach ($requiredTitular as $campo) {
+            if (!isset($_POST[$campo]) || trim((string)$_POST[$campo]) === '') {
+                echo json_encode([
+                    'success' => false,
+                    'message' => "Falta el campo obligatorio: $campo"
+                ]);
+                exit;
+            }
+        }
+
+        // Se obtiene el numero de tarjeton del titular
+        $tarjeton = tarjeton_folio($num_tarjeton, $id_titular);
+        // Verificar que devolvió algo (array y no false)
+        if (!is_array($tarjeton)) {
+            throw new Exception("El número del tarjetón no concuerda para ese titular.");
+        }
+
+        // Sacamos el id y folio de la variable.
+        $id_tarjeton = isset($tarjeton['pk_tarjeton']) ? $tarjeton['pk_tarjeton'] : null;
+        $folio = isset($tarjeton['folio']) ? $tarjeton['folio'] : '';
+
+        // Si no hay fila, $paciente === false
+        if (!isset($id_tarjeton)) {
+            throw new Exception("Ocurrio un error al traer el ID del tarjetón.");
+        }
+        // Validamos si los folios son los mismos.
+        if ($num_tarjeton !== $folio){
+            throw new Exception("El folio no concuerda con el titular.");
+        }
+
+        // Se trae el parentesco del beneficiario.
         $beneficiario = traerParentesco($id_beneficiario, $id_tarjeton);
         $parentesco = $beneficiario['parentesco'];
+        if (!is_array($beneficiario) || !isset($beneficiario['parentesco'])) {
+            throw new Exception("Ocurrio un error al registrar el parentesco.");
+        }
 
-        //
+        // Se inserta al beneficiario como paciente.
         $paciente_id = insertar_paciente($p_nombre, $p_paterno, $p_materno, $parentesco, $id_titular);
-        //
+        if (empty($paciente_id)) {
+            throw new Exception("Ocurrio un error al registrar al paciente.");
+        }
+
+        // Se inserta la receta de ese paciente.
         $receta_id = insertar_receta($rx, $folio, $fk_empleado);
-        //
+        if ($receta_id=== 0) {
+            throw new Exception("Ocurrio un error al registrar la receta.");
+        }
+
+        // Se registra la consulta
         $consulta_id = registrar_consulta($fecha, $pago, $turno, $tipo_consulta, $id_titular, $paciente_id, $receta_id, $fk_empleado);
+        if ($consulta_id === 0) {
+            throw new Exception("Ocurrio un error al registrar la consulta.");
+        }
         
         // Devolver JSON de éxito
         echo json_encode([
             'success' => true,
-            'message' => "Se Registro con Exito la Receta al Paciente: $p_nombre $a_paterno"
+            'message' => "Se Registro con Exito la Receta al Paciente: $p_nombre $p_paterno"
         ]);
         exit;
-    } catch (PDOException $e) {
-        //throw $th;
-        echo "Ocurrió un error de base de datos: " . $e->getMessage();
-        echo "......".$e->getLine();
+    } catch (Exception $e) {
+        //Si hay un error throw $th;
+        echo json_encode([
+            'success' => false,
+            'message' => $e->getMessage()
+        ]);
+        exit;
     }
 
 ?>

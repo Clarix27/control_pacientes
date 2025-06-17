@@ -121,7 +121,7 @@
         // Si hay error, revertir transacción y devolver JSON de error
         echo json_encode([
             'success' => false,
-            'message' => 'Ocurrio un error con el registro!!!'
+            'message' => $e->getMessage()
         ]);
         exit;
     }
