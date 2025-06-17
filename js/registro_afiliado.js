@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('formLogin').addEventListener('submit', async function(e) {
+  const form = document.getElementById('formBeneficiario');
+
+  form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     // Prepara datos del formulario
@@ -7,22 +9,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       // Envía la petición al backend
-      const res = await fetch('controladores/back_login.php', {
+      const res = await fetch('controladores/registro_familiares.php', {
         method: 'POST',
         body: formData
       });
 
-      const json = await res.json();
+      const text = await res.text();
+      console.log('RESPUESTA CRUDA:', text);
+      const json = JSON.parse(text);
+
+      //const json = await res.json();
       showAlert(json.message, json.success);
 
+      // Si fue exitoso, limpia el formulario
+      if (json.success) {
+        form.reset();
+      }
+
     } catch (error) {
-      showAlert('Error de conexión. Intenta de nuevo.', false);
+      showAlert('Ocurrio un error al registrar algo.', false);
     }
   });
 
   /**
    * Muestra una alerta centrada con mensaje y cierre.
-   * Si isSuccess es true, redirige tras 2 segundos.
    * @param {string} message - Texto a mostrar.
    * @param {boolean} isSuccess - true=success, false=error.
    */
@@ -45,13 +55,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cierre manual con la X
     box.querySelector('.close-btn')
        .addEventListener('click', () => box.remove());
-
-    // Si fue exitoso, redirige tras 1 segundo
-    if (isSuccess) {
-      setTimeout(() => {
-        // opcional: box.remove();
-        window.location.href = 'inicio.html'; // <- Ajusta aquí tu página de destino
-      }, 1000);
-    }
   }
 });
