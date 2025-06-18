@@ -1,77 +1,154 @@
 * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #ffffff;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
+html, body {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  background: #ffffff;
+}
+.navbar {
+  background-color: #e93333; /* Color similar al de la imagen */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 25px; 
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 
-    .form-container {
-      background: #CC1A1A;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(214, 48, 49, 0.3);
-      width: 100%;
-      max-width: 500px;
-    }
+}
 
-    .form-title {
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 30px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
 
-    .form-group {
-      margin-bottom: 30px;
-    }
+.main-content {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
 
-    .form-group input {
-      width: 100%;
-      padding: 15px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      background: white;
-      color: #333;
-      outline: none;
-      text-transform: uppercase;
-      font-weight: bold;
-    }
+.form-container {
+  background: #e93333;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(214, 48, 49, 0.3);
+  width: 100%;
+  max-width: 500px;
+}
 
-    .form-group input::placeholder {
-      color: #999;
-      font-weight: normal;
-    }
+.form-title {
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
 
-    .submit-btn {
-      width: 100%;
-      padding: 20px;
-      background: #00b894;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 18px;
-      font-weight: bold;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 10px;
-    }
+}
+.form-titlo {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
 
-    .submit-btn:hover {
-      background: #00a085;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
-    }
+}
+
+.form-group {
+  margin-bottom: 30px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  background: white;
+  color: #333;
+  outline: none;
+  font-weight: normal;
+}
+
+.form-group input::placeholder {
+  color: #999;
+  font-weight: normal;
+}
+
+.submit-btn {
+  padding: 12px 24px;
+  background: #00b894;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+}
+
+.submit-btn:hover {
+  background: #00a085;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
+}
+/* Contenedor principal con logo y formulario lado a lado */
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Contenedor del logo */
+.logo-container {
+  flex-shrink: 0;
+}
+
+.logo-container img {
+  height: 280px;
+  width: auto;
+  border-radius: 20px;
+ 
+}
+
+/* Responsive para el logo */
+@media (max-width: 1024px) {
+  .login-wrapper {
+    gap: 50px;
+  }
+  
+  .logo-container img {
+    height: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-wrapper {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .logo-container img {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-container img {
+    height: 150px;
+  }
+}

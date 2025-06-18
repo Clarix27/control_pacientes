@@ -2,6 +2,7 @@
     session_start();
     header('Content-Type: application/json');
     require_once('conexion.php');
+    $pdo = Conexion::getPDO();
 
     // Validar que llegan los datos
     if (!isset($_POST['user']) || !isset($_POST['contrasena'])) {
