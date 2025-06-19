@@ -7,6 +7,32 @@
         $requiredTitular = ['nombre_t', 'paterno_t', 'nombre_p', 'paterno_p', 'area', 'fecha', 'dependencia', 'parentesco'];
         foreach ($requiredTitular as $campo) {
             if (!isset($_POST[$campo]) || trim($_POST[$campo]) === '') {
+                switch ($campo) {
+                    case 'nombre_t':
+                        $campo = 'Nombre Titular';
+                        break;
+                    case 'paterno_t':
+                        $campo = 'Apellido paterno del Titular';
+                        break;
+                    case 'nombre_p':
+                        $campo = 'Nombre Paciente';
+                        break;
+                    case 'paterno_p':
+                        $campo = 'Apellido Paterno del Paciente';
+                        break;
+                    case 'fecha':
+                        $campo = 'Fecha';
+                        break;
+                    case 'parentesco':
+                        $campo = 'Parentesco';
+                        break;   
+                    case 'dependencia':
+                        $campo = 'Dependencia';
+                        break;   
+                    default:
+                        // throw new Exception("Error en la estructura de validación.");
+                        break;
+                }
                 echo json_encode([
                     'success' => false,
                     'message' => "Falta el campo obligatorio: $campo"
@@ -14,22 +40,36 @@
                 exit;
             }
         }
+        // Lista de caracteres a eliminar
+        $toRemove = ['-','@','#','$','%','&','*','+','/','=','.',',',';',':','!','?','\''];
 
         // Resiviendo datos.
-        $nombre_t = isset($_POST['nombre_t']) ? trim($_POST['nombre_t']) : '';
-        $paterno_t = isset($_POST['paterno_t']) ? trim($_POST['paterno_t']) : '';
-        $materno_t = isset($_POST['materno_t']) ? trim($_POST['materno_t']) : '';
-        $nombre_p = isset($_POST['nombre_p']) ? trim($_POST['nombre_p']) : '';
-        $paterno_p = isset($_POST['paterno_p']) ? trim($_POST['paterno_p']) : '';
-        $materno_p = isset($_POST['materno_p']) ? trim($_POST['materno_p']) : ''; 
+        $nombre_t2 = isset($_POST['nombre_t']) ? trim($_POST['nombre_t']) : '';
+        $nombre_t = str_replace($toRemove, '', $nombre_t2);
+        //Quitanos caracteres.
+        $paterno_t2 = isset($_POST['paterno_t']) ? trim($_POST['paterno_t']) : '';
+        $paterno_t = str_replace($toRemove, '', $paterno_t2);
+        //Quitanos caracteres.
+        $materno_t2 = isset($_POST['materno_t']) ? trim($_POST['materno_t']) : '';
+        $materno_t = str_replace($toRemove, '', $materno_t2);
+        //Quitanos caracteres.
+        $nombre_p2 = isset($_POST['nombre_p']) ? trim($_POST['nombre_p']) : '';
+        $nombre_p = str_replace($toRemove, '', $nombre_p2);
+        //Quitanos caracteres.
+        $paterno_p2 = isset($_POST['paterno_p']) ? trim($_POST['paterno_p']) : '';
+        $paterno_p = str_replace($toRemove, '', $paterno_p2);
+        //Quitanos caracteres.
+        $materno_p2 = isset($_POST['materno_p']) ? trim($_POST['materno_p']) : ''; 
+        $materno_p = str_replace($toRemove, '', $materno_p2);
 
         $parentesco = isset($_POST['parentesco']) ? trim($_POST['parentesco']) : ''; 
         $categoria = 'Normal';
-        $area = isset($_POST['area']) ? mb_strtoupper(trim($_POST['area']), 'UTF-8') : '';
+        $var_area = isset($_POST['area']) ? trim($_POST['area']) : '';
+        $area = mb_strtoupper($var_area);
         $fecha = $_POST['fecha'];
-        $dependencia = isset($_POST['dependencia']) ? trim($_POST['dependencia']) : '';
+        $var_d = isset($_POST['dependencia']) ? trim($_POST['dependencia']) : '';
+        $dependencia = mb_strtoupper($var_d);
         $apoyo = isset($_POST['apoyo']) ? intval(trim($_POST['apoyo'])) : 0;
-        $tarjeta = isset($_POST['tarjeton']) ? trim($_POST['tarjeton']) : ''; 
         $turno = 'Sin turno';
         $fk_empleado = 1;
         $fk_receta = null;

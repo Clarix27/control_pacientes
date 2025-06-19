@@ -1,3 +1,9 @@
+<?php
+  require_once 'controladores/conexion.php';
+  $pdo = Conexion::getPDO();
+  $sql = $pdo->query("SELECT ti.nombre AS t_nombre, ti.a_paterno AS t_paterno, ti.a_materno AS t_materno, p.nombre, p.a_paterno, p.a_materno, tar.folio, c.tipo_consulta, ti.dependencia, c.pago FROM titular ti INNER JOIN paciente p ON ti.pk_titular=p.fk_titular LEFT JOIN tarjeton tar ON ti.pk_titular=tar.fk_titular INNER JOIN consulta c ON ti.pk_titular=c.fk_titular WHERE c.fecha = CURDATE() ORDER BY c.pk_consulta DESC");
+  $pacientes = $sql->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -202,9 +208,6 @@
           <input type="text" name="paterno_t" placeholder="Apellido paterno">
           <input type="text" name="materno_t" placeholder="Apellido materno">
 
-          <label>Tarjeton:</label>
-          <input type="text" name="tarjeton" class="resaltado" placeholder="Tarjeton">
-
           <label>Dependencia:</label>
           <input type="text" name="dependencia" placeholder="Dependencia">
         </div>
@@ -248,21 +251,36 @@
       <tr>
         <th>Nombre Titular:</th>
         <th>Nombre Paciente:</th>
-        <th>Tarjeton:</th>
+        <th>Tarjetón:</th>
         <th>Área:</th>
         <th>Dependencia:</th>
         <th>Apoyo/Pago:</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Jose Guadalupe Llamas Padilla</td>
-        <td>Jose Guadalupe Llamas Padilla</td>
-        <td class="resaltado">231–C</td>
-        <td><span class="resaltado-azul">DENTAL</span></td>
-        <td>DIF</td>
-        <td>Apoyo DIF</td>
-      </tr>
+      <?php if (empty($pacientes)): ?>
+        <tr>
+          <td colspan="6" style="text-align:center">
+            No se encontraron pacientes.
+          </td>
+        </tr>
+      <?php endif; ?>
+      <?php foreach ($pacientes as $paciente): ?>
+        <tr>
+          <td><?= htmlspecialchars($paciente['t_nombre'].' '.$paciente['t_paterno'].' '.$paciente['t_materno'], ENT_QUOTES, 'UTF-8') ?></td>
+          <td><?= htmlspecialchars($paciente['nombre'].' '.$paciente['a_paterno'].' '.$paciente['a_materno'], ENT_QUOTES, 'UTF-8') ?></td>
+          <td class="resaltado">
+            <?= !empty($paciente['folio']) ? htmlspecialchars($paciente['folio'], ENT_QUOTES, 'UTF-8'): 'Sin Tarjeton'?>
+          </td>
+          <td>
+            <span class="resaltado-azul">
+              <?= htmlspecialchars($paciente['tipo_consulta'], ENT_QUOTES, 'UTF-8') ?>
+            </span>
+          </td>
+          <td><?= htmlspecialchars($paciente['dependencia'], ENT_QUOTES, 'UTF-8') ?></td>
+          <td><?= htmlspecialchars($paciente['pago'],   ENT_QUOTES, 'UTF-8') ?></td>
+        </tr>
+      <?php endforeach; ?>
     </tbody>
   </table>
 
