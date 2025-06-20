@@ -21,11 +21,27 @@
     // Consulta para mostrar información del titular pasandole un id
     function titular_id($id){
         $pdo = Conexion::getPDO();
-        $stmt = $pdo->prepare("SELECT ti.pk_titular, ti.nombre, ti.a_paterno, ti.a_materno, d.calle, tar.puesto, tar.direccion, ti.categoria FROM titular ti INNER JOIN tarjeton tar ON ti.pk_titular=tar.fk_titular INNER JOIN direccion d ON ti.pk_titular=d.fk_titular WHERE ti.pk_titular=:id");
+        $stmt = $pdo->prepare("SELECT 
+            ti.pk_titular, 
+            ti.nombre, 
+            ti.a_paterno, 
+            ti.a_materno, 
+            ti.categoria, 
+            tar.puesto, 
+            tar.direccion, 
+            d.calle, 
+            d.num_casa, 
+            d.colonia, 
+            d.municipio
+        FROM titular ti
+        INNER JOIN tarjeton tar ON ti.pk_titular = tar.fk_titular
+        INNER JOIN direccion d ON ti.pk_titular = d.fk_titular
+        WHERE ti.pk_titular = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    
 
     function info_beneficiario($id) {
         $pdo = Conexion::getPDO();
