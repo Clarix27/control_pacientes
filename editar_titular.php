@@ -1,6 +1,6 @@
 <?php
-require_once '../controladores/conexion.php';
-require_once '../controladores/info_titular.php';
+require_once 'controladores/conexion.php';
+require_once 'controladores/info_titular.php';
 
 if (!isset($_GET['id'])) {
     echo "ID no proporcionado";
@@ -22,18 +22,20 @@ if (!$titular) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Editar Titular - DIF Escuinapa</title>
-  <link rel="stylesheet" href="../css/estilo_reg_titular.css">
-  <link rel="stylesheet" href="../css/alerta_titular.css">
+
+  <!-- Rutas corregidas (en minúsculas y apuntando a carpetas correctas) -->
+  <link rel="stylesheet" href="css/estilo_reg_titular.css">
+  <link rel="stylesheet" href="css/alerta_titular.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/menu.css">
+  <link rel="stylesheet" href="css/menu.css">
 </head>
 <body>
 
-<?php include '../menu.php' ?>
+<?php include 'menu.php' ?>
 
 <!-- BOTÓN REGRESAR -->
 <div style="margin: 15px 0 0 20px;">
-  <a href="../lista_titulares.php" class="back-button" title="Regresar">
+  <a href="lista_titulares.php" class="back-button" title="Regresar">
     <i class="fas fa-arrow-left"></i>
     <span class="back-text">Regresar</span>
   </a>
@@ -43,7 +45,7 @@ if (!$titular) {
 <div class="main-content">
   <div class="form-container">
     <h2 class="form-title">Editar titular</h2>
-    <form id="formEditarTitular" method="POST" action="../controladores/procesar_edicion.php">
+    <form id="formEditarTitular" method="POST" action="controladores/procesar_edicion.php">
       <input type="hidden" name="id" value="<?= htmlspecialchars($titular['pk_titular']) ?>">
 
       <div class="form-row">

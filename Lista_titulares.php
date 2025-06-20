@@ -32,9 +32,39 @@
       font-size: 18px;  
       font-weight: normal;
     }
+    .toast-exito {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  font-weight: bold;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
   </style>
 </head>
 <body>
+<?php if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'actualizado'): ?>
+  <div id="toast-exito" class="toast-exito">Titular actualizado con éxito</div>
+  <script>
+    setTimeout(() => {
+      const toast = document.getElementById('toast-exito');
+      if (toast) toast.style.display = 'none';
+    }, 4000);
+  </script>
+<?php endif; ?>
 
 <?php include 'menu.php' ?>
 
@@ -96,7 +126,7 @@
             <td><span class="badge"><?= htmlspecialchars($fila['categoria'], ENT_QUOTES, 'UTF-8') ?></span></td>
             <td>
               <div class="acciones-container">
-                <a href="update/editar_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-editar" title="Editar">
+                <a href="editar_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-editar" title="Editar">
                   <i class="fas fa-edit"></i>
                 </a>
                 <a href="Historial_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-historial" title="Historial">
