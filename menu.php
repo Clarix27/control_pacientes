@@ -7,8 +7,8 @@
         CONTROL DE PACIENTES DIF
         <div class="navbar-section navbar-center">
             <a href="Inicio.html">Inicio</a>
-            <a href="#">Expedientes</a>
-            <a href="#">Pacientes</a>
+            <a href="Expedientes.php">Expedientes</a>
+            <a href="Control_pacientes.php">Pacientes</a>
         </div>
         <div class="icono-config">
           <a href="logout.php" title="Cerrar sesión">

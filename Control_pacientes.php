@@ -1,3 +1,9 @@
+<?php
+  require_once 'controladores/conexion.php';
+  $pdo = Conexion::getPDO();
+  $sql = $pdo->query("SELECT ti.nombre AS t_nombre, ti.a_paterno AS t_paterno, ti.a_materno AS t_materno, p.nombre, p.a_paterno, p.a_materno, tar.folio, c.tipo_consulta, ti.dependencia, c.pago FROM titular ti INNER JOIN paciente p ON ti.pk_titular=p.fk_titular LEFT JOIN tarjeton tar ON ti.pk_titular=tar.fk_titular INNER JOIN consulta c ON ti.pk_titular=c.fk_titular WHERE c.fecha = CURDATE() ORDER BY c.pk_consulta DESC");
+  $pacientes = $sql->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,6 +12,7 @@
   <title>Control de Pacientes</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/alerta_controlP.css">
 </head>
 <style>
   * {
@@ -193,16 +200,13 @@
     <h2 class="titulo-registro">Registro De Pacientes:</h2>
     <div class="registro-formulario">
 
-      <form id="">
+      <form id="formControlP">
         <!-- Datos Titular -->
         <div class="registro-fila">
           <label>Nombre Titular:</label>
-          <input type="text" name="nombre_titular" placeholder="Nombre" >
-          <input type="text" name="ap_paterno_titular" placeholder="Apellido paterno">
-          <input type="text" name="ap_materno_titular" placeholder="Apellido materno">
-
-          <label>Tarjeton:</label>
-          <input type="text" name="tarjeton" class="resaltado" placeholder="Tarjeton">
+          <input type="text" name="nombre_t" placeholder="Nombre" >
+          <input type="text" name="paterno_t" placeholder="Apellido paterno">
+          <input type="text" name="materno_t" placeholder="Apellido materno">
 
           <label>Dependencia:</label>
           <input type="text" name="dependencia" placeholder="Dependencia">
@@ -211,15 +215,27 @@
         <!-- Datos Paciente -->
         <div class="registro-fila">
           <label>Nombre Paciente:</label>
-          <input type="text" name="nombre_paciente" placeholder="Nombre">
-          <input type="text" name="ap_paterno_paciente" placeholder="Apellido paterno">
-          <input type="text" name="ap_materno_paciente" placeholder="Apellido materno">
+          <input type="text" name="nombre_p" placeholder="Nombre">
+          <input type="text" name="paterno_p" placeholder="Apellido paterno">
+          <input type="text" name="materno_p" placeholder="Apellido materno">
 
           <label>Área:</label>
           <input type="text" name="area" class="resaltado-azul" placeholder="Area:">
 
           <label>Apoyo/Pago:</label>
-          <input type="text" name="apoyo" placeholder="Apoyo:">
+          <input type="number" min="0" name="apoyo" placeholder="Apoyo:">
+
+          <label>Fecha:</label>
+          <input type="date" name="fecha">
+
+          <label>Parentesco:</label>
+          <select id="opciones" name="parentesco">
+            <option value="">-- Selecciona el Parentesco --</option>
+            <option value="Esposo">Esposa/o</option>
+            <option value="Hija">Hija</option>
+            <option value="Hijo">Hijo</option>
+            <option value="Misma persona">Misma persona</option>
+          </select>
 
           <button type="submit" class="boton-registrar">REGISTRAR</button>
         </div>
@@ -230,32 +246,43 @@
 
 
   <h2>Tabla de pacientes</h2>
-  `<form id="">
-    <table class="tabla-pacientes">
-      <thead>
+  <table class="tabla-pacientes">
+    <thead>
+      <tr>
+        <th>Nombre Titular:</th>
+        <th>Nombre Paciente:</th>
+        <th>Tarjetón:</th>
+        <th>Área:</th>
+        <th>Dependencia:</th>
+        <th>Apoyo/Pago:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php if (empty($pacientes)): ?>
         <tr>
-          <th>Nombre Titular:</th>
-          <th>Nombre Paciente:</th>
-          <th>Tarjeton:</th>
-          <th>Área:</th>
-          <th>Dependencia:</th>
-          <th>Apoyo/Pago:</th>
+          <td colspan="6" style="text-align:center">
+            No se encontraron pacientes.
+          </td>
         </tr>
-      </thead>
-      <tbody>
+      <?php endif; ?>
+      <?php foreach ($pacientes as $paciente): ?>
         <tr>
-          <td>Jose Guadalupe Llamas Padilla</td>
-          <td>Jose Guadalupe Llamas Padilla</td>
-          <td class="resaltado">231–C</td>
-          <td><span class="resaltado-azul">DENTAL</span></td>
-          <td>DIF</td>
-          <td>Apoyo DIF</td>
+          <td><?= htmlspecialchars($paciente['t_nombre'].' '.$paciente['t_paterno'].' '.$paciente['t_materno'], ENT_QUOTES, 'UTF-8') ?></td>
+          <td><?= htmlspecialchars($paciente['nombre'].' '.$paciente['a_paterno'].' '.$paciente['a_materno'], ENT_QUOTES, 'UTF-8') ?></td>
+          <td class="resaltado">
+            <?= !empty($paciente['folio']) ? htmlspecialchars($paciente['folio'], ENT_QUOTES, 'UTF-8'): 'Sin Tarjeton'?>
+          </td>
+          <td>
+            <span class="resaltado-azul">
+              <?= htmlspecialchars($paciente['tipo_consulta'], ENT_QUOTES, 'UTF-8') ?>
+            </span>
+          </td>
+          <td><?= !empty($paciente['dependencia']) ? htmlspecialchars($paciente['dependencia'], ENT_QUOTES, 'UTF-8'): 'No Tiene' ?></td>
+          <td><?= htmlspecialchars($paciente['pago'],   ENT_QUOTES, 'UTF-8') ?></td>
         </tr>
-      </tbody>
-    </table>
-
-    <button class="boton-rojo">REGISTRAR</button>
-  </form>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
 
   <script src="js/control_pacientes.js"></script>
 </body>
