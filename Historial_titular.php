@@ -18,30 +18,187 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Historial Médico - DIF Escuinapa</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="css/estilo_historial_titular.css">
   <link rel="stylesheet" href="css/menu.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <style>
-.back-button {
-  color: #333;
-  font-size: 30px; 
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: color 0.3s ease;
-}
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-.back-button:hover {
-  color: #000;
-}
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+    }
 
-.back-text {
-  font-size: 18px;  
-  font-weight: normal;
-}
+    .navbar {
+      background: #CC1A1A;
+      color: white;
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .navbar-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-left {
+      justify-content: flex-start;
+    }
+
+    .navbar-center {
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .navbar-right {
+      justify-content: flex-end;
+    }
+
+    .navbar-title {
+      font-weight: bold;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+
+    .navbar-center a {
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 30px;
+      padding: 5px 10px;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 30px;
+    }
+
+    .search-box i {
+      color: black;
+      margin-right: 5px;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    .card {
+      background: #eee;
+      padding: 30px 20px 20px 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      position: relative;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .etiqueta {
+      position: absolute;
+      top: -12px;
+      left: 10px;
+      background: #6ec1e4;
+      color: rgb(0, 0, 0);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .detalle-cita {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #9CD8D9;
+      color: black;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .card h4 {
+      text-transform: uppercase;
+      font-weight: bold;
+      margin-bottom: 15px;
+      font-size: 15px;
+      color: #555;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px 40px;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .tabla-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background: #ccc;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .detalle-cita-afiliado {
+      background: #9CD8D9;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      color: black;
+      cursor: pointer;
+    }
+
+    .btn-afiliado {
+      background: #0ed142;
+      color: black;
+      font-weight: bold;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      float: right;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    /* Título centrado simple */
+    
 .titulo-pagina {
  
  font-size: 28px;
@@ -73,6 +230,56 @@ a {
   text-decoration: none;
 }
 
+.btn-accion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin-right: 5px;
+}
+
+.btn-accion:hover {
+  transform: scale(1.1);
+  text-decoration: none;
+  color: white;
+}
+
+.btn-editar {
+  background: #3498db;
+}
+.btn-editar:hover {
+  background: #2980b9;
+}
+
+.btn-historial {
+  background: #27ae60;
+}
+.btn-historial:hover {
+  background: #229954;
+}
+
+.btn-agregar {
+  background: #f39c12;
+}
+.btn-agregar:hover {
+  background: #e67e22;
+}
+
+.btn-eliminar {
+  background: #e74c3c;
+}
+.btn-eliminar:hover {
+  background: #c0392b;
+}
+
+
 
 
 </style>
@@ -80,13 +287,8 @@ a {
 <?php include 'menu.php'?>
 
 
-<!-- Flecha de regreso abajo del navbar, esquina izquierda -->
-<div style="margin: 15px 0 0 20px;">
-  <a href="lista_titulares.php" class="back-button" title="Regresar">
-    <i class="fas fa-arrow-left"></i>
-    <span class="back-text">Regresar</span>
-  </a>
-</div>
+<?php include 'regresar.php'?>
+
 
     <div  class="titulo-container-subtle">
     <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">HISTORIAL CLÍNICO </h2>
@@ -95,11 +297,11 @@ a {
   <div class="content">
     <div class="card">
       <div style="float: right; margin-bottom: 10px;">
-  <a href="ver_receta.php?id=<?= $pk_titular ?>" title="Ver Recetas">
-    <i class="fas fa-envelope-open-text" style="font-size: 18px; margin-right: 12px; color: #27ae60;"></i>
+  <a href="ver_receta.php?id=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Recetas">
+    <i class="fas fa-envelope-open-text"></i>
   </a>
-  <a href="agregar_receta.php?id=<?= $pk_titular ?>" title="Agregar Receta">
-    <i class="fas fa-file-medical" style="font-size: 18px; color: #f39c12;"></i>
+  <a href="agregar_receta.php?id=<?= $pk_titular ?>" class="btn-accion btn-agregar" title="Agregar Receta">
+    <i class="fas fa-file-medical"></i>
   </a>
 </div>
 
@@ -114,7 +316,7 @@ a {
     </div>
 
     <div class="tabla-container">
-      <button class="btn-agregar" onclick="location.href='Registro_afiliado.php'">Agregar afiliado</button>
+      <button class="btn-afiliado" onclick="location.href='Registro_afiliado.php'">Agregar afiliado</button>
       <table>
       <thead>
         <tr>
@@ -138,19 +340,22 @@ a {
         <td><?= htmlspecialchars($fila['sexo'], ENT_QUOTES, 'UTF-8') ?></td>
         <td><?= htmlspecialchars($fila['parentesco'], ENT_QUOTES, 'UTF-8') ?></td>
         <td>
-  <a href="editar_afiliado.php" title="Editar">
-    <i class="fas fa-pen-to-square" style="margin-right: 10px; color: #2980b9;"></i>
-  </a>
-  <a href="ver_receta.php" title="Ver Recetas">
-    <i class="fas fa-envelope-open-text" style="margin-right: 10px; color: #27ae60;"></i>
-  </a>
-  <a href="agregar_receta.php" title="Agregar Receta">
-    <i class="fas fa-file-medical" style="margin-right: 10px; color: #f39c12;"></i>
-  </a>
-  <a href="eliminar_afiliado.php" title="Eliminar" onclick="return confirm('¿Seguro que deseas eliminar este afiliado?');">
-    <i class="fas fa-trash" style="color: #c0392b;"></i>
-  </a>
+  <div class="acciones-container">
+    <a href="editar_afiliado.php" class="btn-accion btn-editar" title="Editar">
+      <i class="fas fa-pen-to-square"></i>
+    </a>
+    <a href="ver_receta.php" class="btn-accion btn-historial" title="Ver Recetas">
+      <i class="fas fa-envelope-open-text"></i>
+    </a>
+    <a href="agregar_receta.php" class="btn-accion btn-agregar" title="Agregar Receta">
+      <i class="fas fa-file-medical"></i>
+    </a>
+    <a href="eliminar_afiliado.php" class="btn-accion btn-eliminar" title="Eliminar" onclick="return confirm('¿Seguro que deseas eliminar este afiliado?');">
+      <i class="fas fa-trash"></i>
+    </a>
+  </div>
 </td>
+
 
       </tr>
     <?php endforeach; ?>

@@ -20,24 +20,6 @@
       color: #333;
     }
 
-    .back-button {
-      color: #333;
-      font-size: 28px;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin: 20px;
-    }
-
-    .back-button:hover {
-      color: #000;
-    }
-
-    .back-text {
-      font-size: 18px;
-    }
-
     .titulo-container-subtle {
       background: #9CD8D9;
       border-left: 8px solid #CC1A1A;
@@ -134,7 +116,9 @@
   background: #9CD8D9;
   border-left: 8px solid #CC1A1A;
   box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  border-radius: 0; /* ← Esquinas rectas */
 }
+
 
 
 .titulo-container-subtle h2 {
@@ -146,7 +130,7 @@
 }
 
 .btn-submit {
-  background-color: #9CD8D9; /* azul brillante */
+  background-color: #2980b9; /* azul fuerte */
   color: white;
   font-size: 16px;
   padding: 12px 30px;
@@ -159,9 +143,10 @@
 }
 
 .btn-submit:hover {
-  background-color: #2980b9;
+  background-color: #9CD8D9; /* azul más claro */
   transform: scale(1.05);
 }
+
 
   </style>
 </head>
@@ -169,10 +154,7 @@
 
   <?php include 'menu.php' ?>
 
-  <a href="historial_titular.php" class="back-button">
-    <i class="fas fa-arrow-left"></i>
-    <span class="back-text">Regresar</span>
-  </a>
+  <?php include 'regresar.php'?>
 
   <div  class="titulo-container-subtle">
     <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">RECETA MEDICA</h2>
