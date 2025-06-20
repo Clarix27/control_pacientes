@@ -231,7 +231,7 @@
           <label>Parentesco:</label>
           <select id="opciones" name="parentesco">
             <option value="">-- Selecciona el Parentesco --</option>
-            <option value="Esposo">Esposo</option>
+            <option value="Esposo">Esposa/o</option>
             <option value="Hija">Hija</option>
             <option value="Hijo">Hijo</option>
             <option value="Misma persona">Misma persona</option>
@@ -277,7 +277,7 @@
               <?= htmlspecialchars($paciente['tipo_consulta'], ENT_QUOTES, 'UTF-8') ?>
             </span>
           </td>
-          <td><?= htmlspecialchars($paciente['dependencia'], ENT_QUOTES, 'UTF-8') ?></td>
+          <td><?= !empty($paciente['dependencia']) ? htmlspecialchars($paciente['dependencia'], ENT_QUOTES, 'UTF-8'): 'No Tiene' ?></td>
           <td><?= htmlspecialchars($paciente['pago'],   ENT_QUOTES, 'UTF-8') ?></td>
         </tr>
       <?php endforeach; ?>

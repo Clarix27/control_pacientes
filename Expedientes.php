@@ -1,3 +1,17 @@
+<?php
+  require_once 'controladores/conexion.php';
+  $pdo = Conexion::getPDO();
+  $consulta = $pdo->query("SELECT YEAR(fecha) AS anio, MONTH(fecha) AS mes FROM consulta GROUP BY anio, mes ORDER BY anio DESC, mes DESC");
+  $expedientes = $consulta->fetchAll(PDO::FETCH_ASSOC);
+  $i = 1;
+  // 2) Arreglo de nombres de mes
+  $meses = [
+    1 => 'Enero',   2 => 'Febrero', 3 => 'Marzo',
+    4 => 'Abril',   5 => 'Mayo',    6 => 'Junio',
+    7 => 'Julio',   8 => 'Agosto',  9 => 'Septiembre',
+    10=> 'Octubre',11 => 'Noviembre',12 => 'Diciembre'
+  ];
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,6 +20,7 @@
   <title>Expedientes</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilo_expediente.css">
 </head>
 <style>
   * {
@@ -15,11 +30,11 @@
   }
 
   body {
-        font-family: Arial, sans-serif;
-        background: #fff;
-      }
+    font-family: Arial, sans-serif;
+    background: #fff;
+  }
 
-      .expedientes-container {
+  .expedientes-container {
     width: 90%;
     margin: 40px auto;
     display: flex;
@@ -123,33 +138,34 @@
   </div>
 
   <div  class="titulo-container-subtle">
-      <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">EXPEDIENTES</h2>
+    <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">EXPEDIENTES</h2>
   </div>
 
   <div class="expedientes-container">
-    <div class="expediente-item">
-      <div class="expediente-info">
-        <i class="fas fa-archive icon-left"></i>
-        <span>Expediente 1 – Abril</span>
+    <?php if (empty($expedientes)): ?>
+      <div class="no-expedientes">
+        <i class="fas fa-folder-open icon-left"></i>
+        <span>Sin expedientes</span>
       </div>
-      <i class="fas fa-cloud-download-alt icon-right"></i>
-    </div>
+    <?php else: ?>
 
-    <div class="expediente-item">
-      <div class="expediente-info">
-        <i class="fas fa-archive icon-left"></i>
-        <span>Expediente 2 – Mayo</span>
-      </div>
-      <i class="fas fa-cloud-download-alt icon-right"></i>
-    </div>
-
-    <div class="expediente-item">
-      <div class="expediente-info">
-        <i class="fas fa-archive icon-left"></i>
-        <span>Expediente 3 – Junio</span>
-      </div>
-      <i class="fas fa-cloud-download-alt icon-right"></i>
-    </div>
+      <?php foreach ($expedientes as $p): ?>
+        <?php 
+          $nombreMes = $meses[intval($p['mes'])]; 
+          $anio      = $p['anio'];
+        ?>
+        <a href="Expediente_seleccionado.php?anio=<?= urlencode($p['anio']) ?>&mes=<?= urlencode($p['mes']) ?>">
+          <div class="expediente-item">
+            <div class="expediente-info">
+              <i class="fas fa-archive icon-left"></i>
+              <span>Expediente <?= $i ?> – <?= $nombreMes ?> <?= $anio ?></span>
+            </div>
+            <i class="fas fa-cloud-download-alt icon-right"></i>
+          </div>
+        </a>
+        <?php $i++; ?>
+      <?php endforeach; ?>
+    <?php endif; ?>
   </div>
 
 </body>

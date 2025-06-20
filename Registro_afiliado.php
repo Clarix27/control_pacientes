@@ -62,7 +62,7 @@
           <div class="form-group">
             <select id="opciones" name="parentesco">
               <option value="">-- Selecciona el Parentesco --</option>
-              <option value="Esposo">Esposo</option>
+              <option value="Esposo">Esposa/o</option>
               <option value="Hija">Hija</option>
               <option value="Hijo">Hijo</option>
             </select>
