@@ -64,26 +64,6 @@
     .navbar-menu a:hover {
       text-decoration: underline;
     }
-    
-
-    .back-button {
-      color: #333;
-      font-size: 30px; 
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: color 0.3s ease;
-    }
-
-    .back-button:hover {
-      color: #000;
-    }
-
-    .back-text {
-      font-size: 18px;  
-      font-weight: normal;
-    }
 
     .main-content {
       display: flex;

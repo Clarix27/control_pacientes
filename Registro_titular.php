@@ -16,13 +16,8 @@
 <body>
 <?php include 'menu.php'?>
 
-  <!-- BOTÓN REGRESAR -->
-  <div style="margin: 15px 0 0 20px;">
-    <a href="inicio.html" class="back-button" title="Regresar">
-      <i class="fas fa-arrow-left"></i>
-      <span class="back-text">Regresar</span>
-    </a>
-  </div>
+  <?php include 'regresar.php'?>
+
 
   <!-- FORMULARIO -->
   <div class="main-content">
