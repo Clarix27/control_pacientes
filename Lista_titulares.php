@@ -10,7 +10,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Listado de Pacientes - DIF Escuinapa</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="css/estilo_lista_titulares.css">
   <link rel="stylesheet" href="css/menu.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -32,18 +31,351 @@
       font-size: 18px;  
       font-weight: normal;
     }
+    .toast-exito {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  font-weight: bold;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
   </style>
 </head>
-<body>
+<style>
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<?php include 'menu.php' ?>
+    html, body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+    }
+
+    .navbar {
+      background: #CC1A1A;
+      color: white;
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .navbar-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-left {
+      justify-content: flex-start;
+    }
+
+    .navbar-center {
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .navbar-right {
+      justify-content: flex-end;
+    }
+
+    .navbar-title {
+      font-weight: bold;
+      font-size: 24px;
+      text-transform: uppercase;
+    }
+
+    .navbar-center a {
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 30px;
+      padding: 5px 10px;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 30px;
+    }
+
+    .search-box i {
+      color: black;
+      margin-right: 5px;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    .filter {
+      background: #eee;
+      padding: 15px 20px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    .filter label {
+      font-weight: bold;
+    }
+
+    .filter select {
+      margin-left: 10px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 15px;
+      border: 1px solid #aaa;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #ccc;
+      font-weight: bold;
+    }
+
+    .badge {
+      background: #9CD8D9;
+      color: black;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    .btn-icon {
+      background: none;
+      border: none;
+      color: #000;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .btn-icon:hover {
+      color: #00b894;
+    }
+
+    .icon-link {
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+    }
+
+/* Título centrado simple */
+.titulo-pagina {
+ 
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* O si prefieres con clase diferente */
+.page-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin: 20px 0;
+  padding: 15px;
+  
+}
+
+.titulo-container-subtle {
+  background: #9CD8D9;
+  border-left: 8px solid #CC1A1A;
+  padding: 2px 5px;
+  margin: 20px 0 10px 0;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+ 
+}
+
+.titulo-container-subtle h2 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 600;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.acciones-container {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  min-width: 120px;
+}
+
+.btn-accion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-accion:hover {
+  transform: scale(1.1);
+  text-decoration: none;
+  color: white;
+}
+
+.btn-editar {
+  background: #3498db;
+}
+.btn-editar:hover {
+  background: #2980b9;
+}
+
+.btn-historial {
+  background: #27ae60;
+}
+.btn-historial:hover {
+  background: #229954;
+}
+
+.btn-agregar {
+  background: #f39c12;
+}
+.btn-agregar:hover {
+  background: #e67e22;
+}
+
+.btn-eliminar {
+  background: #e74c3c;
+}
+.btn-eliminar:hover {
+  background: #c0392b;
+}
+
+.filter {
+  background: #eee;
+  padding: 15px 20px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-right {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 30px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 30px;
+  width: 200px;
+}
+
+.search-box i {
+  color: #666;
+  margin-right: 5px;
+}
+.back-button {
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  transition: color 0.3s ease;
+}
+
+.back-button:hover {
+  color: #cc1a1a;
+  text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
+}
+
+.back-text {
+  font-size: 18px;  
+  font-weight: normal;
+}
+
+</style>
+<body>
+<?php if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'actualizado'): ?>
+  <div id="toast-exito" class="toast-exito">Titular actualizado con éxito</div>
+  <script>
+    setTimeout(() => {
+      const toast = document.getElementById('toast-exito');
+      if (toast) toast.style.display = 'none';
+    }, 4000);
+  </script>
+<?php endif; ?>
+
+<?php include 'menu.php'?>
 
 <div style="margin: 15px 0 0 20px;">
-  <a href="Inicio.html?id=<?=urlencode($pk_titular)?>" class="back-button" title="Regresar">
+  <a href="Inicio.html" class="back-button" title="Regresar">
     <i class="fas fa-arrow-left"></i>
     <span class="back-text">Regresar</span>
   </a>
 </div>
+
 
 <div class="titulo-container-subtle">
   <h2 style="text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA DE PACIENTES AFILIADOS AL DIF</h2>
@@ -96,7 +428,7 @@
             <td><span class="badge"><?= htmlspecialchars($fila['categoria'], ENT_QUOTES, 'UTF-8') ?></span></td>
             <td>
               <div class="acciones-container">
-                <a href="update/editar_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-editar" title="Editar">
+                <a href="editar_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-editar" title="Editar">
                   <i class="fas fa-edit"></i>
                 </a>
                 <a href="Historial_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-historial" title="Historial">
