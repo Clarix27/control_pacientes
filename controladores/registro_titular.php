@@ -95,8 +95,7 @@
         if ($titular_id === 0) {
             throw new Exception("No se pudo obtener el ID del titular.");
         }
-
-        // 8) Insertar en tarjetón
+ 
         $tarjeton_id = insertar_tarjeton($folio, $puesto, $direccion, $titular_id);
 
         if ($tarjeton_id === 0) {

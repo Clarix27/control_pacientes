@@ -96,19 +96,60 @@
   
   font-size: 28px;
   font-weight: bold;
-  color: #333;
-  }
+  border: 1px solid #666;
+}
 
-  .titulo-container-subtle {
-  background: #9CD8D9;
-  border-left: 8px solid #CC1A1A;
-  padding: 2px 5px;
-  margin: 20px 0 10px 0;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+.tabla-expediente td {
+  background-color: #d9d9d9;
+  padding: 10px;
+  border: 1px solid #999;
+}
 
-  }
+.rojo {
+  color: #c80000;
+  font-weight: bold;
+}
 
-  .titulo-container-subtle h2 {
+.area {
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.area.celeste {
+  background-color: #9CD8D9;
+}
+
+.titulo-pagina {
+ 
+ font-size: 28px;
+ font-weight: bold;
+ color: #333;
+}
+
+.titulo-container-subtle {
+ background: #9CD8D9;
+ border-left: 8px solid #CC1A1A;
+ padding: 2px 5px;
+ margin: 20px 0 10px 0;
+ box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+
+}
+
+.titulo-container-subtle h2 {
+ margin: 0;
+ font-size: 21px;
+ font-weight: 600;
+ text-align: center;
+ color: #2c3e50;
+}
+
+.titulo-registro {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: left;
   margin: 0;
   font-size: 21px;
   font-weight: 600;
@@ -128,12 +169,7 @@
 <body>
   <?php include 'menu.php'?>
 
-  <div style="margin: 15px 0 0 20px;">
-    <a href="Expedientes.php" class="back-button" title="Regresar">
-      <i class="fas fa-arrow-left"></i>
-      <span class="back-text">Regresar</span>
-    </a>
-  </div>
+    <?php include 'regresar.php'?>
 
   <div  class="titulo-container-subtle">
     <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">EXPEDIENTE SELECCIONADO</h2>

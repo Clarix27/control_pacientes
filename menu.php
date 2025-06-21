@@ -1,20 +1,114 @@
-<link rel="stylesheet" href="css/menu.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<div class="logo">
-        <img src="img/logo_dif.jpeg" alt="Logo DIF" style="height: 70px; margin-left: 20px; margin-top: 10px;">
-      </div>
-      <div class="navbar">
-        CONTROL DE PACIENTES DIF
-        <div class="navbar-section navbar-center">
-            <a href="Inicio.html">Inicio</a>
-            <a href="Expedientes.php">Expedientes</a>
-            <a href="Control_pacientes.php">Pacientes</a>
-        </div>
-        <div class="icono-config">
-          <a href="logout.php" title="Cerrar sesión">
-            <img src="img/ruta_icono_config.png" alt="Cerrar sesión" style="height: 35px;">
-          </a>
-        </div>
-      </div> 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/menu.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <title>Document</title>
+  <style>
+    /* Modal estilizado */
+    #modalCerrarSesion {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+    }
 
-      
+    #modalCerrarSesion .modal-contenido {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 12px;
+      border: 3px solid #a90000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 350px;
+    }
+
+    #modalCerrarSesion p {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    #modalCerrarSesion button {
+      font-size: 14px;
+      padding: 8px 16px;
+      margin: 5px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #modalCerrarSesion button.confirmar {
+      background-color: #a90000;
+      color: white;
+    }
+
+    #modalCerrarSesion button.confirmar:hover {
+      background-color: #870000;
+    }
+
+    #modalCerrarSesion button.cancelar {
+      background-color: #ccc;
+      color: #333;
+    }
+
+    #modalCerrarSesion button.cancelar:hover {
+      background-color: #bbb;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">
+    <img src="img/logo_dif.jpeg" alt="Logo DIF" style="height: 70px; margin-left: 20px; margin-top: 10px;">
+  </div>
+
+  <div class="navbar">
+    CONTROL DE PACIENTES DIF
+    <div class="navbar-section navbar-center">
+      <a href="Inicio.html">Inicio</a>
+      <a href="Registro_titular.php">Agregar titular</a>
+      <a href="Lista_titulares.php">Lista de titulares</a>
+      <a href="Expedientes.php">Expedientes</a>
+      <a href="Control_pacientes.php">Control de Pacientes</a>
+    </div>
+    <div class="icono-config">
+      <a href="#" onclick="mostrarModalCerrarSesion(); return false;" title="Cerrar sesión">
+        <img src="img/ruta_icono_config.png" alt="Cerrar sesión" style="height: 35px;">
+      </a>
+    </div>
+  </div>
+
+  <!-- Modal de confirmación de cierre de sesión -->
+  <div id="modalCerrarSesion">
+    <div class="modal-contenido">
+      <p>¿Estás seguro que deseas cerrar sesión?</p>
+      <button class="confirmar" onclick="cerrarSesion()">Sí, cerrar sesión</button>
+      <button class="cancelar" onclick="ocultarModalCerrarSesion()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    function mostrarModalCerrarSesion() {
+      document.getElementById('modalCerrarSesion').style.display = 'flex';
+    }
+
+    function ocultarModalCerrarSesion() {
+      document.getElementById('modalCerrarSesion').style.display = 'none';
+    }
+
+    function cerrarSesion() {
+      window.location.href = 'logout.php';
+    }
+  </script>
+</body>
+</html>
