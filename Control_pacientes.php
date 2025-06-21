@@ -1,18 +1,11 @@
-<?php
-  require_once 'controladores/conexion.php';
-  $pdo = Conexion::getPDO();
-  $sql = $pdo->query("SELECT ti.nombre AS t_nombre, ti.a_paterno AS t_paterno, ti.a_materno AS t_materno, p.nombre, p.a_paterno, p.a_materno, tar.folio, c.tipo_consulta, ti.dependencia, c.pago FROM titular ti INNER JOIN paciente p ON ti.pk_titular=p.fk_titular LEFT JOIN tarjeton tar ON ti.pk_titular=tar.fk_titular INNER JOIN consulta c ON ti.pk_titular=c.fk_titular WHERE c.fecha = CURDATE() ORDER BY c.pk_consulta DESC");
-  $pacientes = $sql->fetchAll(PDO::FETCH_ASSOC);
-?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Control de Pacientes</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/alerta_controlP.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <style>
   * {
@@ -290,9 +283,8 @@
       <input type="text" name="ap_paterno_titular" placeholder="Apellido paterno">
       <input type="text" name="ap_materno_titular" placeholder="Apellido materno">
 
-          <label>Dependencia:</label>
-          <input type="text" name="dependencia" placeholder="Dependencia">
-        </div>
+      <label>Tarjeton:</label>
+      <input type="text" name="tarjeton" class="resaltado" placeholder="Tarjeton">
 
       <label>Dependencia:</label>
       <input type="text" name="dependencia" placeholder="Dependencia">
@@ -312,6 +304,7 @@
       <button type="submit" class="enviar-modal">Enviar Datos</button>
     </form>
   </div>
+</div>
 
   <script>
     function mostrarModal() {

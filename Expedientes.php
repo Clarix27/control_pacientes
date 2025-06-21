@@ -78,56 +78,6 @@
   .titulo-pagina {
   
   font-size: 28px;
-<<<<<<< HEAD
-  font-weight: bold;
-  color: #333;
-  }
-
-  .titulo-container-subtle {
-  background: #9CD8D9;
-  border-left: 8px solid #CC1A1A;
-  padding: 2px 5px;
-  margin: 20px 0 10px 0;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-
-  }
-
-  .titulo-container-subtle h2 {
-  margin: 0;
-  font-size: 21px;
-  font-weight: 600;
-  text-align: center;
-  color: #2c3e50;
-  }
-
-  .titulo-registro {
-    font-size: 20px;
-    font-weight: 600;
-    color: #2c3e50;
-    text-align: left;
-    margin: 0;
-    padding: 0 0 10px 0;
-  }
-
-  .back-button {
-    color: #333;
-    font-size: 30px; 
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: color 0.3s ease;
-  }
-
-  .back-button:hover {
-    color: #000;
-  }
-
-  .back-text {
-    font-size: 18px;  
-    font-weight: normal;
-  }
-=======
 }
 
 .icon-right {
@@ -173,21 +123,11 @@
   padding: 0 0 10px 0;
 }
 
->>>>>>> origin/Jose
 </style>
 <body>
   <?php include 'menu.php'?>
 
-<<<<<<< HEAD
-  <div style="margin: 15px 0 0 20px;">
-    <a href="Inicio.html" class="back-button" title="Regresar">
-      <i class="fas fa-arrow-left"></i>
-      <span class="back-text">Regresar</span>
-    </a>
-  </div>
-=======
     <?php include 'regresar.php'?>
->>>>>>> origin/Jose
 
   <div  class="titulo-container-subtle">
     <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">EXPEDIENTES</h2>

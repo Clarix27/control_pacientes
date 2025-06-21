@@ -41,6 +41,20 @@
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    
+    function beneficiario_id($id) {
+        $pdo = Conexion::getPDO();
+        $stmt = $pdo->prepare("SELECT 
+            b.pk_beneficiario, b.nombre, b.a_paterno, b.a_materno, 
+            b.edad, b.sexo, b.parentesco, b.fk_tarjeton
+        FROM beneficiarios b 
+        WHERE b.pk_beneficiario=:id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
     
 
     function info_beneficiario($id) {
