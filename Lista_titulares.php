@@ -34,8 +34,7 @@
     .toast-exito {
   position: fixed;
   top: 20px;
-  left: 50%;
-
+  left: 45%;
   background-color: #4CAF50;
   color: white;
   padding: 15px 20px;

@@ -42,7 +42,7 @@
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    
+    // Función para editar el beneficiario
     function beneficiario_id($id) {
         $pdo = Conexion::getPDO();
         $stmt = $pdo->prepare("SELECT 

@@ -35,7 +35,7 @@ try {
     $stmt->execute();
 
     // Redirigir con mensaje
-    header("Location: ../Historial_titular.php?mensaje=actualizado");
+    header("Location: ../Historial_titular.php?id=" . urlencode($_POST['pk_titular']) . "&mensaje=actualizado");
     exit;
 
 } catch (Exception $e) {
