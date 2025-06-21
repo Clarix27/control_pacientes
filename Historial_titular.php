@@ -23,6 +23,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <style>
+  .alerta-exito {
+  background: #d4edda;
+  color: #155724;
+  padding: 10px 20px;
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
   * {
       margin: 0;
       padding: 0;
@@ -317,9 +327,42 @@ a {
   color: #cc1a1a;
   text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
 }
+.toast-exito {
+  position: fixed;
+  top: 20px;
+  left: 45%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  font-weight: bold;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
 </style>
 <body>
+<?php if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'actualizado'): ?>
+  <div id="toast-exito" class="toast-exito">Titular actualizado con éxito</div>
+  <script>
+    setTimeout(() => {
+      const toast = document.getElementById('toast-exito');
+      if (toast) toast.style.display = 'none';
+    }, 4000);
+  </script>
+<?php endif; ?>
+
   <?php include 'menu.php'?>
+
   <div style="margin: 15px 0 0 20px;">
   <a href="Lista_titulares.php?id=<?=urlencode($pk_titular)?>" class="back-button" title="Regresar">
     <i class="fas fa-arrow-left"></i>

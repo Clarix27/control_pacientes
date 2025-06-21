@@ -1,11 +1,6 @@
 <?php
 require_once 'controladores/info_titular.php';
 
-if (!isset($_GET['id'])) {
-    echo "ID no proporcionado";
-    exit;
-}
-
 $id = intval($_GET['id']);
 $beneficiario = beneficiario_id($id);
 
@@ -14,9 +9,19 @@ if (!$beneficiario) {
     exit;
 }
 
-// ID del titular para regresar al historial
+// Primero obtener fk_tarjeton del beneficiario
 $fk_tarjeton = $beneficiario['fk_tarjeton'];
+
+$pdo = Conexion::getPDO();
+$stmt = $pdo->prepare("SELECT fk_titular FROM tarjeton WHERE pk_tarjeton = :tarjeton");
+$stmt->bindParam(':tarjeton', $fk_tarjeton, PDO::PARAM_INT);
+$stmt->execute();
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$pk_titular = $row ? $row['fk_titular'] : null;
+
 ?>
+
 <!DOCTYPE html> 
 <html lang="es">
 <head>
@@ -28,16 +33,38 @@ $fk_tarjeton = $beneficiario['fk_tarjeton'];
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/menu.css">
 </head>
-<body>
-<?php include 'menu.php'?>
+<style>
+    .back-button {
+      color: #333;
+      font-size: 30px; 
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.3s ease;
+    }
 
-<!-- BOTÓN REGRESAR -->
-<div style="margin: 15px 0 0 20px;">
-  <a href="Historial_titular.php?id=<?=urlencode($fk_tarjeton)?>" class="back-button" title="Regresar">
-    <i class="fas fa-arrow-left"></i>
-    <span class="back-text">Regresar</span>
-  </a>
-</div>
+    .back-button:hover {
+      color: #000;
+    }
+
+    .back-text {
+      font-size: 18px;  
+      font-weight: normal;
+    }
+
+  </style>
+<body>
+
+<?php include 'menu.php'; ?>
+
+  <!-- BOTÓN REGRESAR -->
+  <div style="margin: 15px 0 0 20px;">
+    <a href="Historial_titular.php?id=<?= urlencode($pk_titular) ?>" class="back-button" title="Regresar">
+      <i class="fas fa-arrow-left"></i>
+      <span class="back-text">Regresar</span>
+    </a>
+  </div>
 
 <!-- FORMULARIO -->
 <div class="main-content">
@@ -45,7 +72,7 @@ $fk_tarjeton = $beneficiario['fk_tarjeton'];
     <h2 class="form-title">Editar afiliado</h2>
     <form id="formEditarBeneficiario" method="POST" action="controladores/procesar_edicion_afiliado.php">
       <input type="hidden" name="id" value="<?= htmlspecialchars($beneficiario['pk_beneficiario']) ?>">
-      <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($fk_tarjeton) ?>">
+      <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($pk_titular) ?>">
 
       <div class="form-row">
         <div class="form-group">
@@ -77,7 +104,7 @@ $fk_tarjeton = $beneficiario['fk_tarjeton'];
         <div class="form-group">
           <select name="parentesco">
             <option value="">-- Selecciona el Parentesco --</option>
-            <option value="Esposo" <?= $beneficiario['parentesco'] === 'Esposo' || $beneficiario['parentesco'] === 'Esposa' ? 'selected' : '' ?>>Esposa/o</option>
+            <option value="Esposo" <?= in_array($beneficiario['parentesco'], ['Esposo', 'Esposa']) ? 'selected' : '' ?>>Esposa/o</option>
             <option value="Hija" <?= $beneficiario['parentesco'] === 'Hija' ? 'selected' : '' ?>>Hija</option>
             <option value="Hijo" <?= $beneficiario['parentesco'] === 'Hijo' ? 'selected' : '' ?>>Hijo</option>
           </select>
