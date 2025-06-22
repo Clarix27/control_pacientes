@@ -115,6 +115,21 @@
     color: #333;
   }
 
+  .titulo-containerr-subtlee {
+    background:rgba(156, 216, 217, 0.54);
+   
+    padding: 2px 5px;
+    margin: 20px 0 10px 0;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  }
+
+  .titulo-containerr-subtlee h2 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 600;
+    text-align: center;
+    color: #2c3e50;
+  }
   .titulo-container-subtle {
     background: #9CD8D9;
     border-left: 8px solid #CC1A1A;
@@ -132,7 +147,7 @@
   }
 
   .titulo-registro {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 600;
     color: #2c3e50;
     text-align: left;
@@ -215,38 +230,94 @@
     margin-top: 15px;
     cursor: pointer;
     transition: background 0.3s ease;
+    width: 50%;
+    justify-self: center;
+    align-self: center;
   }
 
   #modalFormulario .enviar-modal:hover {
     background-color: #218838;
   }
+
+   .back-button {
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  transition: color 0.3s ease;
+}
+
+.back-button:hover {
+  color: #cc1a1a;
+  text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
+}
+
+.back-text {
+  font-size: 18px;  
+  font-weight: normal;
+}
+
+.filter-right {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 30px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 30px;
+  width: 200px;
+}
+
+.search-box i {
+  color: #666;
+  margin-right: 5px;
+}
 </style>
 <body>
   <?php include 'menu.php'?>
 
-  <?php include 'regresar.php'?>
+  <div style="margin: 15px 0 0 20px;">
+  <a href="Inicio.html" class="back-button" title="Regresar">
+    <i class="fas fa-arrow-left"></i>
+    <span class="back-text">Regresar</span>
+  </a>
+</div>
 
   <div class="titulo-container-subtle">
     <h2 style="text-align: center; margin-top: 20px;" class="titulo-pagina">CONTROL DE PACIENTES</h2>
   </div>
 
   <div class="registro-container">
-    <h2 class="titulo-registro">Registro De Pacientes:</h2>
-    <div class="registro-fila">
-      <div>
-        <label for="filtro_area">Filtrar por área:</label>
-        <select name="filtro_area" id="filtro_area">
-          <option value="">Todas</option>
-          <option value="DENTAL">DENTAL</option>
-          <option value="MEDICA">MÉDICA</option>
-          <option value="PSICOLOGICA">PSICOLÓGICA</option>
-        </select>
-      </div>
+  <h2 class="titulo-registro">Buscador de pacientes:</h2>
+  <div class="registro-fila">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Buscar paciente...">
+    </div>
+    <div style="margin-left: auto;">
       <button class="boton-registrar" onclick="mostrarModal()">REGISTRAR</button>
     </div>
   </div>
+</div>
+<div class="titulo-containerr-subtlee">
+    <h2 style="text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA DE PACIENTES</h2>
+  </div>
 
-  <h2>Tabla de pacientes</h2>
+
   <table class="tabla-pacientes">
     <thead>
       <tr>
@@ -272,6 +343,7 @@
   
   <div id="modalFormulario">
   <div class="modal-contenido">
+
     <!-- Botón de cerrar con ícono de X -->
     <button class="cerrar" onclick="cerrarModal()" title="Cerrar">
       <i class="fas fa-times"></i>
