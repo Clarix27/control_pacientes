@@ -73,10 +73,12 @@
     <div class="logo">
       <img src="img/logo_dif.jpeg" alt="Logo DIF" style="height: 70px; margin-left: 20px; margin-top: 10px;">
     </div>
+
     <div class="navbar">
       CONTROL DE PACIENTES DIF
       <div class="icono-config">
-        <a href="#" onclick="mostrarModalCerrarSesion()" title="Cerrar sesión">
+        <!-- Se elimina href directo para activar el modal con onclick -->
+        <a href="#" onclick="mostrarModalCerrarSesion(); return false;" title="Cerrar sesión">
           <img src="img/ruta_icono_config.png" alt="Cerrar sesión" style="height: 35px;">
         </a>
       </div>
@@ -104,6 +106,15 @@
     </div>
   </div>
 
+  <!-- Modal de confirmación de cierre de sesión -->
+  <div id="modalCerrarSesion">
+    <div class="modal-contenido">
+      <p>¿Estás seguro que deseas cerrar sesión?</p>
+      <button class="confirmar" onclick="cerrarSesion()">Sí, cerrar sesión</button>
+      <button class="cancelar" onclick="ocultarModalCerrarSesion()">Cancelar</button>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script>
     function mostrarModalCerrarSesion() {
@@ -118,7 +129,5 @@
       window.location.href = 'logout.php';
     }
   </script>
-
 </body>
 </html>
-

@@ -49,7 +49,7 @@
         $puesto     = trim($_POST['puesto']     ?? '');
         $direccion  = trim($_POST['direccion']  ?? 'ejemplo');
         $categoria  = trim($_POST['categoria']  ?? '');
-        $folio      = trim('Folio');
+        $folio      =  isset($_POST['folio']) ? trim($_POST['folio']) : '';
 
         // 2) Recolectar y sanear datos del domicilio (pueden estar vacíos)
         $calle      = trim($_POST['calle']      ?? '');
@@ -58,9 +58,12 @@
         $municipio  = trim($_POST['municipio']  ?? '');
 
         // 3) Validar campos obligatorios de titular/tarjetón
-        $requiredTitular = ['nombre','apaterno','puesto','categoria'];
+        $requiredTitular = ['nombre','apaterno','puesto','categoria', 'calle', 'num_casa', 'colonia', 'municipio', 'folio',];
         foreach ($requiredTitular as $campo) {
             if (!isset($_POST[$campo]) || trim((string)$_POST[$campo]) === '') {
+                if($campo === 'folio'){
+                    throw new Exception("Falta el campo obligatorio: Número del Tarjetón");
+                }
                 echo json_encode([
                     'success' => false,
                     'message' => "Falta el campo obligatorio: $campo"
@@ -92,8 +95,7 @@
         if ($titular_id === 0) {
             throw new Exception("No se pudo obtener el ID del titular.");
         }
-
-        // 8) Insertar en tarjetón
+ 
         $tarjeton_id = insertar_tarjeton($folio, $puesto, $direccion, $titular_id);
 
         if ($tarjeton_id === 0) {

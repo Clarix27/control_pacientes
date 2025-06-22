@@ -32,24 +32,6 @@
       color: #333;
     }
 
-    .back-button {
-      color: #333;
-      font-size: 28px;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin: 20px;
-    }
-
-    .back-button:hover {
-      color: #000;
-    }
-
-    .back-text {
-      font-size: 18px;
-    }
-
     .titulo-container-subtle {
       background: #9CD8D9;
       border-left: 8px solid #CC1A1A;
@@ -139,51 +121,77 @@
     color: #333;
     }
 
-    .titulo-container-subtle {
-      width: 100%;
-      margin: 20px 0 10px 0;
-      padding: 2px 5px;
-      background: #9CD8D9;
-      border-left: 8px solid #CC1A1A;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-    }
+.titulo-container-subtle {
+  width: 100%;
+  margin: 20px 0 10px 0;
+  padding: 2px 5px;
+  background: #9CD8D9;
+  border-left: 8px solid #CC1A1A;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  border-radius: 0; /* ← Esquinas rectas */
+}
 
 
-    .titulo-container-subtle h2 {
-    margin: 0;
-    font-size: 21px;
-    font-weight: 600;
-    text-align: center;
-    color: #2c3e50;
-    }
 
-    .btn-submit {
-      background-color: #9CD8D9; /* azul brillante */
-      color: white;
-      font-size: 16px;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
+.titulo-container-subtle h2 {
+ margin: 0;
+ font-size: 21px;
+ font-weight: 600;
+ text-align: center;
+ color: #2c3e50;
+}
 
-    .btn-submit:hover {
-      background-color: #2980b9;
-      transform: scale(1.05);
-    }
+.btn-submit {
+  background-color: #2980b9; /* azul fuerte */
+  color: white;
+  font-size: 16px;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-submit:hover {
+  background-color: #9CD8D9; /* azul más claro */
+  transform: scale(1.05);
+}
+.back-button {
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  transition: color 0.3s ease;
+}
+
+.back-button:hover {
+  color: #cc1a1a;
+  text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
+}
+
+.back-text {
+  font-size: 18px;  
+  font-weight: normal;
+}
+
+
   </style>
 </head>
 <body>
 
   <?php include 'menu.php' ?>
 
+
+  <div style="margin: 15px 0 0 20px;">
   <a href="Historial_titular.php?id=<?=urlencode($id_titular)?>" class="back-button">
     <i class="fas fa-arrow-left"></i>
     <span class="back-text">Regresar</span>
   </a>
+  </div>
+
 
   <div  class="titulo-container-subtle">
     <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">RECETA MEDICA</h2>
