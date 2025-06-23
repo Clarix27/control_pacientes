@@ -23,6 +23,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <style>
+  .alerta-exito {
+  background: #d4edda;
+  color: #155724;
+  padding: 10px 20px;
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
   * {
       margin: 0;
       padding: 0;
@@ -188,7 +198,7 @@
 
     .btn-afiliado {
       background: #0ed142;
-      color: black;
+      color: white;
       font-weight: bold;
       padding: 6px 12px;
       border: none;
@@ -281,18 +291,89 @@ a {
 
 
 
+  .titulo-container-subtle h2 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 600;
+  text-align: center;
+  color: #2c3e50;
+  }
+
+  a i {
+    text-decoration: none;
+  }
+  a {
+    text-decoration: none;
+  }
+  .back-button {
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  transition: color 0.3s ease;
+}
+
+.back-button:hover {
+  color: #cc1a1a;
+  text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
+}
+
+.back-text {
+  font-size: 18px;  
+  font-weight: normal;
+}
+.back-button:hover {
+  color: #cc1a1a;
+  text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
+}
+.toast-exito {
+  position: fixed;
+  top: 20px;
+  left: 45%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  font-weight: bold;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 
 </style>
 <body>
-<?php include 'menu.php'?>
+<?php if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'actualizado'): ?>
+  <div id="toast-exito" class="toast-exito">Titular actualizado con éxito</div>
+  <script>
+    setTimeout(() => {
+      const toast = document.getElementById('toast-exito');
+      if (toast) toast.style.display = 'none';
+    }, 4000);
+  </script>
+<?php endif; ?>
+
+  <?php include 'menu.php'?>
+
+  <div style="margin: 15px 0 0 20px;">
+  <a href="Lista_titulares.php?id=<?=urlencode($pk_titular)?>" class="back-button" title="Regresar">
+    <i class="fas fa-arrow-left"></i>
+    <span class="back-text">Regresar</span>
+  </a>
+</div>
 
 
-<?php include 'regresar.php'?>
-
-
-    <div  class="titulo-container-subtle">
+  <div  class="titulo-container-subtle">
     <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">HISTORIAL CLÍNICO </h2>
-    </div>
+  </div>
 
   <div class="content">
     <div class="card">
@@ -300,7 +381,7 @@ a {
   <a href="ver_receta.php?id=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Recetas">
     <i class="fas fa-envelope-open-text"></i>
   </a>
-  <a href="agregar_receta.php?id=<?= $pk_titular ?>" class="btn-accion btn-agregar" title="Agregar Receta">
+  <a href="agregar_receta.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">
     <i class="fas fa-file-medical"></i>
   </a>
 </div>
@@ -316,7 +397,7 @@ a {
     </div>
 
     <div class="tabla-container">
-      <button class="btn-afiliado" onclick="location.href='Registro_afiliado.php'">Agregar afiliado</button>
+    <button class="btn-afiliado"  onclick="location.href='Registro_afiliado.php?id=<?= urlencode($pk_titular) ?>'">Agregar afiliado</button>
       <table>
       <thead>
         <tr>
@@ -341,13 +422,13 @@ a {
         <td><?= htmlspecialchars($fila['parentesco'], ENT_QUOTES, 'UTF-8') ?></td>
         <td>
   <div class="acciones-container">
-    <a href="editar_afiliado.php" class="btn-accion btn-editar" title="Editar">
+  <a href="Editar_afiliado.php?id=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-accion btn-editar" title="Editar">
       <i class="fas fa-pen-to-square"></i>
     </a>
     <a href="ver_receta.php" class="btn-accion btn-historial" title="Ver Recetas">
       <i class="fas fa-envelope-open-text"></i>
     </a>
-    <a href="agregar_receta.php" class="btn-accion btn-agregar" title="Agregar Receta">
+    <a href="Recetas.php?id_t=<?=urlencode($pk_titular)?>&id_b=<?=urlencode($fila['pk_beneficiario'])?>"class="btn-accion btn-agregar" title="Agregar Receta">
       <i class="fas fa-file-medical"></i>
     </a>
     <a href="eliminar_afiliado.php" class="btn-accion btn-eliminar" title="Eliminar" onclick="return confirm('¿Seguro que deseas eliminar este afiliado?');">
@@ -365,6 +446,5 @@ a {
     </table>
     </div>
   </div>
-
 </body>
 </html>

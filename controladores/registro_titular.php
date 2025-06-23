@@ -42,86 +42,88 @@
     
     //----------------------------------------------------------------------------------------------------------------------------------------
     try {
-    // 1) Recolectar y sanear datos del titular y tarjetón
-    $nombre     = trim($_POST['nombre']     ?? '');
-    $a_paterno  = trim($_POST['apaterno']   ?? '');
-    $a_materno  = isset($_POST['amaterno']) ? trim($_POST['amaterno']) : null;
-    $puesto     = trim($_POST['puesto']     ?? '');
-    $direccion  = trim($_POST['direccion']  ?? 'ejemplo');
-    $categoria  = trim($_POST['categoria']  ?? '');
-    $folio      = trim('Folio');
+        // 1) Recolectar y sanear datos del titular y tarjetón
+        $nombre     = trim($_POST['nombre']     ?? '');
+        $a_paterno  = trim($_POST['apaterno']   ?? '');
+        $a_materno  = isset($_POST['amaterno']) ? trim($_POST['amaterno']) : null;
+        $puesto     = trim($_POST['puesto']     ?? '');
+        $direccion  = trim($_POST['direccion']  ?? 'ejemplo');
+        $categoria  = trim($_POST['categoria']  ?? '');
+        $folio      =  isset($_POST['folio']) ? trim($_POST['folio']) : '';
 
-    // 2) Recolectar y sanear datos del domicilio (pueden estar vacíos)
-    $calle      = trim($_POST['calle']      ?? '');
-    $num_casa   = trim($_POST['num_casa']   ?? '');
-    $colonia    = trim($_POST['colonia']    ?? '');
-    $municipio  = trim($_POST['municipio']  ?? '');
+        // 2) Recolectar y sanear datos del domicilio (pueden estar vacíos)
+        $calle      = trim($_POST['calle']      ?? '');
+        $num_casa   = trim($_POST['num_casa']   ?? '');
+        $colonia    = trim($_POST['colonia']    ?? '');
+        $municipio  = trim($_POST['municipio']  ?? '');
 
-    // 3) Validar campos obligatorios de titular/tarjetón
-    $requiredTitular = ['nombre','apaterno','puesto','categoria'];
-    foreach ($requiredTitular as $campo) {
-        if (!isset($_POST[$campo]) || trim((string)$_POST[$campo]) === '') {
-            echo json_encode([
-                'success' => false,
-                'message' => "Falta el campo obligatorio: $campo"
-            ]);
-            exit;
-        }
-    }
-
-    // 4) Determinar si debemos procesar domicilio: si al menos uno de esos inputs no está vacío
-    $hasDomicilio = ($calle !== '' || $num_casa !== '' || $colonia !== '' || $municipio !== '');
-
-    // 5) Si el usuario empez ó a llenar cualquier campo de domicilio, validar que ninguno quede vacío
-    if ($hasDomicilio) {
-        $requiredDomicilio = ['calle','num_casa','colonia','municipio'];
-        foreach ($requiredDomicilio as $campoD) {
-            if (!isset($_POST[$campoD]) || trim((string)$_POST[$campoD]) === '') {
+        // 3) Validar campos obligatorios de titular/tarjetón
+        $requiredTitular = ['nombre','apaterno','puesto','categoria', 'calle', 'num_casa', 'colonia', 'municipio', 'folio',];
+        foreach ($requiredTitular as $campo) {
+            if (!isset($_POST[$campo]) || trim((string)$_POST[$campo]) === '') {
+                if($campo === 'folio'){
+                    throw new Exception("Falta el campo obligatorio: Número del Tarjetón");
+                }
                 echo json_encode([
                     'success' => false,
-                    'message' => "Falta el campo obligatorio de domicilio: $campoD"
+                    'message' => "Falta el campo obligatorio: $campo"
                 ]);
                 exit;
             }
         }
-    }
 
-    // 7) Insertar el titular
-    $titular_id = insertar_titular($nombre, $a_paterno, $a_materno, $categoria);
-    
-    if ($titular_id === 0) {
-        throw new Exception("No se pudo obtener el ID del titular.");
-    }
+        // 4) Determinar si debemos procesar domicilio: si al menos uno de esos inputs no está vacío
+        $hasDomicilio = ($calle !== '' || $num_casa !== '' || $colonia !== '' || $municipio !== '');
 
-    // 8) Insertar en tarjetón
-    $tarjeton_id = insertar_tarjeton($folio, $puesto, $direccion, $titular_id);
-
-    if ($tarjeton_id === 0) {
-        throw new Exception("No se pudo obtener el ID del tarjetón.");
-    }
-
-    // 9) Si el usuario llenó datos de domicilio, insertar domiclio también
-    if ($hasDomicilio) {
-        // Insertar datos en la funcion
-        $direccion_id = insertar_domicilio($calle, $num_casa, $colonia, $municipio, $titular_id);
-        
-        if ($direccion_id === 0) {
-            throw new Exception("No se pudo obtener el ID del domicilio.");
+        // 5) Si el usuario empez ó a llenar cualquier campo de domicilio, validar que ninguno quede vacío
+        if ($hasDomicilio) {
+            $requiredDomicilio = ['calle','num_casa','colonia','municipio'];
+            foreach ($requiredDomicilio as $campoD) {
+                if (!isset($_POST[$campoD]) || trim((string)$_POST[$campoD]) === '') {
+                    echo json_encode([
+                        'success' => false,
+                        'message' => "Falta el campo obligatorio de domicilio: $campoD"
+                    ]);
+                    exit;
+                }
+            }
         }
-    }
 
-    // 10) Devolver JSON de éxito
-    echo json_encode([
-        'success' => true,
-        'message' => "Se Registro con Exito el Titular: $nombre $a_paterno $a_materno"
-    ]);
-    exit;
+        // 7) Insertar el titular
+        $titular_id = insertar_titular($nombre, $a_paterno, $a_materno, $categoria);
+        
+        if ($titular_id === 0) {
+            throw new Exception("No se pudo obtener el ID del titular.");
+        }
+ 
+        $tarjeton_id = insertar_tarjeton($folio, $puesto, $direccion, $titular_id);
+
+        if ($tarjeton_id === 0) {
+            throw new Exception("No se pudo obtener el ID del tarjetón.");
+        }
+
+        // 9) Si el usuario llenó datos de domicilio, insertar domiclio también
+        if ($hasDomicilio) {
+            // Insertar datos en la funcion
+            $direccion_id = insertar_domicilio($calle, $num_casa, $colonia, $municipio, $titular_id);
+            
+            if ($direccion_id === 0) {
+                throw new Exception("No se pudo obtener el ID del domicilio.");
+            }
+        }
+
+        // 10) Devolver JSON de éxito
+        echo json_encode([
+            'success' => true,
+            'message' => "Se Registro con Exito el Titular: $nombre $a_paterno $a_materno"
+        ]);
+        exit;
 
     } catch (Exception $e) {
         // Si hay error, revertir transacción y devolver JSON de error
         echo json_encode([
             'success' => false,
-            'message' => 'Ocurrio un error con el registro!!!'
+            'message' => $e->getMessage()
         ]);
         exit;
     }

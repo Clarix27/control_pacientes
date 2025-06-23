@@ -1,0 +1,11 @@
+/* Quita subrayado y hereda el color del contenedor */
+.expedientes-container a{
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Opcional: al pasar el ratón puedes aplicar otro estilo */
+.expedientes-container a.expediente-item:hover {
+  /* por ejemplo, un ligero cambio de fondo */
+  background: rgba(0, 0, 0, 0.05);
+}

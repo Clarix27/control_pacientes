@@ -1,5 +1,6 @@
 <?php
   require_once 'controladores/info_titular.php';
+  $pk_titular = true;
   $datos_titular = info_titilar();
 ?>
 <!DOCTYPE html>
@@ -11,6 +12,46 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/menu.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .back-button {
+      color: #333;
+      font-size: 30px; 
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.3s ease;
+    }
+
+    .back-button:hover {
+      color: #000;
+    }
+
+    .back-text {
+      font-size: 18px;  
+      font-weight: normal;
+    }
+    .toast-exito {
+  position: fixed;
+  top: 20px;
+  left: 45%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  font-weight: bold;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+  </style>
 </head>
 <style>
   * {
@@ -294,7 +335,6 @@
   color: #666;
   margin-right: 5px;
 }
-
 .back-button {
   color: #333;
   font-size: 18px;
@@ -313,91 +353,121 @@
   font-size: 18px;  
   font-weight: normal;
 }
+
 </style>
 <body>
+<?php if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'actualizado'): ?>
+  <div id="toast-exito" class="toast-exito">Titular actualizado con éxito</div>
+  <script>
+    setTimeout(() => {
+      const toast = document.getElementById('toast-exito');
+      if (toast) toast.style.display = 'none';
+    }, 4000);
+  </script>
+<?php endif; ?>
+
 <?php include 'menu.php'?>
 
-  <div style="margin: 15px 0 0 20px;">
+<div style="margin: 15px 0 0 20px;">
   <a href="Inicio.html" class="back-button" title="Regresar">
     <i class="fas fa-arrow-left"></i>
     <span class="back-text">Regresar</span>
   </a>
 </div>
 
- 
-  <div  class="titulo-container-subtle">
-   <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA DE PACIENTES AFILIADOS AL DIF</h2>
-  </div>
 
-  <div class="content">
-    <div class="filter">
-  <div class="filter-left">
-    <label for="categoria">Filtro de búsqueda - Categoría:</label>
-    <select id="categoria">
-      <option value="" disabled selected>Categoría</option>
-      <option value="confianza">Confianza</option>
-      <option value="sindicalizado">Sindicalizado</option>
-      <option value="seguridad">Seguridad Pública</option>
-    </select>
-  </div>
-
-  <div class="filter-right">
-    <div class="search-box">
-      <i class="fas fa-search"></i>
-      <input type="text" placeholder="Buscar paciente...">
-    </div>
-  </div>
+<div class="titulo-container-subtle">
+  <h2 style="text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA DE PACIENTES AFILIADOS AL DIF</h2>
 </div>
 
+<div class="content">
+  <div class="filter">
+    <div class="filter-left">
+      <label for="categoria">Filtro de búsqueda - Categoría:</label>
+      <select id="categoria">
+        <option value="" selected>Ver todos</option>
+        <option value="confianza">Confianza</option>
+        <option value="sindicalizado">Sindicalizado</option>
+        <option value="seguridad pública">Seguridad Pública</option>
+      </select>
+    </div>
 
-    <!-- Tabla para mostrar la información del titular. -->
-    <table>
-      <thead>
-        <tr>
-          <th>Nombre Titular</th>
-          <th>Domicilio</th>
-          <th>Puesto</th>
-          <th>Dirección</th>
-          <th>Dependencia</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php if (empty($datos_titular)): ?>
-          <tr>
-            <td colspan="6">No se encontraron titulares.</td>
-          </tr>
-        <?php else: ?>
-          <?php foreach ($datos_titular as $fila): ?>
-            <tr>
-              <td><?= htmlspecialchars($fila['nombre'].' '.$fila['a_paterno'].' '.$fila['a_materno'], ENT_QUOTES, 'UTF-8') ?></td>
-              <td><?= htmlspecialchars($fila['calle'], ENT_QUOTES, 'UTF-8') ?></td>
-              <td><strong><?= htmlspecialchars($fila['puesto'], ENT_QUOTES, 'UTF-8') ?></strong></td>
-              <td><?= htmlspecialchars($fila['direccion'], ENT_QUOTES, 'UTF-8') ?></td>
-              <td><span class="badge"><?= htmlspecialchars($fila['categoria'], ENT_QUOTES, 'UTF-8') ?></span></td>
-                
-                <!-- ACCIONES -->
-                <td>
-                  <div class="acciones-container">
-                    <a href="editar_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-editar" title="Editar">
-                      <i class="fas fa-edit"></i>
-                    </a>
-                    <a href="eliminar_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-eliminar" title="Eliminar" onclick="return confirm('¿Seguro?')">
-                      <i class="fas fa-trash"></i>
-                    </a>
-                    <a href="Historial_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-historial" title="Historial">
-                      <i class="fas fa-file-medical"></i>
-                    </a>
-                  </div>
-                </td>
-            </tr>
-          <?php endforeach; ?>
-        <?php endif; ?>
-      </tbody>
-    </table>
+    <div class="filter-right">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="buscador" placeholder="Buscar paciente...">
+      </div>
+    </div>
   </div>
+
+  <!-- Tabla -->
+  <table id="tablaTitulares">
+    <thead>
+      <tr>
+        <th>Nombre Titular</th>
+        <th>Domicilio</th>
+        <th>Puesto</th>
+        <th>Dirección</th>
+        <th>Dependencia</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php if (empty($datos_titular)): ?>
+        <tr>
+          <td colspan="6">No se encontraron titulares.</td>
+        </tr>
+      <?php else: ?>
+        <?php foreach ($datos_titular as $fila): ?>
+          <tr>
+            <td><?= htmlspecialchars($fila['nombre'].' '.$fila['a_paterno'].' '.$fila['a_materno'], ENT_QUOTES, 'UTF-8') ?></td>
+            <td><?= htmlspecialchars($fila['calle'], ENT_QUOTES, 'UTF-8') ?></td>
+            <td><strong><?= htmlspecialchars($fila['puesto'], ENT_QUOTES, 'UTF-8') ?></strong></td>
+            <td><?= htmlspecialchars($fila['direccion'], ENT_QUOTES, 'UTF-8') ?></td>
+            <td><span class="badge"><?= htmlspecialchars($fila['categoria'], ENT_QUOTES, 'UTF-8') ?></span></td>
+            <td>
+              <div class="acciones-container">
+                <a href="editar_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-editar" title="Editar">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <a href="Historial_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-historial" title="Historial">
+                  <i class="fas fa-file-medical"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      <?php endif; ?>
+    </tbody>
+  </table>
+</div>
+
+<!-- Script de filtro y búsqueda -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const buscador = document.getElementById("buscador");
+    const filtroCategoria = document.getElementById("categoria");
+    const filas = document.querySelectorAll("#tablaTitulares tbody tr");
+
+    function filtrar() {
+      const texto = buscador.value.toLowerCase();
+      const categoria = filtroCategoria.value.toLowerCase();
+
+      filas.forEach(fila => {
+        const nombre = fila.cells[0].textContent.toLowerCase();
+        const cat = fila.cells[4].textContent.toLowerCase();
+
+        const coincideNombre = nombre.includes(texto);
+        const coincideCategoria = !categoria || cat.includes(categoria);
+
+        fila.style.display = (coincideNombre && coincideCategoria) ? "" : "none";
+      });
+    }
+
+    buscador.addEventListener("input", filtrar);
+    filtroCategoria.addEventListener("change", filtrar);
+  });
+</script>
 
 </body>
 </html>
-
-

@@ -115,6 +115,21 @@
     color: #333;
   }
 
+  .titulo-containerr-subtlee {
+    background:rgba(156, 216, 217, 0.54);
+   
+    padding: 2px 5px;
+    margin: 20px 0 10px 0;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  }
+
+  .titulo-containerr-subtlee h2 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 600;
+    text-align: center;
+    color: #2c3e50;
+  }
   .titulo-container-subtle {
     background: #9CD8D9;
     border-left: 8px solid #CC1A1A;
@@ -132,7 +147,7 @@
   }
 
   .titulo-registro {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 600;
     color: #2c3e50;
     text-align: left;
@@ -298,8 +313,11 @@
     </div>
   </div>
 </div>
+<div class="titulo-containerr-subtlee">
+    <h2 style="text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA DE PACIENTES</h2>
+  </div>
 
-  <h2>Tabla de pacientes</h2>
+
   <table class="tabla-pacientes">
     <thead>
       <tr>
@@ -325,6 +343,7 @@
   
   <div id="modalFormulario">
   <div class="modal-contenido">
+
     <!-- Botón de cerrar con ícono de X -->
     <button class="cerrar" onclick="cerrarModal()" title="Cerrar">
       <i class="fas fa-times"></i>
