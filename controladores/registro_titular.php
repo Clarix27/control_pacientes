@@ -45,7 +45,7 @@
         // 1) Recolectar y sanear datos del titular y tarjetón
         $nombre     = trim($_POST['nombre']     ?? '');
         $a_paterno  = trim($_POST['apaterno']   ?? '');
-        $a_materno  = isset($_POST['amaterno']) ? trim($_POST['amaterno']) : null;
+        $a_materno  = isset($_POST['amaterno']) ? trim($_POST['amaterno']) : '';
         $puesto     = trim($_POST['puesto']     ?? '');
         $direccion  = trim($_POST['direccion']  ?? 'ejemplo');
         $categoria  = trim($_POST['categoria']  ?? '');
