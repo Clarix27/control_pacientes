@@ -50,6 +50,7 @@ try {
     if (!$id || $nombre === '' || $a_paterno === '' || $puesto === '' || $categoria === '') {
         throw new Exception("Faltan campos obligatorios.");
     }
+    
 
     $pdo->beginTransaction();
 
