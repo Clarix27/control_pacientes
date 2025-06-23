@@ -96,7 +96,7 @@
   
   font-size: 28px;
   font-weight: bold;
-  border: 1px solid #666;
+
 }
 
 .tabla-expediente td {
@@ -142,7 +142,7 @@
  font-size: 21px;
  font-weight: 600;
  text-align: center;
- color: #2c3e50;
+ 
 }
 
 .titulo-registro {

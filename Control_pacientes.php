@@ -306,7 +306,8 @@
   <div class="registro-fila">
     <div class="search-box">
       <i class="fas fa-search"></i>
-      <input type="text" placeholder="Buscar paciente...">
+      <input type="text" id="buscador" placeholder="Buscar paciente...">
+
     </div>
     <div style="margin-left: auto;">
       <button class="boton-registrar" onclick="mostrarModal()">REGISTRAR</button>
@@ -318,7 +319,8 @@
   </div>
 
 
-  <table class="tabla-pacientes">
+  <table class="tabla-pacientes" id="tablaPacientes">
+
     <thead>
       <tr>
         <th>Nombre Titular:</th>
@@ -386,5 +388,32 @@
       document.getElementById('modalFormulario').style.display = 'none';
     }
   </script>
+  <script>
+  // Mostrar y cerrar modal
+  function mostrarModal() {
+    document.getElementById('modalFormulario').style.display = 'flex';
+  }
+
+  function cerrarModal() {
+    document.getElementById('modalFormulario').style.display = 'none';
+  }
+
+  // Buscador dinámico
+  document.getElementById('buscador').addEventListener('keyup', function () {
+    const filtro = this.value.toLowerCase();
+    const filas = document.querySelectorAll('#tablaPacientes tbody tr');
+
+    filas.forEach(fila => {
+      const nombreTitular = fila.cells[0].textContent.toLowerCase();
+      const nombrePaciente = fila.cells[1].textContent.toLowerCase();
+      const tarjeton = fila.cells[2].textContent.toLowerCase();
+
+      const coincide = nombreTitular.includes(filtro) || nombrePaciente.includes(filtro) || tarjeton.includes(filtro);
+
+      fila.style.display = coincide ? '' : 'none';
+    });
+  });
+</script>
+
 </body>
 </html>
