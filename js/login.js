@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isSuccess) {
       setTimeout(() => {
         // opcional: box.remove();
-        window.location.href = 'inicio.html'; // <- Ajusta aquí tu página de destino
+        window.location.href = 'Inicio.php'; // <- Ajusta aquí tu página de destino
       }, 1000);
     }
   }

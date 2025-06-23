@@ -1,19 +1,26 @@
 <?php
-require_once 'controladores/conexion.php';
-require_once 'controladores/info_titular.php';
+  session_start();
+  // Verificar si el usuario ha iniciado sesión
+  if (!isset($_SESSION['pk_usuario'])) {
+    // Redirigir a la página de login si no está autenticado
+    echo("<script>window.location.assign('Login.html');</script>");
+    exit();
+  }
+  require_once 'controladores/conexion.php';
+  require_once 'controladores/info_titular.php';
 
-if (!isset($_GET['id'])) {
-    echo "ID no proporcionado";
-    exit;
-}
+  if (!isset($_GET['id'])) {
+      echo "ID no proporcionado";
+      exit;
+  }
 
-$id = intval($_GET['id']);
-$titular = titular_id($id);
+  $id = intval($_GET['id']);
+  $titular = titular_id($id);
 
-if (!$titular) {
-    echo "Titular no encontrado.";
-    exit;
-}
+  if (!$titular) {
+      echo "Titular no encontrado.";
+      exit;
+  }
 ?>
 
 <!DOCTYPE html>

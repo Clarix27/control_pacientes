@@ -1,3 +1,13 @@
+<?php
+  session_start();
+  // Verificar si el usuario ha iniciado sesión
+  if (!isset($_SESSION['pk_usuario'])) {
+    // Redirigir a la página de login si no está autenticado
+    echo("<script>window.location.assign('Login.html');</script>");
+    exit();
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -156,142 +166,142 @@
   }
 
   #modalFormulario {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-  overflow: auto;
-  padding: 20px;
-}
-
-  #modalFormulario .modal-contenido {
-  background-color: #fff5f5;
-  padding: 30px;
-  border-radius: 14px;
-  width: 100%;
-  max-width: 750px;
-  max-height: 90vh;
-  overflow-y: auto;
-  border: 3px solid #a90000;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-  font-family: 'Poppins', sans-serif;
-  color: #333;
-  position: relative;
-}
-
-  #modalFormulario .modal-contenido form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    padding: 20px;
   }
 
-  #modalFormulario input {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 14px;
+    #modalFormulario .modal-contenido {
+    background-color: #fff5f5;
+    padding: 30px;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 750px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 3px solid #a90000;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    position: relative;
   }
 
-  #modalFormulario label {
-    font-weight: 600;
-    margin-top: 10px;
-    font-size: 14px;
-  }
+    #modalFormulario .modal-contenido form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-  #modalFormulario .cerrar {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: transparent;
-    border: none;
-    font-size: 22px;
-    color: #a90000;
-    cursor: pointer;
-  }
+    #modalFormulario input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
 
-  #modalFormulario .cerrar:hover {
-    color: #7a0000;
-  }
+    #modalFormulario label {
+      font-weight: 600;
+      margin-top: 10px;
+      font-size: 14px;
+    }
 
-  #modalFormulario .enviar-modal {
-    background-color: #28a745;
-    color: white;
+    #modalFormulario .cerrar {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      font-size: 22px;
+      color: #a90000;
+      cursor: pointer;
+    }
+
+    #modalFormulario .cerrar:hover {
+      color: #7a0000;
+    }
+
+    #modalFormulario .enviar-modal {
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      width: 50%;
+      justify-self: center;
+      align-self: center;
+    }
+
+    #modalFormulario .enviar-modal:hover {
+      background-color: #218838;
+    }
+
+    .back-button {
+    color: #333;
+    font-size: 18px;
     font-weight: bold;
+    text-decoration: none;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    transition: color 0.3s ease;
+  }
+
+  .back-button:hover {
+    color: #cc1a1a;
+    text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
+  }
+
+  .back-text {
+    font-size: 18px;  
+    font-weight: normal;
+  }
+
+  .filter-right {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 30px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+  }
+
+  .search-box input {
     border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 16px;
-    margin-top: 15px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    width: 50%;
-    justify-self: center;
-    align-self: center;
+    outline: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 30px;
+    width: 200px;
   }
 
-  #modalFormulario .enviar-modal:hover {
-    background-color: #218838;
+  .search-box i {
+    color: #666;
+    margin-right: 5px;
   }
-
-   .back-button {
-  color: #333;
-  font-size: 18px;
-  font-weight: bold;
-  text-decoration: none;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-  transition: color 0.3s ease;
-}
-
-.back-button:hover {
-  color: #cc1a1a;
-  text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
-}
-
-.back-text {
-  font-size: 18px;  
-  font-weight: normal;
-}
-
-.filter-right {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.search-box {
-  display: flex;
-  align-items: center;
-  background: white;
-  border-radius: 30px;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-}
-
-.search-box input {
-  border: none;
-  outline: none;
-  padding: 5px 10px;
-  font-size: 14px;
-  border-radius: 30px;
-  width: 200px;
-}
-
-.search-box i {
-  color: #666;
-  margin-right: 5px;
-}
 </style>
 <body>
   <?php include 'menu.php'?>
 
   <div style="margin: 15px 0 0 20px;">
-  <a href="Inicio.html" class="back-button" title="Regresar">
+  <a href="Inicio.php" class="back-button" title="Regresar">
     <i class="fas fa-arrow-left"></i>
     <span class="back-text">Regresar</span>
   </a>

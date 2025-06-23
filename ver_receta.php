@@ -1,3 +1,13 @@
+<?php
+  session_start();
+  // Verificar si el usuario ha iniciado sesión
+  if (!isset($_SESSION['pk_usuario'])) {
+    // Redirigir a la página de login si no está autenticado
+    echo("<script>window.location.assign('Login.html');</script>");
+    exit();
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,20 +30,20 @@
     }
 
     .titulo-container-subtle {
-    background: #9CD8D9;
-    border-left: 8px solid #CC1A1A;
-    padding: 2px 5px;
-    margin: 20px 0 10px 0;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-  }
+      background: #9CD8D9;
+      border-left: 8px solid #CC1A1A;
+      padding: 2px 5px;
+      margin: 20px 0 10px 0;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    }
 
     .titulo-container-subtle h2 {
-    margin: 0;
-    font-size: 21px;
-    font-weight: 600;
-    text-align: center;
-    color: #2c3e50;
-  }
+      margin: 0;
+      font-size: 21px;
+      font-weight: 600;
+      text-align: center;
+      color: #2c3e50;
+    }
 
     .receta-lista {
       display: flex;
@@ -90,24 +100,24 @@
       background-color: #a30000;
     }
 
-       .back-button {
-  color: #333;
-  font-size: 18px;
-  font-weight: bold;
-  text-decoration: none;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-  transition: color 0.3s ease;
-}
+    .back-button {
+      color: #333;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+      transition: color 0.3s ease;
+    }
 
-.back-button:hover {
-  color: #cc1a1a;
-  text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
-}
+    .back-button:hover {
+      color: #cc1a1a;
+      text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
+    }
 
-.back-text {
-  font-size: 18px;  
-  font-weight: normal;
-}
+    .back-text {
+      font-size: 18px;  
+      font-weight: normal;
+    }
   </style>
 </head>
 <body>
