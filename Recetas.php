@@ -1,4 +1,12 @@
 <?php
+  session_start();
+  // Verificar si el usuario ha iniciado sesión
+  if (!isset($_SESSION['pk_usuario'])) {
+    // Redirigir a la página de login si no está autenticado
+    echo("<script>window.location.assign('Login.html');</script>");
+    exit();
+  }
+  
   require_once 'controladores/info_titular.php';
   $id_titular = $_GET['id_t'];
   $id_beneficiario = $_GET['id_b'];
@@ -121,63 +129,59 @@
     color: #333;
     }
 
-.titulo-container-subtle {
-  width: 100%;
-  margin: 20px 0 10px 0;
-  padding: 2px 5px;
-  background: #9CD8D9;
-  border-left: 8px solid #CC1A1A;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-  border-radius: 0; /* ← Esquinas rectas */
-}
+    .titulo-container-subtle {
+      width: 100%;
+      margin: 20px 0 10px 0;
+      padding: 2px 5px;
+      background: #9CD8D9;
+      border-left: 8px solid #CC1A1A;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      border-radius: 0; /* ← Esquinas rectas */
+    }
 
+    .titulo-container-subtle h2 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 600;
+    text-align: center;
+    color: #2c3e50;
+    }
 
+    .btn-submit {
+      background-color: #2980b9; /* azul fuerte */
+      color: white;
+      font-size: 16px;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
-.titulo-container-subtle h2 {
- margin: 0;
- font-size: 21px;
- font-weight: 600;
- text-align: center;
- color: #2c3e50;
-}
+    .btn-submit:hover {
+      background-color: #9CD8D9; /* azul más claro */
+      transform: scale(1.05);
+    }
+    .back-button {
+      color: #333;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+      transition: color 0.3s ease;
+    }
 
-.btn-submit {
-  background-color: #2980b9; /* azul fuerte */
-  color: white;
-  font-size: 16px;
-  padding: 12px 30px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
+    .back-button:hover {
+      color: #cc1a1a;
+      text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
+    }
 
-.btn-submit:hover {
-  background-color: #9CD8D9; /* azul más claro */
-  transform: scale(1.05);
-}
-.back-button {
-  color: #333;
-  font-size: 18px;
-  font-weight: bold;
-  text-decoration: none;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-  transition: color 0.3s ease;
-}
-
-.back-button:hover {
-  color: #cc1a1a;
-  text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
-}
-
-.back-text {
-  font-size: 18px;  
-  font-weight: normal;
-}
-
-
+    .back-text {
+      font-size: 18px;  
+      font-weight: normal;
+    }
   </style>
 </head>
 <body>

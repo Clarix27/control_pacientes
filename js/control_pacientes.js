@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       // Para hacer pruebas con los errores:
-      // const text = await res.text();
-      // console.log('RESPUESTA CRUDA:', text);
-      // const json = JSON.parse(text);
+      const text = await res.text();
+      console.log('RESPUESTA CRUDA:', text);
+      const json = JSON.parse(text);
 
-      const json = await res.json();
+      //const json = await res.json();
       showAlert(json.message, json.success);
 
       // Si fue exitoso, limpia el formulario

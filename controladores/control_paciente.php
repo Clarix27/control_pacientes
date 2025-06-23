@@ -45,23 +45,30 @@
 
         // Resiviendo datos.
         $nombre_t2 = isset($_POST['nombre_t']) ? trim($_POST['nombre_t']) : '';
-        $nombre_t = str_replace($toRemove, '', $nombre_t2);
+        $nombre_t3 = str_replace($toRemove, '', $nombre_t2);
+        $nombre_t = mb_strtoupper($nombre_t3, 'UTF-8');  
         //Quitanos caracteres.
         $paterno_t2 = isset($_POST['paterno_t']) ? trim($_POST['paterno_t']) : '';
-        $paterno_t = str_replace($toRemove, '', $paterno_t2);
+        $paterno_t3 = str_replace($toRemove, '', $paterno_t2);
+        $paterno_t = mb_strtoupper($paterno_t3, 'UTF-8');  
         //Quitanos caracteres.
         $materno_t2 = isset($_POST['materno_t']) ? trim($_POST['materno_t']) : '';
-        $materno_t = str_replace($toRemove, '', $materno_t2);
+        $materno_t3 = str_replace($toRemove, '', $materno_t2);
+        $materno_t = mb_strtoupper($materno_t3, 'UTF-8');  
         //Quitanos caracteres.
         $nombre_p2 = isset($_POST['nombre_p']) ? trim($_POST['nombre_p']) : '';
-        $nombre_p = str_replace($toRemove, '', $nombre_p2);
+        $nombre_p3 = str_replace($toRemove, '', $nombre_p2);
+        $nombre_p = mb_strtoupper($nombre_p3, 'UTF-8');  
         //Quitanos caracteres.
         $paterno_p2 = isset($_POST['paterno_p']) ? trim($_POST['paterno_p']) : '';
-        $paterno_p = str_replace($toRemove, '', $paterno_p2);
+        $paterno_p3 = str_replace($toRemove, '', $paterno_p2);
+        $paterno_p = mb_strtoupper($paterno_p3, 'UTF-8');  
         //Quitanos caracteres.
         $materno_p2 = isset($_POST['materno_p']) ? trim($_POST['materno_p']) : ''; 
-        $materno_p = str_replace($toRemove, '', $materno_p2);
+        $materno_p3 = str_replace($toRemove, '', $materno_p2);
+        $materno_p = mb_strtoupper($materno_p3, 'UTF-8');  
 
+        $tarjeton = isset($_POST['tarjeton']) ? trim($_POST['tarjeton']) : '';
         $parentesco = isset($_POST['parentesco']) ? trim($_POST['parentesco']) : ''; 
         $categoria = 'Normal';
         $var_area = isset($_POST['area']) ? trim($_POST['area']) : '';
@@ -73,6 +80,9 @@
         $turno = 'Sin turno';
         $fk_empleado = 1;
         $fk_receta = null;
+        $pk_titular = 0;
+        $paciente_id = 0;
+        $consulta_id = 0;
 
         // Se crea la funcion para insertar el titular
         function insertar_titular($nombre_t, $paterno_t, $materno_t, $dependencia, $categoria): int {
@@ -116,20 +126,55 @@
             return $pdo->lastInsertId();
         }
 
-        // Se empieza a registrar y validar registros.
-        $titular_id = insertar_titular($nombre_t, $paterno_t, $materno_t, $dependencia, $categoria);
-        if (empty($titular_id)) {
-            throw new Exception("Ocurrio un problema al registrar el titular.");
+        // Traer tarjeton
+        function traer_t($tarjeton, $nombre_t, $paterno_t) {
+            $pdo = Conexion::getPDO();
+            $stmt = $pdo->prepare("SELECT t.pk_titular, t.a_materno FROM titular t INNER JOIN tarjeton tar WHERE tar.folio = :folio && t.nombre = :nombre && t.a_paterno = :paterno");
+            $stmt->bindParam(':folio', $tarjeton, PDO::PARAM_STR);
+            $stmt->bindParam(':nombre', $nombre_t, PDO::PARAM_STR);
+            $stmt->bindParam(':paterno', $paterno_t, PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
-        $paciente_id = insertar_paciente($nombre_p, $paterno_p, $materno_p, $parentesco, $titular_id);
-        if (empty($paciente_id)) {
-            throw new Exception("Ocurrio un problema al registrar el paciente.");
-        }
+        if(!empty($tarjeton)){
+            // Se obtiene el numero de tarjeton del titular
+            $dato = traer_t($tarjeton, $nombre_t, $paterno_t);
+            // Verificar que devolvió algo (array y no false)
+            if (!is_array($dato)) {
+                throw new Exception("El número del tarjetón no concuerda o el nombre del titular está mal escrito.");
+            }
+            $pk_titular = isset($dato['pk_titular']) ? intval($dato['pk_titular']) : null;
+            $ma = $dato['a_materno'];
+            if ($materno_t !== $ma) {
+                throw new Exception("El apellido materno no concuerda con ese titular.");
+            }
 
-        $consulta_id = registrar_consulta($fecha, $apoyo, $turno, $area, $titular_id, $paciente_id, $fk_receta, $fk_empleado);
-        if (empty($consulta_id)) {
-            throw new Exception("Ocurrio un problema al registrar la consulta.");
+            $paciente_id = insertar_paciente($nombre_p, $paterno_p, $materno_p, $parentesco, $pk_titular);
+            if (empty($paciente_id)) {
+                throw new Exception("Ocurrio un problema al registrar el paciente.");
+            }
+
+            $consulta_id = registrar_consulta($fecha, $apoyo, $turno, $area, $pk_titular, $paciente_id, $fk_receta, $fk_empleado);
+            if (empty($consulta_id)) {
+                throw new Exception("Ocurrio un problema al registrar la consulta.");
+            }
+        }else{
+            // Se empieza a registrar y validar registros.
+            $titular_id = insertar_titular($nombre_t, $paterno_t, $materno_t, $dependencia, $categoria);
+            if (empty($titular_id)) {
+                throw new Exception("Ocurrio un problema al registrar el titular.");
+            }
+
+            $paciente_id = insertar_paciente($nombre_p, $paterno_p, $materno_p, $parentesco, $titular_id);
+            if (empty($paciente_id)) {
+                throw new Exception("Ocurrio un problema al registrar el paciente.");
+            }
+
+            $consulta_id = registrar_consulta($fecha, $apoyo, $turno, $area, $titular_id, $paciente_id, $fk_receta, $fk_empleado);
+            if (empty($consulta_id)) {
+                throw new Exception("Ocurrio un problema al registrar la consulta.");
+            }
         }
 
         // Devolver JSON de éxito

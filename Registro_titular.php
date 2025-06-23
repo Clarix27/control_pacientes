@@ -1,3 +1,13 @@
+<?php
+  session_start();
+  // Verificar si el usuario ha iniciado sesión
+  if (!isset($_SESSION['pk_usuario'])) {
+    // Redirigir a la página de login si no está autenticado
+    echo("<script>window.location.assign('Login.html');</script>");
+    exit();
+  }
+?>
+
 <!DOCTYPE html> 
 <html lang="es">
 <head>
@@ -8,9 +18,6 @@
   <link rel="stylesheet" href="css/alerta_titular.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/menu.css">
-  <style>
-    
-  </style>
 </head>
 
 <body>

@@ -1,4 +1,12 @@
 <?php
+  session_start();
+  // Verificar si el usuario ha iniciado sesión
+  if (!isset($_SESSION['pk_usuario'])) {
+    // Redirigir a la página de login si no está autenticado
+    echo("<script>window.location.assign('Login.html');</script>");
+    exit();
+  }
+  // Continua si esta bien
   require_once 'controladores/conexion.php';
   $pdo = Conexion::getPDO();
   $consulta = $pdo->query("SELECT YEAR(fecha) AS anio, MONTH(fecha) AS mes FROM consulta GROUP BY anio, mes ORDER BY anio DESC, mes DESC");
@@ -77,52 +85,51 @@
 
   .titulo-pagina {
   
+    font-size: 28px;
+  }
+
+  .icon-right {
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .icon-right:hover {
+    transform: scale(1.1);
+  }
+
+  .titulo-pagina {
+  
   font-size: 28px;
-}
+  font-weight: bold;
+  color: #333;
+  }
 
-.icon-right {
-  font-size: 24px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
+  .titulo-container-subtle {
+  background: #9CD8D9;
+  border-left: 8px solid #CC1A1A;
+  padding: 2px 5px;
+  margin: 20px 0 10px 0;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 
-.icon-right:hover {
-  transform: scale(1.1);
-}
+  }
 
-.titulo-pagina {
- 
- font-size: 28px;
- font-weight: bold;
- color: #333;
-}
-
-.titulo-container-subtle {
- background: #9CD8D9;
- border-left: 8px solid #CC1A1A;
- padding: 2px 5px;
- margin: 20px 0 10px 0;
- box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-
-}
-
-.titulo-container-subtle h2 {
- margin: 0;
- font-size: 21px;
- font-weight: 600;
- text-align: center;
- color: #2c3e50;
-}
-
-.titulo-registro {
-  font-size: 20px;
-  font-weight: 600;
-  color: #2c3e50;
-  text-align: left;
+  .titulo-container-subtle h2 {
   margin: 0;
-  padding: 0 0 10px 0;
-}
+  font-size: 21px;
+  font-weight: 600;
+  text-align: center;
+  color: #2c3e50;
+  }
 
+  .titulo-registro {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: left;
+    margin: 0;
+    padding: 0 0 10px 0;
+  }
 </style>
 <body>
   <?php include 'menu.php'?>
