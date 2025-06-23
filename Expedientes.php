@@ -152,7 +152,8 @@
               <i class="fas fa-archive icon-left"></i>
               <span>Expediente <?= $i ?> – <?= $nombreMes ?> <?= $anio ?></span>
             </div>
-            <i class="fas fa-cloud-download-alt icon-right"></i>
+            <i class="fas fa-eye icon-right"></i>
+
           </div>
         </a>
         <?php $i++; ?>

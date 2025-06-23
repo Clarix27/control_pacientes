@@ -87,22 +87,54 @@ $pk_titular = $row ? $row['fk_titular'] : null;
       <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($pk_titular) ?>">
 
       <div class="form-row">
-        <div class="form-group">
-          <input type="text" name="nombre" placeholder="Nombre" value="<?= htmlspecialchars($beneficiario['nombre']) ?>">
-        </div>
-        <div class="form-group">
-          <input type="text" name="apaterno" placeholder="Apellido Paterno" value="<?= htmlspecialchars($beneficiario['a_paterno']) ?>">
-        </div>
-      </div>
+  <div class="form-group">
+    <input
+      type="text"
+      name="nombre"
+      placeholder="Nombre"
+      value="<?= htmlspecialchars($beneficiario['nombre']) ?>"
+      pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{4,}"
+      title="Solo letras, mínimo 4 caracteres"
+      required
+    >
+  </div>
+  <div class="form-group">
+    <input
+      type="text"
+      name="apaterno"
+      placeholder="Apellido Paterno"
+      value="<?= htmlspecialchars($beneficiario['a_paterno']) ?>"
+      pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"
+      title="Solo letras"
+      required
+    >
+  </div>
+</div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <input type="text" name="amaterno" placeholder="Apellido Materno" value="<?= htmlspecialchars($beneficiario['a_materno']) ?>">
-        </div>
-        <div class="form-group">
-          <input type="number" min="0" max="200" name="edad" placeholder="Edad" value="<?= htmlspecialchars($beneficiario['edad']) ?>">
-        </div>
-      </div>
+<div class="form-row">
+  <div class="form-group">
+    <input
+      type="text"
+      name="amaterno"
+      placeholder="Apellido Materno"
+      value="<?= htmlspecialchars($beneficiario['a_materno']) ?>"
+      pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"
+      title="Solo letras"
+      required
+    >
+  </div>
+  <div class="form-group">
+    <input
+      type="number"
+      name="edad"
+      placeholder="Edad"
+      value="<?= htmlspecialchars($beneficiario['edad']) ?>"
+      min="0"
+      max="130"
+      required
+    >
+  </div>
+</div>
 
       <div class="form-row">
         <div class="form-group">
