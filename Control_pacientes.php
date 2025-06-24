@@ -325,7 +325,7 @@
         <input id="buscador" type="text" placeholder="Buscar paciente...">
       </div>
       <div style="margin-left: auto;">
-        <button class="boton-registrar" onclick="mostrarModal()">REGISTRAR</button>
+        <button class="boton-registrar" onclick="mostrarModal()">REGISTRAR CITA</button>
       </div>
     </div>
   </div>

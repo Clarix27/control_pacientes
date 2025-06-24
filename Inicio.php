@@ -1,13 +1,3 @@
-<?php
-  session_start();
-  // Verificar si el usuario ha iniciado sesión
-  if (!isset($_SESSION['pk_usuario'])) {
-    // Redirigir a la página de login si no está autenticado
-    echo("<script>window.location.assign('Login.html');</script>");
-    exit();
-  }
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -104,11 +94,11 @@
           <i class="fas fa-users"></i>
           <p>Lista De Pacientes DIF</p>
         </div>
-        <div class="menu-item">
+        <div class="menu-item" onclick="location.href='Expedientes.php'" style="cursor: pointer;">
           <i class="fas fa-folder-open"></i>
           <p>Expedientes</p>
         </div>
-        <div class="menu-item">
+        <div class="menu-item" onclick="location.href='Control_pacientes.php'" style="cursor: pointer;">
           <i class="fas fa-desktop"></i>
           <p>Control De Pacientes</p>
         </div>

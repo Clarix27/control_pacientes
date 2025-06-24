@@ -1,85 +1,87 @@
 * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      height: 100%;
-      font-family: Arial, sans-serif;
-      background: #fff;
-    }
-
-    .navbar {
-      background-color: #e93333; /* Color similar al de la imagen */
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 25px; 
-      font-family: 'Poppins', sans-serif;
-      font-weight: 800;
-      color: #ffffff;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-top: 5px;
-    }
-    
-    /* Logotipo DIF a la izquierda (fuera si lo deseas con posición absoluta) */
-    .navbar .logo {
-      display: flex;
-      align-items: center;
-      font-weight: bold;
-      font-size: 20px;
-      color: white;
-    }
-    /* Icono engranaje a la derecha */
-    .navbar .icono-config {
-      margin-left: 20px;
-      cursor: pointer;
-    }
-    .icono-config img {
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    
-    .icono-config img:hover {
-      transform: scale(1.1);
-    }
-
-    .page {
-      display: flex;
-      flex-direction: column;
-      height: 100%; 
-    }
-
-.center-content {
-  min-height: calc(100vh - 150px); /* altura de toda la pantalla menos navbar y logo */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 20px; 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: #fff;
+}
 
-    .menu {
+.navbar {
+  background-color: #e93333; /* Color similar al de la imagen */
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 15px 25px; 
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
+}
+
+/* Logotipo DIF a la izquierda (fuera si lo deseas con posición absoluta) */
+.navbar .logo {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+}
+/* Icono engranaje a la derecha */
+.navbar .icono-config {
+  margin-left: 20px;
+  cursor: pointer;
+}
+.icono-config img {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.icono-config img:hover {
+  transform: scale(1.1);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+}
+
+.center-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu {
+display: flex;
+flex-wrap: wrap;
+gap: 20px;
+justify-content: center;
+align-items: center;
+padding: 20px;
 }
 
 .menu-item {
-  background-color: #a2d9dd;
-  border-radius: 12px;
-  padding: 25px;
-  width: 180px;
-  height: 180px;
+  background: #9CD8D9;
+  padding: 40px 20px;
+  width: 200px;
+  height: 200px;
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .menu-item:hover {
@@ -87,39 +89,31 @@
 }
 
 .menu-item i {
-  font-size: 36px;
+  font-size: 60px;
+  margin-bottom: 20px;
   color: #000;
-  margin-bottom: 10px;
 }
 
-.menu-item p {
-  font-size: 16px;
-  color: #000;
-  font-weight: 500;
+@media (max-width: 1100px) {
+  .menu {
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+  }
 }
 
+@media (max-width: 800px) {
+  .menu {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
-    @media (max-width: 1100px) {
-      .menu {
-        grid-template-columns: repeat(3, 1fr);
-        justify-items: center;
-      }
-    }
+@media (max-width: 600px) {
+  .menu {
+    grid-template-columns: repeat(1, 1fr);
+  }
 
-    @media (max-width: 800px) {
-      .menu {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+  .menu-item {
+    width: 90%;
+  }
+}
 
-    @media (max-width: 600px) {
-      .menu {
-        grid-template-columns: repeat(1, 1fr);
-      }
-
-      .menu-item {
-        width: 90%;
-      }
-    }
-
-    
