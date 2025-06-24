@@ -3,57 +3,22 @@ require_once 'controladores/conexion.php';
 $pdo = Conexion::getPDO();
 
 $id_titular = isset($_GET['id_t']) ? intval($_GET['id_t']) : 0;
-$id_beneficiario = isset($_GET['id_b']) ? intval($_GET['id_b']) : 0;
-
 $recetas = [];
 
 if ($id_titular > 0) {
-  if ($id_beneficiario > 0) {
-    // Paso 1: Buscar datos del beneficiario
-    $stmt = $pdo->prepare("SELECT nombre, a_paterno, a_materno FROM beneficiarios WHERE pk_beneficiario = :id_b");
-    $stmt->execute(['id_b' => $id_beneficiario]);
-    $benef = $stmt->fetch();
-
-    if ($benef) {
-      // Paso 2: Buscar todos los pacientes que coincidan con el nombre/apellidos del beneficiario
-      $sql_p = "SELECT pk_paciente FROM paciente 
-                WHERE nombre = ? AND a_paterno = ? AND a_materno = ? AND fk_titular = ?";
-      $stmt_p = $pdo->prepare($sql_p);
-      $stmt_p->execute([
-        $benef['nombre'],
-        $benef['a_paterno'],
-        $benef['a_materno'],
-        $id_titular
-      ]);
-      $pacientes = $stmt_p->fetchAll(PDO::FETCH_COLUMN);
-
-      if ($pacientes) {
-        // Paso 3: Buscar todas las recetas para todos los pacientes encontrados
-        $placeholders = implode(',', array_fill(0, count($pacientes), '?'));
-        $sql_r = "SELECT r.texto_receta, c.fecha
-                  FROM consulta c
-                  INNER JOIN receta r ON c.fk_receta = r.pk_receta
-                  WHERE c.fk_paciente IN ($placeholders) AND c.fk_titular = ?
-                  ORDER BY c.fecha DESC";
-        $stmt_r = $pdo->prepare($sql_r);
-        $stmt_r->execute([...$pacientes, $id_titular]);
-        $recetas = $stmt_r->fetchAll();
-      }
-    }
-  } else {
-    // Mostrar todas las recetas del titular (si no se indicó beneficiario)
-    $stmt = $pdo->prepare("SELECT r.texto_receta, c.fecha
-      FROM receta r
-      INNER JOIN consulta c ON c.fk_receta = r.pk_receta
-      WHERE c.fk_titular = :id
-      ORDER BY c.fecha DESC");
-    $stmt->execute(['id' => $id_titular]);
-    $recetas = $stmt->fetchAll();
-  }
+  // Consulta directa: recetas de pacientes con parentesco 'Misma persona' y este titular
+  $stmt = $pdo->prepare("
+    SELECT r.texto_receta, c.fecha
+    FROM consulta c
+    INNER JOIN receta r ON c.fk_receta = r.pk_receta
+    INNER JOIN paciente p ON c.fk_paciente = p.pk_paciente
+    WHERE c.fk_titular = :titular AND p.parentesco = 'Misma persona'
+    ORDER BY c.fecha DESC
+  ");
+  $stmt->execute(['titular' => $id_titular]);
+  $recetas = $stmt->fetchAll();
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="es">

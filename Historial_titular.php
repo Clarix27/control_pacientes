@@ -378,10 +378,10 @@ a {
   <div class="content">
     <div class="card">
       <div style="float: right; margin-bottom: 10px;">
-  <a href="ver_receta.php?id=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Recetas">
+  <a href="ver_receta_titular.php?id_t=<?= urlencode($pk_titular) ?>" class="btn-accion btn-historial" title="Ver Recetas">
     <i class="fas fa-envelope-open-text"></i>
   </a>
-  <a href="agregar_receta.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">
+  <a href="Receta_titular.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">
     <i class="fas fa-file-medical"></i>
   </a>
 </div>
@@ -425,7 +425,7 @@ a {
   <a href="Editar_afiliado.php?id=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-accion btn-editar" title="Editar">
       <i class="fas fa-pen-to-square"></i>
     </a>
-    <a href="ver_receta.php" class="btn-accion btn-historial" title="Ver Recetas">
+    <a href="ver_receta.php?id_t=<?=urlencode($pk_titular)?>&id_b=<?=urlencode($fila['pk_beneficiario'])?>" class="btn-accion btn-historial" title="Ver Recetas">
       <i class="fas fa-envelope-open-text"></i>
     </a>
     <a href="Recetas.php?id_t=<?=urlencode($pk_titular)?>&id_b=<?=urlencode($fila['pk_beneficiario'])?>"class="btn-accion btn-agregar" title="Agregar Receta">
