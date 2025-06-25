@@ -17,6 +17,7 @@
   <title>Registro de Paciente - DIF Escuinapa</title>
   <link rel="stylesheet" href="css/estilo_reg_titular.css">
   <link rel="stylesheet" href="css/alerta_titular.css">
+  <link rel="stylesheet" href="css/estilo_receta.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/menu.css">
   <style>
