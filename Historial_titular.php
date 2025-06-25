@@ -375,13 +375,13 @@
   <div class="content">
     <div class="card">
       <div style="float: right; margin-bottom: 10px;">
-        <a href="ver_receta.php?id=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Recetas">
-          <i class="fas fa-envelope-open-text"></i>
-        </a>
-        <a href="agregar_receta.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">
-          <i class="fas fa-file-medical"></i>
-        </a>
-      </div>
+  <a href="ver_receta_titular.php?id_t=<?= urlencode($pk_titular) ?>" class="btn-accion btn-historial" title="Ver Recetas">
+    <i class="fas fa-envelope-open-text"></i>
+  </a>
+  <a href="Receta_titular.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">
+    <i class="fas fa-file-medical"></i>
+  </a>
+</div>
 
       <h4>Sistema Municipal para el Desarrollo Integral de la Familia del Municipio de Escuinapa</h4>
       <div class="info-grid">
@@ -396,48 +396,51 @@
     <div class="tabla-container">
       <button class="btn-afiliado"  onclick="location.href='Registro_afiliado.php?id=<?= urlencode($pk_titular) ?>'">Agregar afiliado</button>
       <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Edad</th>
-            <th>Sexo</th>
-            <th>Parentesco</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php if (empty($beneficiarios)): ?>
-            <tr>
-              <td colspan="6">No se encontraron afiliados.</td>
-            </tr>
-          <?php else: ?>
-            <?php foreach ($beneficiarios as $fila): ?>
-              <tr>
-                <td><?= htmlspecialchars($fila['nombre'].' '.$fila['a_paterno'].' '.$fila['a_materno'], ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($fila['edad'].' años', ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($fila['sexo'], ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($fila['parentesco'], ENT_QUOTES, 'UTF-8') ?></td>
-                <td>
-                  <div class="acciones-container">
-                    <a href="Editar_afiliado.php?id=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-accion btn-editar" title="Editar">
-                        <i class="fas fa-pen-to-square"></i>
-                    </a>
-                    <a href="ver_receta.php" class="btn-accion btn-historial" title="Ver Recetas">
-                      <i class="fas fa-envelope-open-text"></i>
-                    </a>
-                    <a href="Recetas.php?id_t=<?=urlencode($pk_titular)?>&id_b=<?=urlencode($fila['pk_beneficiario'])?>"class="btn-accion btn-agregar" title="Agregar Receta">
-                      <i class="fas fa-file-medical"></i>
-                    </a>
-                    <a href="eliminar_afiliado.php" class="btn-accion btn-eliminar delete-link" title="Eliminar" data-id="<?=urlencode($fila['pk_beneficiario'])?>  ">
-                      <i class="fas fa-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          <?php endif; ?>
-        </tbody>
-      </table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Edad</th>
+          <th>Sexo</th>
+          <th>Parentesco</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+  <?php if (empty($beneficiarios)): ?>
+    <tr>
+      <td colspan="6">No se encontraron afiliados.</td>
+    </tr>
+  <?php else: ?>
+    <?php foreach ($beneficiarios as $fila): ?>
+      <tr>
+        <td><?= htmlspecialchars($fila['nombre'].' '.$fila['a_paterno'].' '.$fila['a_materno'], ENT_QUOTES, 'UTF-8') ?></td>
+        <td><?= htmlspecialchars($fila['edad'].' años', ENT_QUOTES, 'UTF-8') ?></td>
+        <td><?= htmlspecialchars($fila['sexo'], ENT_QUOTES, 'UTF-8') ?></td>
+        <td><?= htmlspecialchars($fila['parentesco'], ENT_QUOTES, 'UTF-8') ?></td>
+        <td>
+  <div class="acciones-container">
+  <a href="Editar_afiliado.php?id=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-accion btn-editar" title="Editar">
+      <i class="fas fa-pen-to-square"></i>
+    </a>
+    <a href="ver_receta.php?id_t=<?=urlencode($pk_titular)?>&id_b=<?=urlencode($fila['pk_beneficiario'])?>" class="btn-accion btn-historial" title="Ver Recetas">
+      <i class="fas fa-envelope-open-text"></i>
+    </a>
+    <a href="Recetas.php?id_t=<?=urlencode($pk_titular)?>&id_b=<?=urlencode($fila['pk_beneficiario'])?>"class="btn-accion btn-agregar" title="Agregar Receta">
+      <i class="fas fa-file-medical"></i>
+    </a>
+    <a href="eliminar_afiliado.php" class="btn-accion btn-eliminar" title="Eliminar" onclick="return confirm('¿Seguro que deseas eliminar este afiliado?');">
+      <i class="fas fa-trash"></i>
+    </a>
+  </div>
+</td>
+
+
+      </tr>
+    <?php endforeach; ?>
+  <?php endif; ?>
+</tbody>
+
+    </table>
     </div>
   </div>
 

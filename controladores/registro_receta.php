@@ -97,57 +97,72 @@
             }
         }
 
-        // Se obtiene el numero de tarjeton del titular
-        $tarjeton = tarjeton_folio($num_tarjeton, $id_titular);
-        // Verificar que devolvió algo (array y no false)
-        if (!is_array($tarjeton)) {
-            throw new Exception("El número del tarjetón no concuerda para ese titular.");
+        // 1. Obtener tarjetón
+$tarjeton = tarjeton_folio($num_tarjeton, $id_titular);
+if (!is_array($tarjeton)) {
+    throw new Exception("El número del tarjetón no concuerda para ese titular.");
+}
+$id_tarjeton = $tarjeton['pk_tarjeton'];
+$folio = $tarjeton['folio'];
+
+// 2. Si es receta de beneficiario
+if ($id_beneficiario) {
+    // Verifica parentesco
+    $beneficiario = traerParentesco($id_beneficiario, $id_tarjeton);
+    if (!is_array($beneficiario) || !isset($beneficiario['parentesco'])) {
+        throw new Exception("No se pudo obtener el parentesco.");
+    }
+
+    $parentesco = $beneficiario['parentesco'];
+
+    // Insertar paciente
+    $paciente_id = insertar_paciente($p_nombre, $p_paterno, $p_materno, $parentesco, $id_titular);
+    if (!$paciente_id) {
+        throw new Exception("Error al registrar al paciente.");
+    }
+
+} else {
+    // 3. Si es receta del titular
+    // Buscar si ya existe paciente “Misma persona”
+    $stmt = $pdo->prepare("SELECT pk_paciente FROM paciente WHERE fk_titular = ? AND parentesco = 'Misma persona'");
+    $stmt->execute([$id_titular]);
+    $paciente = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($paciente) {
+        $paciente_id = $paciente['pk_paciente'];
+    } else {
+        // Obtener datos del titular
+        $stmt = $pdo->prepare("SELECT nombre, a_paterno, a_materno FROM titular WHERE pk_titular = ?");
+        $stmt->execute([$id_titular]);
+        $titular = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$titular) {
+            throw new Exception("No se pudo obtener los datos del titular.");
         }
 
-        // Sacamos el id y folio de la variable.
-        $id_tarjeton = isset($tarjeton['pk_tarjeton']) ? $tarjeton['pk_tarjeton'] : null;
-        $folio = isset($tarjeton['folio']) ? $tarjeton['folio'] : '';
+        $paciente_id = insertar_paciente($titular['nombre'], $titular['a_paterno'], $titular['a_materno'], 'Misma persona', $id_titular);
+    }
+}
 
-        // Si no hay fila, $paciente === false
-        if (!isset($id_tarjeton)) {
-            throw new Exception("Ocurrio un error al traer el ID del tarjetón.");
-        }
-        // Validamos si los folios son los mismos.
-        if ($num_tarjeton !== $folio){
-            throw new Exception("El folio no concuerda con el titular.");
-        }
+// 4. Insertar receta
+$receta_id = insertar_receta($rx, $folio, $fk_empleado);
+if (!$receta_id) {
+    throw new Exception("Error al registrar la receta.");
+}
 
-        // Se trae el parentesco del beneficiario.
-        $beneficiario = traerParentesco($id_beneficiario, $id_tarjeton);
-        $parentesco = $beneficiario['parentesco'];
-        if (!is_array($beneficiario) || !isset($beneficiario['parentesco'])) {
-            throw new Exception("Ocurrio un error al registrar el parentesco.");
-        }
+// 5. Insertar consulta
+$consulta_id = registrar_consulta($fecha, $pago, $turno, $tipo_consulta, $id_titular, $paciente_id, $receta_id, $fk_empleado);
+if (!$consulta_id) {
+    throw new Exception("Error al registrar la consulta.");
+}
 
-        // Se inserta al beneficiario como paciente.
-        $paciente_id = insertar_paciente($p_nombre, $p_paterno, $p_materno, $parentesco, $id_titular);
-        if (empty($paciente_id)) {
-            throw new Exception("Ocurrio un error al registrar al paciente.");
-        }
+// ✅ Éxito
+echo json_encode([
+    'success' => true,
+    'message' => "Receta registrada correctamente"
+]);
+exit;
 
-        // Se inserta la receta de ese paciente.
-        $receta_id = insertar_receta($rx, $folio, $fk_empleado);
-        if ($receta_id=== 0) {
-            throw new Exception("Ocurrio un error al registrar la receta.");
-        }
-
-        // Se registra la consulta
-        $consulta_id = registrar_consulta($fecha, $pago, $turno, $tipo_consulta, $id_titular, $paciente_id, $receta_id, $fk_empleado);
-        if ($consulta_id === 0) {
-            throw new Exception("Ocurrio un error al registrar la consulta.");
-        }
-        
-        // Devolver JSON de éxito
-        echo json_encode([
-            'success' => true,
-            'message' => "Se Registro con Exito la Receta al Paciente: $p_nombre $p_paterno"
-        ]);
-        exit;
     } catch (Exception $e) {
         //Si hay un error throw $th;
         echo json_encode([
