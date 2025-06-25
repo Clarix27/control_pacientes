@@ -75,8 +75,8 @@
     CONTROL DE PACIENTES DIF
     <div class="navbar-section navbar-center">
       <a href="Inicio.php">Inicio</a>
-      <a href="Registro_titular.php">Agregar titular</a>
-      <a href="Lista_titulares.php">Lista de titulares</a>
+      <a href="Registro_titular.php">Agregar Titular</a>
+      <a href="Lista_titulares.php">Lista de Pacientes</a>
       <a href="Expedientes.php">Expedientes</a>
       <a href="Control_pacientes.php">Control de Pacientes</a>
     </div>
