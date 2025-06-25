@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       // Envía la petición al backend
-      const res = await fetch('controladores/receta_titular.php', {
+      const res = await fetch('controladores/registro_receta.php', {
         method: 'POST',
         body: formData
       });

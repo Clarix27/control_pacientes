@@ -12,9 +12,9 @@
   $id_beneficiario = $_GET['id_b'];
 
   $titular = titular_id($id_titular);
+  $t_materno = $titular['a_materno'] ?? '';
   $beneficiario = info_beneficiario($id_beneficiario);
   $b_materno = $beneficiario['a_materno'] ?? '';
-  $t_materno = $beneficiario['a_materno'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -257,8 +257,6 @@
     </div>
 
     <!-- Campo oculto que no se muestra -->
-    <input type="hidden" name="pk_beneficiario" value="<?= htmlspecialchars($id_beneficiario, ENT_QUOTES, 'UTF-8') ?>">
-    <!-- Campo oculto que no se muestra -->
     <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($id_titular, ENT_QUOTES, 'UTF-8') ?>">
 
     <div style="text-align: center; margin: 30px 0;">
@@ -271,5 +269,3 @@
   <script src="js/recetas.js"></script>
 </body>
 </html>
-
-
