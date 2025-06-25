@@ -375,13 +375,13 @@
   <div class="content">
     <div class="card">
       <div style="float: right; margin-bottom: 10px;">
-  <a href="ver_receta_titular.php?id_t=<?= urlencode($pk_titular) ?>" class="btn-accion btn-historial" title="Ver Recetas">
-    <i class="fas fa-envelope-open-text"></i>
-  </a>
-  <a href="Receta_titular.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">
-    <i class="fas fa-file-medical"></i>
-  </a>
-</div>
+        <a href="ver_receta_titular.php?id=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Recetas">
+          <i class="fas fa-envelope-open-text"></i>
+        </a>
+        <a href="Receta_titular.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">
+          <i class="fas fa-file-medical"></i>
+        </a>
+      </div>
 
       <h4>Sistema Municipal para el Desarrollo Integral de la Familia del Municipio de Escuinapa</h4>
       <div class="info-grid">

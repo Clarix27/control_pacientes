@@ -1,9 +1,17 @@
 <?php
-require_once 'controladores/info_titular.php';
-$id_titular = $_GET['id_t'] ?? 0;
+  session_start();
+  // Verificar si el usuario ha iniciado sesión
+  if (!isset($_SESSION['pk_usuario'])) {
+    // Redirigir a la página de login si no está autenticado
+    echo("<script>window.location.assign('Login.html');</script>");
+    exit();
+  }
+  
+  require_once 'controladores/info_titular.php';
+  $id_titular = $_GET['id_t'];
 
-$titular = titular_id($id_titular);
-$t_materno = $titular['a_materno'] ?? '';
+  $titular = titular_id($id_titular);
+  $t_materno = $titular['a_materno'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +25,11 @@ $t_materno = $titular['a_materno'] ?? '';
   <link rel="stylesheet" href="css/menu.css">
   <link rel="stylesheet" href="css/alerta_receta.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: 'Poppins', sans-serif;
@@ -26,24 +38,18 @@ $t_materno = $titular['a_materno'] ?? '';
     }
 
     .titulo-container-subtle {
-  width: 100%;
-  margin: 20px 0 10px 0;
-  padding: 2px 5px;
-  background: #9CD8D9;
-  border-left: 8px solid #CC1A1A;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-  border-radius: 0; /* ← Esquinas rectas */
-}
-
-
-
-.titulo-container-subtle h2 {
- margin: 0;
- font-size: 21px;
- font-weight: 600;
- text-align: center;
- color: #2c3e50;
-}
+      background: #9CD8D9;
+      border-left: 8px solid #CC1A1A;
+      padding: 12px 20px;
+      margin: 20px auto;
+      width: 90%;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      text-align: center;
+      font-size: 22px;
+      font-weight: 600;
+      color: #2c3e50;
+      border-radius: 6px;
+    }
 
     .content {
       padding: 20px;
@@ -114,8 +120,32 @@ $t_materno = $titular['a_materno'] ?? '';
       background: #fff;
     }
 
+    .titulo-pagina {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    }
+
+    .titulo-container-subtle {
+      width: 100%;
+      margin: 20px 0 10px 0;
+      padding: 2px 5px;
+      background: #9CD8D9;
+      border-left: 8px solid #CC1A1A;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      border-radius: 0; /* ← Esquinas rectas */
+    }
+
+    .titulo-container-subtle h2 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 600;
+    text-align: center;
+    color: #2c3e50;
+    }
+
     .btn-submit {
-      background-color: #2980b9;
+      background-color: #2980b9; /* azul fuerte */
       color: white;
       font-size: 16px;
       padding: 12px 30px;
@@ -128,10 +158,9 @@ $t_materno = $titular['a_materno'] ?? '';
     }
 
     .btn-submit:hover {
-      background-color: #9CD8D9;
+      background-color: #9CD8D9; /* azul más claro */
       transform: scale(1.05);
     }
-
     .back-button {
       color: #333;
       font-size: 18px;
@@ -156,21 +185,37 @@ $t_materno = $titular['a_materno'] ?? '';
 
   <?php include 'menu.php' ?>
 
+
   <div style="margin: 15px 0 0 20px;">
-    <a href="Historial_titular.php?id=<?=urlencode($id_titular)?>" class="back-button">
-      <i class="fas fa-arrow-left"></i>
-      <span class="back-text">Regresar</span>
-    </a>
+  <a href="Historial_titular.php?id=<?=urlencode($id_titular)?>" class="back-button">
+    <i class="fas fa-arrow-left"></i>
+    <span class="back-text">Regresar</span>
+  </a>
   </div>
 
-  <div class="titulo-container-subtle">
-    <h2 style="margin-top: 20px;" class="titulo-pagina">RECETA MÉDICA DEL TITULAR</h2>
+
+  <div  class="titulo-container-subtle">
+    <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">RECETA MEDICA</h2>
   </div>
 
-  <form id="formRecetas">
+  <form id="formRecetas_t">
     <div class="content">
       <div class="tabla-datos">
         <table>
+          <tr>
+            <td>
+              <label>Nombre Paciente:</label>
+              <input type="text" value="<?= htmlspecialchars($titular['nombre'], ENT_QUOTES, 'UTF-8') ?>" name="p_nombre" readonly>
+            </td>
+            <td>
+              <label>Apellido Paterno Paciente:</label>
+              <input type="text" value="<?= htmlspecialchars($titular['a_paterno'], ENT_QUOTES, 'UTF-8') ?>"  name="p_paterno" readonly>
+            </td>
+            <td>
+              <label>Apellido Materno Paciente:</label>
+              <input type="text" value="<?= htmlspecialchars($t_materno, ENT_QUOTES, 'UTF-8') ?>"  name="p_materno" readonly>
+            </td>
+          </tr>
           <tr>
             <td>
               <label>Nombre Titular:</label>
@@ -195,7 +240,7 @@ $t_materno = $titular['a_materno'] ?? '';
               <input type="text" name="num_tarjeton">
             </td>
             <td>
-              <label>Área de Trabajo:</label>
+              <label>Área:</label>
               <input type="text" name="area_trabajo">
             </td>
           </tr>
@@ -208,7 +253,7 @@ $t_materno = $titular['a_materno'] ?? '';
       </div>
     </div>
 
-    <!-- Campo oculto solo del titular -->
+    <!-- Campo oculto que no se muestra -->
     <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($id_titular, ENT_QUOTES, 'UTF-8') ?>">
 
     <div style="text-align: center; margin: 30px 0;">
@@ -218,6 +263,6 @@ $t_materno = $titular['a_materno'] ?? '';
     </div>
   </form>
 
-  <script src="js/recetas.js"></script>
+  <script src="js/receta_afiliado.js"></script>
 </body>
 </html>
