@@ -1,19 +1,26 @@
 <?php
-require_once 'controladores/conexion.php';
-require_once 'controladores/info_titular.php';
+  session_start();
+  // Verificar si el usuario ha iniciado sesión
+  if (!isset($_SESSION['pk_usuario'])) {
+    // Redirigir a la página de login si no está autenticado
+    echo("<script>window.location.assign('Login.html');</script>");
+    exit();
+  }
+  require_once 'controladores/conexion.php';
+  require_once 'controladores/info_titular.php';
 
-if (!isset($_GET['id'])) {
-    echo "ID no proporcionado";
-    exit;
-}
+  if (!isset($_GET['id'])) {
+      echo "ID no proporcionado";
+      exit;
+  }
 
-$id = intval($_GET['id']);
-$titular = titular_id($id);
+  $id = intval($_GET['id']);
+  $titular = titular_id($id);
 
-if (!$titular) {
-    echo "Titular no encontrado.";
-    exit;
-}
+  if (!$titular) {
+      echo "Titular no encontrado.";
+      exit;
+  }
 ?>
 
 <!DOCTYPE html>
@@ -44,16 +51,16 @@ if (!$titular) {
 
       <div class="form-row">
         <div class="form-group">
-          <input type="text" name="nombre" placeholder="Nombre" value="<?= htmlspecialchars($titular['nombre']) ?>" required>
+        <input type="text" name="nombre" placeholder="Nombre" value="<?= htmlspecialchars($titular['nombre']) ?>" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,40}" title="Solo letras, mínimo 4 caracteres.">
         </div>
         <div class="form-group">
-          <input type="text" name="apaterno" placeholder="Apellido paterno" value="<?= htmlspecialchars($titular['a_paterno']) ?>" required>
+          <input type="text" name="apaterno" placeholder="Apellido paterno" value="<?= htmlspecialchars($titular['a_paterno']) ?>" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,40}" title="Solo letras, mínimo 4 caracteres.">
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <input type="text" name="amaterno" placeholder="Apellido materno" value="<?= htmlspecialchars($titular['a_materno']) ?>">
+          <input type="text" name="amaterno" placeholder="Apellido materno" value="<?= htmlspecialchars($titular['a_materno']) ?>"required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,40}" title="Solo letras, mínimo 4 caracteres.">
         </div>
         <div class="form-group">
           <input type="text" name="puesto" placeholder="Puesto" value="<?= htmlspecialchars($titular['puesto']) ?>" required>
@@ -99,3 +106,26 @@ if (!$titular) {
 </div>
 </body>
 </html>
+
+<script>
+  document.getElementById('formEditarTitular').addEventListener('submit', function(e) {
+    const requiredFields = ['nombre', 'apaterno', 'puesto', 'categoria'];
+    let valid = true;
+
+    requiredFields.forEach(name => {
+      const input = document.querySelector(`[name="${name}"]`);
+      if (!input || input.value.trim() === '') {
+        input.style.border = '2px solid red';
+        valid = false;
+      } else {
+        input.style.border = '';
+      }
+    });
+
+    if (!valid) {
+      e.preventDefault();
+      alert('Por favor llena todos los campos obligatorios.');
+    }
+  });
+</script>
+

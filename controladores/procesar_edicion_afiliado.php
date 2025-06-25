@@ -3,11 +3,11 @@ try {
     require_once 'conexion.php';
     $pdo = Conexion::getPDO();
 
-    // Validar campos obligatorios
-    $requeridos = ['nombre', 'apaterno', 'edad', 'sexo', 'parentesco'];
+    $requeridos = ['nombre', 'apaterno', 'edad', 'sexo', 'parentesco', 'pk_titular', 'id'];
     foreach ($requeridos as $campo) {
         if (!isset($_POST[$campo]) || trim($_POST[$campo]) === '') {
-            throw new Exception("Falta el campo obligatorio: $campo");
+            header("Location: ../Editar_afiliado.php?id=" . urlencode($_POST['id']) . "&error=Falta el campo: $campo");
+            exit;
         }
     }
 
@@ -18,12 +18,12 @@ try {
     $edad = intval($_POST['edad']);
     $sexo = trim($_POST['sexo']);
     $parentesco = trim($_POST['parentesco']);
+    $pk_titular = intval($_POST['pk_titular']);
 
-    // Ejecutar actualización
     $stmt = $pdo->prepare("UPDATE beneficiarios 
-                           SET nombre = :nombre, a_paterno = :apaterno, a_materno = :amaterno, 
-                               edad = :edad, sexo = :sexo, parentesco = :parentesco 
-                           WHERE pk_beneficiario = :id");
+        SET nombre = :nombre, a_paterno = :apaterno, a_materno = :amaterno, 
+            edad = :edad, sexo = :sexo, parentesco = :parentesco 
+        WHERE pk_beneficiario = :id");
     $stmt->bindParam(':nombre', $nombre);
     $stmt->bindParam(':apaterno', $apaterno);
     $stmt->bindParam(':amaterno', $amaterno);
@@ -31,14 +31,12 @@ try {
     $stmt->bindParam(':sexo', $sexo);
     $stmt->bindParam(':parentesco', $parentesco);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-
     $stmt->execute();
 
-    // Redirigir con mensaje
-    header("Location: ../Historial_titular.php?id=" . urlencode($_POST['pk_titular']) . "&mensaje=actualizado");
+    header("Location: ../Historial_titular.php?id=" . urlencode($pk_titular) . "&mensaje=actualizado");
     exit;
 
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
+    header("Location: ../Editar_afiliado.php?id=" . urlencode($_POST['id']) . "&error=" . urlencode($e->getMessage()));
     exit;
 }

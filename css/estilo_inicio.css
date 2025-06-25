@@ -1,120 +1,119 @@
 * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      height: 100%;
-      font-family: Arial, sans-serif;
-      background: #fff;
-    }
-
-    .navbar {
-      background-color: #e93333; /* Color similar al de la imagen */
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 25px; 
-      font-family: 'Poppins', sans-serif;
-      font-weight: 800;
-      color: #ffffff;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-top: 5px;
-    }
-    
-    /* Logotipo DIF a la izquierda (fuera si lo deseas con posición absoluta) */
-    .navbar .logo {
-      display: flex;
-      align-items: center;
-      font-weight: bold;
-      font-size: 20px;
-      color: white;
-    }
-    /* Icono engranaje a la derecha */
-    .navbar .icono-config {
-      margin-left: 20px;
-      cursor: pointer;
-    }
-    .icono-config img {
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    
-    .icono-config img:hover {
-      transform: scale(1.1);
-    }
-
-    .page {
-      display: flex;
-      flex-direction: column;
-      height: 100%; 
-    }
-
-    .center-content {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .menu {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-    .menu-item {
-      background: #9CD8D9;
-      padding: 40px 20px;
-      width: 200px;
-      height: 200px;
-      text-align: center;
-      border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-      transition: transform 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+html, body {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: #fff;
+}
 
-    .menu-item:hover {
-      transform: translateY(-5px);
-    }
+.navbar {
+  background-color: #e93333; /* Color similar al de la imagen */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px; 
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
+}
 
-    .menu-item i {
-      font-size: 60px;
-      margin-bottom: 20px;
-      color: #000;
-    }
+/* Logotipo DIF a la izquierda (fuera si lo deseas con posición absoluta) */
+.navbar .logo {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+}
+/* Icono engranaje a la derecha */
+.navbar .icono-config {
+  margin-left: 20px;
+  cursor: pointer;
+}
+.icono-config img {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
 
-    @media (max-width: 1100px) {
-      .menu {
-        grid-template-columns: repeat(3, 1fr);
-        justify-items: center;
-      }
-    }
+.icono-config img:hover {
+  transform: scale(1.1);
+}
 
-    @media (max-width: 800px) {
-      .menu {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+}
 
-    @media (max-width: 600px) {
-      .menu {
-        grid-template-columns: repeat(1, 1fr);
-      }
+.center-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-      .menu-item {
-        width: 90%;
-      }
-    }
+.menu {
+display: flex;
+flex-wrap: wrap;
+gap: 20px;
+justify-content: center;
+align-items: center;
+padding: 20px;
+}
 
-    
+.menu-item {
+  background: #9CD8D9;
+  padding: 40px 20px;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-item:hover {
+  transform: translateY(-5px);
+}
+
+.menu-item i {
+  font-size: 60px;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+@media (max-width: 1100px) {
+  .menu {
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+  }
+}
+
+@media (max-width: 800px) {
+  .menu {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .menu {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .menu-item {
+    width: 90%;
+  }
+}
+

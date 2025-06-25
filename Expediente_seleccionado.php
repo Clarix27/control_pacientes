@@ -1,9 +1,17 @@
 <?php
+  session_start();
+  // Verificar si el usuario ha iniciado sesión
+  if (!isset($_SESSION['pk_usuario'])) {
+    // Redirigir a la página de login si no está autenticado
+    echo("<script>window.location.assign('Login.html');</script>");
+    exit();
+  }
+  
   require_once 'controladores/conexion.php';
   $mes = intval($_GET['mes']);
   $anio = intval($_GET['anio']);
   $pdo = Conexion::getPDO();
-  $stmt = $pdo->prepare("SELECT ti.nombre AS t_nombre, ti.a_paterno AS t_paterno, ti.a_materno AS t_materno, p.nombre, p.a_paterno, p.a_materno, tar.folio, c.tipo_consulta, ti.dependencia, c.pago FROM consulta c INNER JOIN paciente p ON c.fk_paciente = p.pk_paciente INNER JOIN titular ti  ON p.fk_titular = ti.pk_titular LEFT JOIN tarjeton tar ON tar.fk_titular = ti.pk_titular WHERE MONTH(c.fecha) = :mes AND YEAR(c.fecha) = :anio ORDER BY DAY(c.fecha) DESC");
+  $stmt = $pdo->prepare("SELECT ti.nombre AS t_nombre, ti.a_paterno AS t_paterno, ti.a_materno AS t_materno, p.nombre, p.a_paterno, p.a_materno, tar.folio, c.tipo_consulta, ti.dependencia, c.pago FROM consulta c INNER JOIN paciente p ON c.fk_paciente = p.pk_paciente INNER JOIN titular ti  ON p.fk_titular = ti.pk_titular LEFT JOIN tarjeton tar ON tar.fk_titular = ti.pk_titular WHERE MONTH(c.fecha) = :mes AND YEAR(c.fecha) = :anio ORDER BY DAY(c.fecha) DESC, c.pk_consulta DESC");
   $stmt->bindParam(':mes', $mes, PDO::PARAM_INT);
   $stmt->bindParam(':anio', $anio, PDO::PARAM_INT);
   $stmt->execute();
@@ -96,7 +104,7 @@
   
   font-size: 28px;
   font-weight: bold;
-  border: 1px solid #666;
+
 }
 
 .tabla-expediente td {
@@ -142,7 +150,7 @@
  font-size: 21px;
  font-weight: 600;
  text-align: center;
- color: #2c3e50;
+ 
 }
 
 .titulo-registro {
