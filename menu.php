@@ -82,7 +82,7 @@
     </div>
     <div class="icono-config">
       <a href="#" onclick="mostrarModalCerrarSesion(); return false;" title="Cerrar sesión">
-        <img src="img/ruta_icono_config.png" alt="Cerrar sesión" style="height: 35px;">
+        <img src="img/ingresar.png" alt="Cerrar sesión" style="height: 35px;">
       </a>
     </div>
   </div>
