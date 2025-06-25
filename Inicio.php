@@ -92,7 +92,7 @@
         </div>
         <div class="menu-item" onclick="location.href='Lista_titulares.php'" style="cursor: pointer;">
           <i class="fas fa-users"></i>
-          <p>Lista De Pacientes DIF</p>
+          <p>Lista De Titulares DIF</p>
         </div>
         <div class="menu-item" onclick="location.href='Expedientes.php'" style="cursor: pointer;">
           <i class="fas fa-folder-open"></i>

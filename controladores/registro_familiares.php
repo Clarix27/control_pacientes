@@ -16,13 +16,32 @@
             }
         }
 
+        // Lista de caracteres a eliminar
+        $toRemove = ['-','@','#','$','%','&','*','+','/','=','.',',',';',':','!','?','\''];
         $pk_titular = !empty($_POST['pk_titular']) ? intval($_POST['pk_titular']) : null;
-        $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : '';
-        $apaterno = isset($_POST['apaterno']) ? trim($_POST['apaterno']) : '';
-        $amaterno = isset($_POST['amaterno']) ? trim($_POST['amaterno']) : null;
+
+        // Quito caracteres y vuelvo en mayusculas
+        $nombre_t = isset($_POST['nombre']) ? trim($_POST['nombre']) : '';
+        $nombre_t2 = str_replace($toRemove, '', $nombre_t);
+        $nombre = mb_strtoupper($nombre_t2, 'UTF-8');
+
+        // Quito caracteres y vuelvo en mayusculas
+        $apaterno_t = isset($_POST['apaterno']) ? trim($_POST['apaterno']) : '';
+        $paterno_t2 = str_replace($toRemove, '', $apaterno_t);
+        $apaterno = mb_strtoupper($paterno_t2, 'UTF-8'); 
+
+        // Quito caracteres y vuelvo en mayusculas
+        $amaterno_t = isset($_POST['amaterno']) ? trim($_POST['amaterno']) : null;
+        $materno_t2 = str_replace($toRemove, '', $amaterno_t);
+        $amaterno = mb_strtoupper($materno_t2, 'UTF-8');  
+
         $edad = isset($_POST['edad']) ? trim($_POST['edad']) : '';;
         $sexo = isset($_POST['sexo']) ? trim($_POST['sexo']) : '';;
-        $parentesco = isset($_POST['parentesco']) ? trim($_POST['parentesco']) : '';
+
+        // Quito caracteres y vuelvo en mayusculas
+        $parentesco_t = isset($_POST['parentesco']) ? trim($_POST['parentesco']) : '';
+        $parentesco_t2 = str_replace($toRemove, '', $parentesco_t);
+        $parentesco = mb_strtoupper($parentesco_t2, 'UTF-8');  
 
 
         // Consulta

@@ -9,7 +9,7 @@
 
   require_once 'controladores/conexion.php';
   $pdo = Conexion::getPDO();
-  $sql = $pdo->query("SELECT ti.nombre AS t_nombre, ti.a_paterno AS t_paterno, ti.a_materno AS t_materno, p.nombre, p.a_paterno, p.a_materno, tar.folio, c.tipo_consulta, ti.dependencia, c.pago FROM paciente p INNER JOIN titular ti ON p.fk_titular=ti.pk_titular INNER JOIN consulta c ON ti.pk_titular=c.fk_titular LEFT JOIN tarjeton tar ON ti.pk_titular=tar.fk_titular WHERE c.fecha = CURDATE() ORDER BY c.pk_consulta DESC");
+  $sql = $pdo->query("SELECT ti.nombre AS t_nombre, ti.a_paterno AS t_paterno, ti.a_materno AS t_materno, p.nombre, p.a_paterno, p.a_materno, tar.folio, c.tipo_consulta, ti.dependencia, c.pago FROM consulta c INNER JOIN paciente p ON c.fk_paciente=p.pk_paciente INNER JOIN titular ti ON p.fk_titular=ti.pk_titular LEFT JOIN tarjeton tar ON ti.pk_titular=tar.fk_titular WHERE c.fecha = CURDATE() ORDER BY c.pk_consulta DESC");
   $pacientes = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -428,6 +428,7 @@
     }
     function cerrarModal() {
       document.getElementById('modalFormulario').style.display = 'none';
+      document.getElementById('formControlP').reset();  // ← agrega esto
     }
 
     // Buscador dinámico

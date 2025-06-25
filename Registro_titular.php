@@ -18,12 +18,37 @@
   <link rel="stylesheet" href="css/alerta_titular.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/menu.css">
+  <style>
+    .back-button {
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  transition: color 0.3s ease;
+}
+
+.back-button:hover {
+  color: #cc1a1a;
+  text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
+}
+
+.back-text {
+  font-size: 18px;  
+  font-weight: normal;
+}
+  </style>
 </head>
 
 <body>
 <?php include 'menu.php'?>
 
-  <?php include 'regresar.php'?>
+  <div style="margin: 15px 0 0 20px;">
+  <a href="Inicio.html" class="back-button" title="Regresar">
+    <i class="fas fa-arrow-left"></i>
+    <span class="back-text">Regresar</span>
+  </a>
+</div>
 
 
   <!-- FORMULARIO -->
