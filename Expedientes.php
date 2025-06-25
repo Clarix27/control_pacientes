@@ -1,4 +1,12 @@
 <?php
+  session_start();
+  // Verificar si el usuario ha iniciado sesión
+  if (!isset($_SESSION['pk_usuario'])) {
+    // Redirigir a la página de login si no está autenticado
+    echo("<script>window.location.assign('Login.html');</script>");
+    exit();
+  }
+  // Continua si esta bien
   require_once 'controladores/conexion.php';
   $pdo = Conexion::getPDO();
   $consulta = $pdo->query("SELECT YEAR(fecha) AS anio, MONTH(fecha) AS mes FROM consulta GROUP BY anio, mes ORDER BY anio DESC, mes DESC");
@@ -77,57 +85,81 @@
 
   .titulo-pagina {
   
+    font-size: 28px;
+  }
+
+  .icon-right {
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .icon-right:hover {
+    transform: scale(1.1);
+  }
+
+  .titulo-pagina {
+  
   font-size: 28px;
-}
+  font-weight: bold;
+  color: #333;
+  }
 
-.icon-right {
-  font-size: 24px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
+  .titulo-container-subtle {
+  background: #9CD8D9;
+  border-left: 8px solid #CC1A1A;
+  padding: 2px 5px;
+  margin: 20px 0 10px 0;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 
-.icon-right:hover {
-  transform: scale(1.1);
-}
+  }
 
-.titulo-pagina {
- 
- font-size: 28px;
- font-weight: bold;
- color: #333;
-}
-
-.titulo-container-subtle {
- background: #9CD8D9;
- border-left: 8px solid #CC1A1A;
- padding: 2px 5px;
- margin: 20px 0 10px 0;
- box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-
-}
-
-.titulo-container-subtle h2 {
- margin: 0;
- font-size: 21px;
- font-weight: 600;
- text-align: center;
- color: #2c3e50;
-}
-
-.titulo-registro {
-  font-size: 20px;
-  font-weight: 600;
-  color: #2c3e50;
-  text-align: left;
+  .titulo-container-subtle h2 {
   margin: 0;
-  padding: 0 0 10px 0;
-}
+  font-size: 21px;
+  font-weight: 600;
+  text-align: center;
+  color: #2c3e50;
+  }
+
+  .titulo-registro {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: left;
+    margin: 0;
+    padding: 0 0 10px 0;
+  }
+
+  .back-button {
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    transition: color 0.3s ease;
+  }
+
+  .back-button:hover {
+    color: #cc1a1a;
+    text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
+  }
+
+  .back-text {
+    font-size: 18px;  
+    font-weight: normal;
+  }
 
 </style>
 <body>
   <?php include 'menu.php'?>
 
-    <?php include 'regresar.php'?>
+    <div style="margin: 15px 0 0 20px;">
+  <a href="Inicio.php" class="back-button" title="Regresar">
+    <i class="fas fa-arrow-left"></i>
+    <span class="back-text">Regresar</span>
+  </a>
+</div>
 
   <div  class="titulo-container-subtle">
     <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">EXPEDIENTES</h2>

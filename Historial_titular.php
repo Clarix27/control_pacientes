@@ -4,7 +4,7 @@
 
   if (empty($pk_titular)) {
     echo "<script>alert('No se encontro el ID');</script>";
-    echo("<script>window.location.assign('Inicio.html');</script>");
+    echo("<script>window.location.assign('Inicio.php');</script>");
     exit;
   }else{
     $beneficiarios = datos_beneficiarios($pk_titular);
@@ -17,7 +17,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Historial Médico - DIF Escuinapa</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/eliminar_a.css">
   <link rel="stylesheet" href="css/menu.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -31,265 +31,199 @@
   border-radius: 6px;
   margin-bottom: 15px;
   font-weight: bold;
-}
+  }
 
   * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #fff;
-    }
+  body {
+    font-family: Arial, sans-serif;
+    background: #fff;
+  }
 
-    .navbar {
-      background: #CC1A1A;
-      color: white;
-      padding: 20px 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+  .navbar {
+    background: #CC1A1A;
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    .navbar-section {
-      flex: 1;
-      display: flex;
-      align-items: center;
-    }
+  .navbar-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
 
-    .navbar-left {
-      justify-content: flex-start;
-    }
+  .navbar-left {
+    justify-content: flex-start;
+  }
 
-    .navbar-center {
-      justify-content: center;
-      gap: 30px;
-    }
+  .navbar-center {
+    justify-content: center;
+    gap: 30px;
+  }
 
-    .navbar-right {
-      justify-content: flex-end;
-    }
+  .navbar-right {
+    justify-content: flex-end;
+  }
 
-    .navbar-title {
-      font-weight: bold;
-      font-size: 20px;
-      text-transform: uppercase;
-    }
+  .navbar-title {
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+  }
 
-    .navbar-center a {
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
-      text-decoration: none;
-      text-transform: uppercase;
-    }
+  .navbar-center a {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
 
-    .search-box {
-      display: flex;
-      align-items: center;
-      background: white;
-      border-radius: 30px;
-      padding: 5px 10px;
-    }
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 30px;
+    padding: 5px 10px;
+  }
 
-    .search-box input {
-      border: none;
-      outline: none;
-      padding: 5px 10px;
-      font-size: 14px;
-      border-radius: 30px;
-    }
+  .search-box input {
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 30px;
+  }
 
-    .search-box i {
-      color: black;
-      margin-right: 5px;
-    }
+  .search-box i {
+    color: black;
+    margin-right: 5px;
+  }
 
-    .content {
-      padding: 30px;
-    }
+  .content {
+    padding: 30px;
+  }
 
-    .card {
-      background: #eee;
-      padding: 30px 20px 20px 20px;
-      border-radius: 8px;
-      margin-bottom: 30px;
-      position: relative;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
+  .card {
+    background: #eee;
+    padding: 30px 20px 20px 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
 
-    .etiqueta {
-      position: absolute;
-      top: -12px;
-      left: 10px;
-      background: #6ec1e4;
-      color: rgb(0, 0, 0);
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 12px;
-      font-weight: bold;
-    }
+  .etiqueta {
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background: #6ec1e4;
+    color: rgb(0, 0, 0);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+  }
 
-    .detalle-cita {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: #9CD8D9;
-      color: black;
-      padding: 6px 12px;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+  .detalle-cita {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #9CD8D9;
+    color: black;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+  }
 
-    .card h4 {
-      text-transform: uppercase;
-      font-weight: bold;
-      margin-bottom: 15px;
-      font-size: 15px;
-      color: #555;
-    }
+  .card h4 {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 15px;
+    color: #555;
+  }
 
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px 40px;
-      font-size: 15px;
-      color: #333;
-    }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 40px;
+    font-size: 15px;
+    color: #333;
+  }
 
-    .tabla-container {
-      overflow-x: auto;
-    }
+  .tabla-container {
+    overflow-x: auto;
+  }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
 
-    th, td {
-      border: 1px solid #ccc;
-      padding: 12px;
-      text-align: left;
-    }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+  }
 
-    th {
-      background: #ccc;
-      font-weight: bold;
-    }
+  th {
+    background: #ccc;
+    font-weight: bold;
+  }
 
-    tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
 
-    .detalle-cita-afiliado {
-      background: #9CD8D9;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-weight: bold;
-      color: black;
-      cursor: pointer;
-    }
+  .detalle-cita-afiliado {
+    background: #9CD8D9;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+  }
 
-    .btn-afiliado {
-      background: #0ed142;
-      color: white;
-      font-weight: bold;
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      float: right;
-      margin-bottom: 10px;
-      cursor: pointer;
-    }
-    /* Título centrado simple */
+  .btn-afiliado {
+    background: #0ed142;
+    color: white;
+    font-weight: bold;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    float: right;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  /* Título centrado simple */
     
-.titulo-pagina {
- 
- font-size: 28px;
- font-weight: bold;
- color: #333;
-}
+  .titulo-pagina {
+  
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  }
 
-.titulo-container-subtle {
- background: #9CD8D9;
- border-left: 8px solid #CC1A1A;
- padding: 2px 5px;
- margin: 20px 0 10px 0;
- box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  .titulo-container-subtle {
+  background: #9CD8D9;
+  border-left: 8px solid #CC1A1A;
+  padding: 2px 5px;
+  margin: 20px 0 10px 0;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 
-}
-
-.titulo-container-subtle h2 {
- margin: 0;
- font-size: 21px;
- font-weight: 600;
- text-align: center;
- color: #2c3e50;
-}
-
-a i {
-  text-decoration: none;
-}
-a {
-  text-decoration: none;
-}
-
-.btn-accion {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  text-decoration: none;
-  color: white;
-  font-size: 12px;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-  margin-right: 5px;
-}
-
-.btn-accion:hover {
-  transform: scale(1.1);
-  text-decoration: none;
-  color: white;
-}
-
-.btn-editar {
-  background: #3498db;
-}
-.btn-editar:hover {
-  background: #2980b9;
-}
-
-.btn-historial {
-  background: #27ae60;
-}
-.btn-historial:hover {
-  background: #229954;
-}
-
-.btn-agregar {
-  background: #f39c12;
-}
-.btn-agregar:hover {
-  background: #e67e22;
-}
-
-.btn-eliminar {
-  background: #e74c3c;
-}
-.btn-eliminar:hover {
-  background: #c0392b;
-}
-
-
+  }
 
   .titulo-container-subtle h2 {
   margin: 0;
@@ -305,70 +239,133 @@ a {
   a {
     text-decoration: none;
   }
-  .back-button {
-  color: #333;
-  font-size: 18px;
-  font-weight: bold;
-  text-decoration: none;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-  transition: color 0.3s ease;
-}
 
-.back-button:hover {
-  color: #cc1a1a;
-  text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
-}
+  .btn-accion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+    font-size: 12px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    margin-right: 5px;
+  }
 
-.back-text {
-  font-size: 18px;  
-  font-weight: normal;
-}
-.back-button:hover {
-  color: #cc1a1a;
-  text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
-}
-.toast-exito {
-  position: fixed;
-  top: 20px;
-  left: 45%;
-  background-color: #4CAF50;
-  color: white;
-  padding: 15px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  font-weight: bold;
-  z-index: 1000;
-  animation: fadeIn 0.5s ease-in-out;
-}
+  .btn-accion:hover {
+    transform: scale(1.1);
+    text-decoration: none;
+    color: white;
+  }
+
+  .btn-editar {
+    background: #3498db;
+  }
+  .btn-editar:hover {
+    background: #2980b9;
+  }
+
+  .btn-historial {
+    background: #27ae60;
+  }
+  .btn-historial:hover {
+    background: #229954;
+  }
+
+  .btn-agregar {
+    background: #f39c12;
+  }
+  .btn-agregar:hover {
+    background: #e67e22;
+  }
+
+  .btn-eliminar {
+    background: #e74c3c;
+  }
+  .btn-eliminar:hover {
+    background: #c0392b;
+  }
 
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+
+    .titulo-container-subtle h2 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 600;
+    text-align: center;
+    color: #2c3e50;
+    }
+
+    a i {
+      text-decoration: none;
+    }
+    a {
+      text-decoration: none;
+    }
+    .back-button {
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    transition: color 0.3s ease;
+  }
+
+  .back-button:hover {
+    color: #cc1a1a;
+    text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
+  }
+
+  .back-text {
+    font-size: 18px;  
+    font-weight: normal;
+  }
+  .back-button:hover {
+    color: #cc1a1a;
+    text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
+  }
+  .toast-exito {
+    position: fixed;
+    top: 20px;
+    left: 45%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    font-weight: bold;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease-in-out;
+  }
 
 
-
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 </style>
 <body>
-<?php if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'actualizado'): ?>
-  <div id="toast-exito" class="toast-exito">Titular actualizado con éxito</div>
-  <script>
-    setTimeout(() => {
-      const toast = document.getElementById('toast-exito');
-      if (toast) toast.style.display = 'none';
-    }, 4000);
-  </script>
-<?php endif; ?>
+  <?php if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'actualizado'): ?>
+    <div id="toast-exito" class="toast-exito">Titular actualizado con éxito</div>
+    <script>
+      setTimeout(() => {
+        const toast = document.getElementById('toast-exito');
+        if (toast) toast.style.display = 'none';
+      }, 4000);
+    </script>
+  <?php endif; ?>
 
   <?php include 'menu.php'?>
 
   <div style="margin: 15px 0 0 20px;">
-  <a href="Lista_titulares.php?id=<?=urlencode($pk_titular)?>" class="back-button" title="Regresar">
-    <i class="fas fa-arrow-left"></i>
-    <span class="back-text">Regresar</span>
-  </a>
-</div>
+    <a href="Lista_titulares.php?id=<?=urlencode($pk_titular)?>" class="back-button" title="Regresar">
+      <i class="fas fa-arrow-left"></i>
+      <span class="back-text">Regresar</span>
+    </a>
+  </div>
 
 
   <div  class="titulo-container-subtle">
@@ -378,13 +375,13 @@ a {
   <div class="content">
     <div class="card">
       <div style="float: right; margin-bottom: 10px;">
-  <a href="ver_receta.php?id=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Recetas">
-    <i class="fas fa-envelope-open-text"></i>
-  </a>
-  <a href="agregar_receta.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">
-    <i class="fas fa-file-medical"></i>
-  </a>
-</div>
+        <a href="ver_receta_titular.php?id_t=<?= urlencode($pk_titular) ?>" class="btn-accion btn-historial" title="Ver Recetas">
+          <i class="fas fa-envelope-open-text"></i>
+        </a>
+        <a href="Receta_titular.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">
+          <i class="fas fa-file-medical"></i>
+        </a>
+      </div>
 
       <h4>Sistema Municipal para el Desarrollo Integral de la Familia del Municipio de Escuinapa</h4>
       <div class="info-grid">
@@ -395,9 +392,9 @@ a {
         <div><strong>Puesto: </strong><?= htmlspecialchars($titular['puesto'], ENT_QUOTES, 'UTF-8') ?></div>
       </div>
     </div>
-
+    
     <div class="tabla-container">
-    <button class="btn-afiliado"  onclick="location.href='Registro_afiliado.php?id=<?= urlencode($pk_titular) ?>'">Agregar afiliado</button>
+      <button class="btn-afiliado"  onclick="location.href='Registro_afiliado.php?id=<?= urlencode($pk_titular) ?>'">Agregar afiliado</button>
       <table>
       <thead>
         <tr>
@@ -425,7 +422,7 @@ a {
   <a href="Editar_afiliado.php?id=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-accion btn-editar" title="Editar">
       <i class="fas fa-pen-to-square"></i>
     </a>
-    <a href="ver_receta.php" class="btn-accion btn-historial" title="Ver Recetas">
+    <a href="ver_receta.php?id_t=<?=urlencode($pk_titular)?>&id_b=<?=urlencode($fila['pk_beneficiario'])?>" class="btn-accion btn-historial" title="Ver Recetas">
       <i class="fas fa-envelope-open-text"></i>
     </a>
     <a href="Recetas.php?id_t=<?=urlencode($pk_titular)?>&id_b=<?=urlencode($fila['pk_beneficiario'])?>"class="btn-accion btn-agregar" title="Agregar Receta">
@@ -446,5 +443,7 @@ a {
     </table>
     </div>
   </div>
+
+  <script src="js/eliminar_A.js"></script>
 </body>
 </html>

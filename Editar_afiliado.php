@@ -1,24 +1,32 @@
 <?php
-require_once 'controladores/info_titular.php';
+  session_start();
+  // Verificar si el usuario ha iniciado sesión
+  if (!isset($_SESSION['pk_usuario'])) {
+    // Redirigir a la página de login si no está autenticado
+    echo("<script>window.location.assign('Login.html');</script>");
+    exit();
+  }
+  require_once 'controladores/info_titular.php';
 
-$id = intval($_GET['id']);
-$beneficiario = beneficiario_id($id);
+  $id = intval($_GET['id']);
+  $beneficiario = beneficiario_id($id);
 
-if (!$beneficiario) {
-    echo "Afiliado no encontrado.";
-    exit;
-}
+  if (!$beneficiario) {
+      echo "Afiliado no encontrado.";
+      exit;
+  }
 
-// Obtener fk_titular desde fk_tarjeton
-$fk_tarjeton = $beneficiario['fk_tarjeton'];
+  // Primero obtener fk_tarjeton del beneficiario
+  $fk_tarjeton = $beneficiario['fk_tarjeton'];
 
-$pdo = Conexion::getPDO();
-$stmt = $pdo->prepare("SELECT fk_titular FROM tarjeton WHERE pk_tarjeton = :tarjeton");
-$stmt->bindParam(':tarjeton', $fk_tarjeton, PDO::PARAM_INT);
-$stmt->execute();
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
+  $pdo = Conexion::getPDO();
+  $stmt = $pdo->prepare("SELECT fk_titular FROM tarjeton WHERE pk_tarjeton = :tarjeton");
+  $stmt->bindParam(':tarjeton', $fk_tarjeton, PDO::PARAM_INT);
+  $stmt->execute();
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$pk_titular = $row ? $row['fk_titular'] : null;
+  $pk_titular = $row ? $row['fk_titular'] : null;
+
 ?>
 <!DOCTYPE html> 
 <html lang="es">
