@@ -378,7 +378,7 @@
         <a href="ver_receta.php?id=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Recetas">
           <i class="fas fa-envelope-open-text"></i>
         </a>
-        <a href="agregar_receta.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">
+        <a href="Receta_titular.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">
           <i class="fas fa-file-medical"></i>
         </a>
       </div>
