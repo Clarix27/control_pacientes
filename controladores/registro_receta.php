@@ -87,57 +87,24 @@
             }
         }
 
-        // 1. Obtener tarjetón
+        // Se obtiene el numero de tarjeton del titular
         $tarjeton = tarjeton_folio($num_tarjeton, $id_titular);
+        // Verificar que devolvió algo (array y no false)
         if (!is_array($tarjeton)) {
             throw new Exception("El número del tarjetón no concuerda para ese titular.");
         }
-        $id_tarjeton = $tarjeton['pk_tarjeton'];
-        $folio = $tarjeton['folio'];
 
-        // 2. Si es receta de beneficiario
-        if ($id_beneficiario) {
-            // Verifica parentesco
-            $beneficiario = traerParentesco($id_beneficiario, $id_tarjeton);
-            if (!is_array($beneficiario) || !isset($beneficiario['parentesco'])) {
-                throw new Exception("No se pudo obtener el parentesco.");
-            }
+        // Sacamos el id y folio de la variable.
+        $id_tarjeton = isset($tarjeton['pk_tarjeton']) ? $tarjeton['pk_tarjeton'] : null;
+        $folio = isset($tarjeton['folio']) ? $tarjeton['folio'] : '';
 
-            $parentesco = $beneficiario['parentesco'];
-
-            // Insertar paciente
-            $paciente_id = insertar_paciente($p_nombre, $p_paterno, $p_materno, $parentesco, $id_titular);
-            if (!$paciente_id) {
-                throw new Exception("Error al registrar al paciente.");
-            }
-
-        } else {
-            // 3. Si es receta del titular
-            // Buscar si ya existe paciente “Misma persona”
-            $stmt = $pdo->prepare("SELECT pk_paciente FROM paciente WHERE fk_titular = ? AND parentesco = 'Misma persona'");
-            $stmt->execute([$id_titular]);
-            $paciente = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($paciente) {
-                $paciente_id = $paciente['pk_paciente'];
-            } else {
-                // Obtener datos del titular
-                $stmt = $pdo->prepare("SELECT nombre, a_paterno, a_materno FROM titular WHERE pk_titular = ?");
-                $stmt->execute([$id_titular]);
-                $titular = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                if (!$titular) {
-                    throw new Exception("No se pudo obtener los datos del titular.");
-                }
-
-                $paciente_id = insertar_paciente($titular['nombre'], $titular['a_paterno'], $titular['a_materno'], 'Misma persona', $id_titular);
-            }
+        // Si no hay fila, $paciente === false
+        if (!isset($id_tarjeton)) {
+            throw new Exception("Ocurrio un error al traer el ID del tarjetón.");
         }
-
-        // 4. Insertar receta
-        $receta_id = insertar_receta($rx, $folio, $fk_empleado);
-        if (!$receta_id) {
-            throw new Exception("Error al registrar la receta.");
+        // Validamos si los folios son los mismos.
+        if ($num_tarjeton !== $folio){
+            throw new Exception("El folio no concuerda con el titular.");
         }
 
         // Traer el pk del paciente.
