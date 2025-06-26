@@ -72,27 +72,13 @@
           </tr>
           <tr>
             <td>
-              <label>Nombre Titular:</label>
-              <input type="text" value="<?= htmlspecialchars($titular['nombre'], ENT_QUOTES, 'UTF-8') ?>" disabled>
-            </td>
-            <td>
-              <label>Apellido Paterno Titular:</label>
-              <input type="text" value="<?= htmlspecialchars($titular['a_paterno'], ENT_QUOTES, 'UTF-8') ?>" disabled>
-            </td>
-            <td>
-              <label>Apellido Materno Titular:</label>
-              <input type="text" value="<?= htmlspecialchars($t_materno, ENT_QUOTES, 'UTF-8') ?>" disabled>
-            </td>
-          </tr>
-          <tr>
-            <td>
               <label>Fecha:</label>
               <input type="date" name="fecha">
             </td>
             <td>
-  <label>Núm. de Tarjetón:</label>
-  <input type="text" name="num_tarjeton" value="<?= htmlspecialchars($folio_tarjeton, ENT_QUOTES, 'UTF-8') ?>" readonly>
-</td>
+              <label>Núm. de Tarjetón:</label>
+              <input type="text" name="num_tarjeton" value="<?= htmlspecialchars($folio_tarjeton, ENT_QUOTES, 'UTF-8') ?>" readonly>
+            </td>
 
             <td>
               <label>Área:</label>

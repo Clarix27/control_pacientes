@@ -32,7 +32,7 @@
         $pdo = Conexion::getPDO();
         $stmt = $pdo->prepare("INSERT INTO direccion(calle, num_casa, colonia, municipio, fk_titular) VALUES(:calle, :casa, :colonia, :municipio, :fk_titular)");
         $stmt->bindParam(':calle', $calle, PDO::PARAM_STR);
-        $stmt->bindParam(':casa', $num_casa, PDO::PARAM_INT);
+        $stmt->bindParam(':casa', $num_casa, PDO::PARAM_STR);
         $stmt->bindParam(':colonia', $colonia, PDO::PARAM_STR);
         $stmt->bindParam(':municipio', $municipio, PDO::PARAM_STR);
         $stmt->bindParam(':fk_titular', $titular_id, PDO::PARAM_INT);
@@ -82,7 +82,7 @@
         $calle_t2 = str_replace($toRemove, '', $calle_t);
         $calle = mb_strtoupper($calle_t2, 'UTF-8');
 
-        $num_casa   = trim($_POST['num_casa']   ?? '');
+        $num_casa   = !empty($_POST['num_casa']) ? trim($_POST['num_casa']) : 'S/N';
 
         // Quito lo inecesario y pongo en mayusculas.
         $colonia_t    = trim($_POST['colonia']    ?? '');
@@ -95,7 +95,7 @@
         $municipio = mb_strtoupper($municipio_t2, 'UTF-8');
 
         // 3) Validar campos obligatorios de titular/tarjetón
-        $requiredTitular = ['nombre','apaterno','puesto','categoria', 'calle', 'num_casa', 'colonia', 'municipio', 'folio',];
+        $requiredTitular = ['nombre','apaterno','puesto','categoria', 'calle', 'colonia', 'municipio', 'folio',];
         foreach ($requiredTitular as $campo) {
             if (!isset($_POST[$campo]) || trim((string)$_POST[$campo]) === '') {
                 if($campo === 'folio'){
@@ -114,7 +114,7 @@
 
         // 5) Si el usuario empez ó a llenar cualquier campo de domicilio, validar que ninguno quede vacío
         if ($hasDomicilio) {
-            $requiredDomicilio = ['calle','num_casa','colonia','municipio'];
+            $requiredDomicilio = ['calle','colonia','municipio'];
             foreach ($requiredDomicilio as $campoD) {
                 if (!isset($_POST[$campoD]) || trim((string)$_POST[$campoD]) === '') {
                     echo json_encode([

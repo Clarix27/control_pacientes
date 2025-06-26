@@ -85,7 +85,7 @@
         </div>
 
         <div class="form-group">
-          <select name="categoria" required>
+          <select name="categoria">
             <option value="" disabled selected>CATEGORÍA</option>
             <option value="confianza">Confianza</option>
             <option value="sindicalizado">Sindicalizado</option>

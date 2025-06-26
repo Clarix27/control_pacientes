@@ -9,13 +9,14 @@
   
   require_once 'controladores/info_titular.php';
   $pk_titular = intval($_GET['id']);
+  $estatus = 1;
 
   if (empty($pk_titular)) {
     echo "<script>alert('No se encontro el ID');</script>";
     echo("<script>window.location.assign('Inicio.php');</script>");
     exit;
   }else{
-    $beneficiarios = datos_beneficiarios($pk_titular);
+    $beneficiarios = datos_beneficiarios($pk_titular, $estatus);
     $titular = titular_id($pk_titular);
   }
 ?>
@@ -112,7 +113,7 @@
     <a href="Recetas.php?id_t=<?=urlencode($pk_titular)?>&id_b=<?=urlencode($fila['pk_beneficiario'])?>"class="btn-accion btn-agregar" title="Agregar Receta">
       <i class="fas fa-file-medical"></i>
     </a>
-    <a href="eliminar_afiliado.php" class="btn-accion btn-eliminar" title="Eliminar" onclick="return confirm('¿Seguro que deseas eliminar este afiliado?');">
+    <a href="eliminar_afiliado.php" class="btn-accion btn-eliminar delete-link" title="Eliminar" data-id="<?=urlencode($fila['pk_beneficiario'])?> ">
       <i class="fas fa-trash"></i>
     </a>
   </div>
