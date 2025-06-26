@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
   session_start();
   // Verificar si el usuario ha iniciado sesión
   if (!isset($_SESSION['pk_usuario'])) {
@@ -14,12 +18,12 @@
   $t_materno = $titular['a_materno'] ?? '';
 
   // Obtener el número de tarjetón del titular
-require_once 'controladores/conexion.php';
-$pdo = Conexion::getPDO();
-$stmt_tarjeton = $pdo->prepare("SELECT folio FROM tarjeton WHERE fk_titular = ?");
-$stmt_tarjeton->execute([$id_titular]);
-$tarjeton = $stmt_tarjeton->fetch(PDO::FETCH_ASSOC);
-$folio_tarjeton = $tarjeton['folio'] ?? '';
+  require_once 'controladores/conexion.php';
+  $pdo = Conexion::getPDO();
+  $stmt_tarjeton = $pdo->prepare("SELECT folio FROM tarjeton WHERE fk_titular = ?");
+  $stmt_tarjeton->execute([$id_titular]);
+  $tarjeton = $stmt_tarjeton->fetch(PDO::FETCH_ASSOC);
+  $folio_tarjeton = $tarjeton['folio'] ?? '';
 
 ?>
 
