@@ -38,31 +38,6 @@
   <link rel="stylesheet" href="css/alerta_titular.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/menu.css">
-  <style>
-    .back-button {
-      color: #333;
-      font-size: 18px;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .back-button:hover {
-      color: #cc1a1a;
-      text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
-    }
-
-    .toast-error {
-      background-color: #e74c3c;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 6px;
-      text-align: center;
-      margin: 10px auto;
-      max-width: 600px;
-      font-weight: bold;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
-  </style>
 </head>
 <body>
 <?php include 'menu.php'; ?>
