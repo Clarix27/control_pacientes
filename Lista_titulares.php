@@ -43,7 +43,7 @@
 
 
 <div class="titulo-container-subtle">
-  <h2 style="text-align: center; margin-top: 20px; " class="titulo-pagina">LISTA DE PACIENTES AFILIADOS AL DIF</h2>
+  <h2 style="text-align: center; margin-top: 20px; " class="titulo-pagina">LISTA DE TITULARES AFILIADOS AL DIF</h2>
 </div>
 
 <div class="content">
