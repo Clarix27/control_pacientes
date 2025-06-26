@@ -1,4 +1,12 @@
 <?php
+  session_start();
+  // Verificar si el usuario ha iniciado sesión
+  if (!isset($_SESSION['pk_usuario'])) {
+    // Redirigir a la página de login si no está autenticado
+    echo("<script>window.location.assign('Login.html');</script>");
+    exit();
+  }
+  
   require_once 'controladores/info_titular.php';
   $pk_titular = intval($_GET['id']);
 
@@ -51,7 +59,7 @@
   <div class="content">
     <div class="card">
       <div style="float: right; margin-bottom: 10px;">
-        <a href="ver_receta_titular.php?id_t=<?= urlencode($pk_titular) ?>" class="btn-accion btn-historial" title="Ver Recetas">
+        <a href="ver_receta_titular.php?id_t=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Recetas">
           <i class="fas fa-envelope-open-text"></i>
         </a>
         <a href="Receta_titular.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">

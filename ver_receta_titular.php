@@ -1,23 +1,30 @@
 <?php 
-require_once 'controladores/conexion.php';
-$pdo = Conexion::getPDO();
+  session_start();
+  // Verificar si el usuario ha iniciado sesión
+  if (!isset($_SESSION['pk_usuario'])) {
+    // Redirigir a la página de login si no está autenticado
+    echo("<script>window.location.assign('Login.html');</script>");
+    exit();
+  }
+  require_once 'controladores/conexion.php';
+  $pdo = Conexion::getPDO();
 
-$id_titular = isset($_GET['id_t']) ? intval($_GET['id_t']) : 0;
-$recetas = [];
+  $id_titular = isset($_GET['id_t']) ? intval($_GET['id_t']) : 0;
+  $recetas = [];
 
-if ($id_titular > 0) {
-  // Consulta directa: recetas de pacientes con parentesco 'Misma persona' y este titular
-  $stmt = $pdo->prepare("
-    SELECT r.texto_receta, c.fecha
-    FROM consulta c
-    INNER JOIN receta r ON c.fk_receta = r.pk_receta
-    INNER JOIN paciente p ON c.fk_paciente = p.pk_paciente
-    WHERE c.fk_titular = :titular AND p.parentesco = 'Misma persona'
-    ORDER BY c.fecha DESC
-  ");
-  $stmt->execute(['titular' => $id_titular]);
-  $recetas = $stmt->fetchAll();
-}
+  if ($id_titular > 0) {
+    // Consulta directa: recetas de pacientes con parentesco 'Misma persona' y este titular
+    $stmt = $pdo->prepare("
+      SELECT r.texto_receta, c.fecha
+      FROM consulta c
+      INNER JOIN receta r ON c.fk_receta = r.pk_receta
+      INNER JOIN paciente p ON c.fk_paciente = p.pk_paciente
+      WHERE c.fk_titular = :titular AND p.parentesco = 'Misma persona'
+      ORDER BY c.fecha DESC
+    ");
+    $stmt->execute(['titular' => $id_titular]);
+    $recetas = $stmt->fetchAll();
+  }
 ?>
 
 <!DOCTYPE html>
