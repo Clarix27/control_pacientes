@@ -45,7 +45,7 @@
 <!-- FORMULARIO -->
 <div class="main-content">
   <div class="form-container">
-    <h2 class="form-title">Editar titular</h2>
+    <h2 style=" filter: brightness(0) invert(1);" class="form-title">Editar titular</h2>
     <form id="formEditarTitular" method="POST" action="controladores/procesar_edicion.php">
       <input type="hidden" name="id" value="<?= htmlspecialchars($titular['pk_titular']) ?>">
 
