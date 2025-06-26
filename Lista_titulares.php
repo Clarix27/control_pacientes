@@ -43,15 +43,7 @@
 
 
 <div class="titulo-container-subtle">
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <h2 style="text-align: center; margin-top: 20px; " class="titulo-pagina">LISTA DE TITULARES AFILIADOS AL DIF</h2>
-=======
   <h2 style="text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA DE TITULARES AFILIADOS AL DIF</h2>
->>>>>>> origin/Jose
-=======
-  <h2 style="text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA DE TITULARES AFILIADOS AL DIF</h2>
->>>>>>> origin/Prueba
 </div>
 
 <div class="content">
