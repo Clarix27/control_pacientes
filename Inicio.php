@@ -70,5 +70,10 @@
       window.location.href = 'logout.php';
     }
   </script>
+
+    <footer>
+    Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo. 
+    <a href="aviso_privacidad.php">Aviso de privacidad</a>
+  </footer>
 </body>
 </html>

@@ -43,7 +43,11 @@
 
 
 <div class="titulo-container-subtle">
+<<<<<<< HEAD
   <h2 style="text-align: center; margin-top: 20px; " class="titulo-pagina">LISTA DE TITULARES AFILIADOS AL DIF</h2>
+=======
+  <h2 style="text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA DE TITULARES AFILIADOS AL DIF</h2>
+>>>>>>> origin/Jose
 </div>
 
 <div class="content">
@@ -134,6 +138,13 @@
     filtroCategoria.addEventListener("change", filtrar);
   });
 </script>
+
+<footer>
+  Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo. 
+  <a href="aviso_privacidad.php">Aviso de privacidad</a>
+</footer>
+
+
 
 </body>
 </html>
