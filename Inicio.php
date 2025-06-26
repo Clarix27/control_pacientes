@@ -17,65 +17,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/estilo_inicio.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
-  <style>
-    /* Modal estilizado */
-    #modalCerrarSesion {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    #modalCerrarSesion .modal-contenido {
-      background: #fff;
-      padding: 25px 30px;
-      border-radius: 12px;
-      border: 3px solid #a90000;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      max-width: 350px;
-    }
-
-    #modalCerrarSesion p {
-      font-size: 16px;
-      margin-bottom: 20px;
-      color: #333;
-    }
-
-    #modalCerrarSesion button {
-      font-size: 14px;
-      padding: 8px 16px;
-      margin: 5px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    #modalCerrarSesion button.confirmar {
-      background-color: #a90000;
-      color: white;
-    }
-
-    #modalCerrarSesion button.confirmar:hover {
-      background-color: #870000;
-    }
-
-    #modalCerrarSesion button.cancelar {
-      background-color: #ccc;
-      color: #333;
-    }
-
-    #modalCerrarSesion button.cancelar:hover {
-      background-color: #bbb;
-    }
-  </style>
 </head>
 <body>
   <div class="page">
@@ -139,5 +80,10 @@
       window.location.href = 'logout.php';
     }
   </script>
+
+    <footer>
+    Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo. 
+    <a href="aviso_privacidad.php">Aviso de privacidad</a>
+  </footer>
 </body>
 </html>
