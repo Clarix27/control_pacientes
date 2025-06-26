@@ -18,7 +18,7 @@
     <div class="navbar-section navbar-center">
       <a href="Inicio.php">Inicio</a>
       <a href="Registro_titular.php">Agregar Titular</a>
-      <a href="Lista_titulares.php">Lista de Pacientes</a>
+      <a href="Lista_titulares.php">Lista de Titulares</a>
       <a href="Expedientes.php">Expedientes</a>
       <a href="Control_pacientes.php">Control de Pacientes</a>
     </div>

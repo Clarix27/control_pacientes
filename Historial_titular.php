@@ -19,7 +19,7 @@
   <title>Historial Médico - DIF Escuinapa</title>
   <link rel="stylesheet" href="css/eliminar_a.css">
   <link rel="stylesheet" href="css/menu.css">
-  <link rel="stylesheet" href="css/historial.css">
+  <link rel="stylesheet" href="css/estilo_historial_titular.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -51,7 +51,7 @@
   <div class="content">
     <div class="card">
       <div style="float: right; margin-bottom: 10px;">
-        <a href="ver_receta_titular.php?id=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Recetas">
+        <a href="ver_receta_titular.php?id_t=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Recetas">
           <i class="fas fa-envelope-open-text"></i>
         </a>
         <a href="Receta_titular.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">
@@ -119,7 +119,13 @@
     </table>
     </div>
   </div>
+  
 
   <script src="js/eliminar_A.js"></script>
+
+  <footer>
+    Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo. 
+    <a href="aviso_privacidad.php">Aviso de privacidad</a>
+  </footer>
 </body>
 </html>

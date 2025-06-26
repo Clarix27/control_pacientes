@@ -73,7 +73,7 @@
 
     .form-container {
       position: relative;
-      background:#82e0aa;
+      background:#008080;
       padding: 40px;
       border-radius: 15px;
       box-shadow: 0 3px 10px rgba(0,0,0,0.15);
@@ -185,4 +185,83 @@
 .back-text {
   font-size: 18px;  
   font-weight: normal;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: #fff;
+}
+
+footer {
+  margin-top: auto;
+  text-align: center;
+  font-size: 14px;
+  padding: 20px 10px;
+  background-color: #f8f8f8;
+  color: #444;
+  border-top: 1px solid #ccc;
+}
+
+footer a {
+  color: #b1071e;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 15px;
+  }
+
+  .navbar-section.navbar-center {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .menu {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .menu-item {
+    width: 90% !important;
+    height: auto;
+    padding: 30px 20px;
+  }
+
+  .filter,
+  .search-box,
+  .filter-left,
+  .filter-right {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .search-box input {
+    width: 100%;
+  }
+
+  table {
+    font-size: 14px;
+    overflow-x: auto;
+    display: block;
+  }
+
+  .acciones-container {
+    flex-direction: column;
+  }
 }
