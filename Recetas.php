@@ -12,9 +12,19 @@
   $id_beneficiario = $_GET['id_b'];
 
   $titular = titular_id($id_titular);
+  // Obtener tarjetón del titular
+require_once 'controladores/conexion.php';
+$pdo = Conexion::getPDO();
+$stmt_tarjeton = $pdo->prepare("SELECT folio FROM tarjeton WHERE fk_titular = ?");
+$stmt_tarjeton->execute([$id_titular]);
+$tarjeton = $stmt_tarjeton->fetch(PDO::FETCH_ASSOC);
+$folio_tarjeton = $tarjeton['folio'] ?? 'No asignado';
+
   $t_materno = $titular['a_materno'] ?? '';
   $beneficiario = info_beneficiario($id_beneficiario);
   $b_materno = $beneficiario['a_materno'] ?? '';
+
+
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +37,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
   <link rel="stylesheet" href="css/menu.css">
   <link rel="stylesheet" href="css/alerta_receta.css">
+  <link rel="stylesheet" href="css/estilo_recetas.css">
 </head>
 <body>
 
@@ -83,9 +94,9 @@
               <input type="date" name="fecha">
             </td>
             <td>
-              <label>Núm. de Tarjetón:</label>
-              <input type="text" name="num_tarjeton">
-            </td>
+  <label>Núm. de Tarjetón:</label>
+  <input type="text" name="num_tarjeton" value="<?= htmlspecialchars($folio_tarjeton) ?>" readonly>
+</td>
             <td>
               <label>Área:</label>
               <input type="text" name="area_trabajo">
@@ -111,5 +122,11 @@
   </form>
 
   <script src="js/recetas.js"></script>
+
+  <footer>
+  Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo.
+  <a href="aviso_privacidad.php">Aviso de privacidad</a>
+</footer>
+
 </body>
 </html>

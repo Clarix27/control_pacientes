@@ -12,6 +12,15 @@
 
   $titular = titular_id($id_titular);
   $t_materno = $titular['a_materno'] ?? '';
+
+  // Obtener el número de tarjetón del titular
+require_once 'controladores/conexion.php';
+$pdo = Conexion::getPDO();
+$stmt_tarjeton = $pdo->prepare("SELECT folio FROM tarjeton WHERE fk_titular = ?");
+$stmt_tarjeton->execute([$id_titular]);
+$tarjeton = $stmt_tarjeton->fetch(PDO::FETCH_ASSOC);
+$folio_tarjeton = $tarjeton['folio'] ?? '';
+
 ?>
 
 <!DOCTYPE html>
@@ -81,9 +90,10 @@
               <input type="date" name="fecha">
             </td>
             <td>
-              <label>Núm. de Tarjetón:</label>
-              <input type="text" name="num_tarjeton">
-            </td>
+  <label>Núm. de Tarjetón:</label>
+  <input type="text" name="num_tarjeton" value="<?= htmlspecialchars($folio_tarjeton, ENT_QUOTES, 'UTF-8') ?>" readonly>
+</td>
+
             <td>
               <label>Área:</label>
               <input type="text" name="area_trabajo">
