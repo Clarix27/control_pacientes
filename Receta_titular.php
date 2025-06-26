@@ -14,12 +14,12 @@
   $t_materno = $titular['a_materno'] ?? '';
 
   // Obtener el número de tarjetón del titular
-require_once 'controladores/conexion.php';
-$pdo = Conexion::getPDO();
-$stmt_tarjeton = $pdo->prepare("SELECT folio FROM tarjeton WHERE fk_titular = ?");
-$stmt_tarjeton->execute([$id_titular]);
-$tarjeton = $stmt_tarjeton->fetch(PDO::FETCH_ASSOC);
-$folio_tarjeton = $tarjeton['folio'] ?? '';
+  require_once 'controladores/conexion.php';
+  $pdo = Conexion::getPDO();
+  $stmt_tarjeton = $pdo->prepare("SELECT folio FROM tarjeton WHERE fk_titular = ?");
+  $stmt_tarjeton->execute([$id_titular]);
+  $tarjeton = $stmt_tarjeton->fetch(PDO::FETCH_ASSOC);
+  $folio_tarjeton = $tarjeton['folio'] ?? '';
 
 ?>
 
