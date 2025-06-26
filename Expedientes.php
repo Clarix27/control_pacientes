@@ -122,33 +122,33 @@
   color: #2c3e50;
   }
 
-.titulo-registro {
-  font-size: 20px;
-  font-weight: 600;
-  color: #2c3e50;
-  text-align: left;
-  margin: 0;
-  padding: 0 0 10px 0;
-}
+  .titulo-registro {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: left;
+    margin: 0;
+    padding: 0 0 10px 0;
+  }
 
- .back-button {
-  color: #333;
-  font-size: 18px;
-  font-weight: bold;
-  text-decoration: none;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-  transition: color 0.3s ease;
-}
+  .back-button {
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    transition: color 0.3s ease;
+  }
 
-.back-button:hover {
-  color: #cc1a1a;
-  text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
-}
+  .back-button:hover {
+    color: #cc1a1a;
+    text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
+  }
 
-.back-text {
-  font-size: 18px;  
-  font-weight: normal;
-}
+  .back-text {
+    font-size: 18px;  
+    font-weight: normal;
+  }
 
 </style>
 <body>

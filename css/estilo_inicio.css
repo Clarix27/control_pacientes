@@ -41,6 +41,7 @@ html, body {
 .icono-config img {
   cursor: pointer;
   transition: transform 0.2s;
+  filter: brightness(0) invert(1);
 }
 
 .icono-config img:hover {

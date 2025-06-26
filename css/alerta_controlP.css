@@ -18,10 +18,12 @@
 .alert.success {
   border-top: 5px solid #4caf50;
   color: black;
+  font-weight: bold;
 }
 .alert.error {
   border-top: 5px solid #f44336;
   color: black;
+  font-weight: bold;
 }
 
 /* Botón de cerrar */

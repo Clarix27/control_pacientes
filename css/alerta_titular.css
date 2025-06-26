@@ -17,11 +17,13 @@
 /* Bordes según tipo */
 .alert.success {
   border-top: 5px solid #4caf50;
-  color: white;
+  color: black;
+  font-weight: bold;
 }
 .alert.error {
   border-top: 5px solid #f44336;
-  color: white;
+  color: black;
+  font-weight: bold;
 }
 
 /* Botón de cerrar */
