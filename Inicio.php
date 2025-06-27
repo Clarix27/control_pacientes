@@ -6,7 +6,6 @@
     echo("<script>window.location.assign('Login.html');</script>");
     exit();
   }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -17,65 +16,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/estilo_inicio.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
-  <style>
-    /* Modal estilizado */
-    #modalCerrarSesion {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    #modalCerrarSesion .modal-contenido {
-      background: #fff;
-      padding: 25px 30px;
-      border-radius: 12px;
-      border: 3px solid #a90000;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      max-width: 350px;
-    }
-
-    #modalCerrarSesion p {
-      font-size: 16px;
-      margin-bottom: 20px;
-      color: #333;
-    }
-
-    #modalCerrarSesion button {
-      font-size: 14px;
-      padding: 8px 16px;
-      margin: 5px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    #modalCerrarSesion button.confirmar {
-      background-color: #a90000;
-      color: white;
-    }
-
-    #modalCerrarSesion button.confirmar:hover {
-      background-color: #870000;
-    }
-
-    #modalCerrarSesion button.cancelar {
-      background-color: #ccc;
-      color: #333;
-    }
-
-    #modalCerrarSesion button.cancelar:hover {
-      background-color: #bbb;
-    }
-  </style>
 </head>
 <body>
   <div class="page">
@@ -97,20 +37,20 @@
     <div class="center-content">
       <div class="menu">
         <div class="menu-item" onclick="location.href='Registro_titular.php'" style="cursor: pointer;">
-          <i class="fas fa-user-plus"></i>
-          <p>Agregar Titular</p>
+          <i style=" filter: brightness(0) invert(1);" class="fas fa-user-plus"></i>
+          <p style=" filter: brightness(0) invert(1);">Agregar Titular</p>
         </div>
         <div class="menu-item" onclick="location.href='Lista_titulares.php'" style="cursor: pointer;">
-          <i class="fas fa-users"></i>
-          <p>Lista De Titulares DIF</p>
+          <i style=" filter: brightness(0) invert(1);" class="fas fa-users"></i>
+          <p style=" filter: brightness(0) invert(1);">Lista De Titulares DIF</p>
         </div>
         <div class="menu-item" onclick="location.href='Expedientes.php'" style="cursor: pointer;">
-          <i class="fas fa-folder-open"></i>
-          <p>Expedientes</p>
+          <i style=" filter: brightness(0) invert(1);" class="fas fa-folder-open"></i>
+          <p style=" filter: brightness(0) invert(1);">Expedientes</p>
         </div>
         <div class="menu-item" onclick="location.href='Control_pacientes.php'" style="cursor: pointer;">
-          <i class="fas fa-desktop"></i>
-          <p>Control De Pacientes</p>
+          <i style=" filter: brightness(0) invert(1);" class="fas fa-desktop"></i>
+          <p style=" filter: brightness(0) invert(1);" >Control De Pacientes</p>
         </div>
       </div>
     </div>
@@ -139,5 +79,10 @@
       window.location.href = 'logout.php';
     }
   </script>
+
+    <footer>
+    Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo. 
+    <a href="aviso_privacidad.php">Aviso de privacidad</a>
+  </footer>
 </body>
 </html>

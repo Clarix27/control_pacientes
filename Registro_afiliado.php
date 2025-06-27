@@ -17,6 +17,7 @@
   <title>Registro de Paciente - DIF Escuinapa</title>
   <link rel="stylesheet" href="css/estilo_reg_titular.css">
   <link rel="stylesheet" href="css/alerta_titular.css">
+  <link rel="stylesheet" href="css/estilo_receta.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/menu.css">
   <style>
@@ -55,7 +56,7 @@
   <!-- FORMULARIO -->
   <div class="main-content">
     <div class="form-container">
-      <h2 class="form-title">Registro del afiliado</h2>
+      <h2 style=" filter: brightness(0) invert(1);" class="form-title">Registro del afiliado</h2>
       <form id="formBeneficiario">
         <div class="form-row">
           <div class="form-group">
@@ -101,6 +102,11 @@
   </div>
 
   <script src="js/registro_afiliado.js"></script>
+
+    <footer>
+    Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo. 
+    <a href="aviso_privacidad.php">Aviso de privacidad</a>
+  </footer>
 </body>
 </html>
 

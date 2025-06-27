@@ -38,31 +38,6 @@
   <link rel="stylesheet" href="css/alerta_titular.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/menu.css">
-  <style>
-    .back-button {
-      color: #333;
-      font-size: 18px;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .back-button:hover {
-      color: #cc1a1a;
-      text-shadow: 1px 1px 3px rgba(204, 26, 26, 0.6);
-    }
-
-    .toast-error {
-      background-color: #e74c3c;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 6px;
-      text-align: center;
-      margin: 10px auto;
-      max-width: 600px;
-      font-weight: bold;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
-  </style>
 </head>
 <body>
 <?php include 'menu.php'; ?>
@@ -89,7 +64,7 @@
 <!-- Formulario -->
 <div class="main-content">
   <div class="form-container">
-    <h2 class="form-title">Editar afiliado</h2>
+    <h2 style=" filter: brightness(0) invert(1);" class="form-title">Editar afiliado</h2>
     <form id="formEditarBeneficiario" method="POST" action="controladores/procesar_edicion_afiliado.php" onsubmit="return validarFormulario();">
       <input type="hidden" name="id" value="<?= htmlspecialchars($beneficiario['pk_beneficiario']) ?>">
       <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($pk_titular) ?>">
@@ -181,6 +156,11 @@ function validarFormulario() {
   return true;
 }
 </script>
+
+  <footer>
+    Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo. 
+    <a href="aviso_privacidad.php">Aviso de privacidad</a>
+  </footer>
 
 </body>
 </html>

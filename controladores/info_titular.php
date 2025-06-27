@@ -10,10 +10,11 @@
     }
 
     // Consulta para mostar la informacion del paciente
-    function datos_beneficiarios($id){
+    function datos_beneficiarios($id, $estatus){
         $pdo = Conexion::getPDO();
-        $stmt = $pdo->prepare("SELECT b.pk_beneficiario, b.nombre, b.a_paterno, b.a_materno, b.edad, b.sexo, b.parentesco FROM tarjeton tar INNER JOIN beneficiarios b ON tar.pk_tarjeton=b.fk_tarjeton WHERE tar.fk_titular=:id");
+        $stmt = $pdo->prepare("SELECT b.pk_beneficiario, b.nombre, b.a_paterno, b.a_materno, b.edad, b.sexo, b.parentesco FROM tarjeton tar INNER JOIN beneficiarios b ON tar.pk_tarjeton=b.fk_tarjeton WHERE tar.fk_titular=:id AND estatus=:estatus");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':estatus', $estatus, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
