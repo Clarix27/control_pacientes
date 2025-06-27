@@ -11,11 +11,11 @@
     }
 
     .titulo-container-subtle {
-      background: #008080;
-      border-left: 8px solid #CC1A1A;
-      padding: 2px 5px;
-      margin: 20px 0 10px 0;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+     background: #008080;
+    border-left: 8px solid #CC1A1A;
+    padding: 12px 5px;
+    margin: 20px 0 10px 0;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
     }
 
     .titulo-container-subtle h2 {
