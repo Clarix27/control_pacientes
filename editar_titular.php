@@ -30,7 +30,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Editar Titular - DIF Escuinapa</title>
 
-  <!-- Rutas corregidas (en minúsculas y apuntando a carpetas correctas) -->
   <link rel="stylesheet" href="css/estilo_reg_titular.css">
   <link rel="stylesheet" href="css/alerta_titular.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -42,7 +41,6 @@
 
 <?php include 'regresar.php'?>
 
-<!-- FORMULARIO -->
 <div class="main-content">
   <div class="form-container">
     <h2 class="form-title">Editar titular</h2>

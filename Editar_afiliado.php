@@ -42,7 +42,6 @@
 <body>
 <?php include 'menu.php'; ?>
 
-<!-- Botón regresar -->
 <div style="margin: 15px 0 0 20px;">
   <a href="Historial_titular.php?id=<?= urlencode($pk_titular) ?>" class="back-button" title="Regresar">
     <i class="fas fa-arrow-left"></i>
@@ -50,7 +49,6 @@
   </a>
 </div>
 
-<!-- Mensaje de error -->
 <?php if (isset($_GET['error'])): ?>
   <div id="toast-error" class="toast-error"><?= htmlspecialchars($_GET['error']) ?></div>
   <script>
@@ -61,7 +59,6 @@
   </script>
 <?php endif; ?>
 
-<!-- Formulario -->
 <div class="main-content">
   <div class="form-container">
     <h2 class="form-title">Editar afiliado</h2>
