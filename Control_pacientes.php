@@ -97,7 +97,6 @@
   <div id="modalFormulario">
     <div class="modal-contenido">
 
-      <!-- Botón de cerrar con ícono de X -->
       <button class="cerrar" onclick="cerrarModal()" title="Cerrar">
         <i class="fas fa-times"></i>
       </button>

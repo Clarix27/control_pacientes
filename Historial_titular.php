@@ -51,11 +51,8 @@
   <div class="content">
     <div class="card">
       <div style="float: right; margin-bottom: 10px;">
-        <a href="ver_receta_titular.php?id_t=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Recetas">
+        <a href="Lista_consultas_titular.php?id_t=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Lista de Consultas">
           <i class="fas fa-envelope-open-text"></i>
-        </a>
-        <a href="Receta_titular.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">
-          <i class="fas fa-file-medical"></i>
         </a>
       </div>
 
@@ -98,11 +95,8 @@
   <a href="Editar_afiliado.php?id=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-accion btn-editar" title="Editar">
       <i class="fas fa-pen-to-square"></i>
     </a>
-    <a href="ver_receta.php?id_t=<?=urlencode($pk_titular)?>&id_b=<?=urlencode($fila['pk_beneficiario'])?>" class="btn-accion btn-historial" title="Ver Recetas">
+    <a href="Lista_consultas.php?id_t=<?=urlencode($pk_titular)?>&id_b=<?=urlencode($fila['pk_beneficiario'])?>" class="btn-accion btn-historial" title="Ver Lista de Consultas">
       <i class="fas fa-envelope-open-text"></i>
-    </a>
-    <a href="Recetas.php?id_t=<?=urlencode($pk_titular)?>&id_b=<?=urlencode($fila['pk_beneficiario'])?>"class="btn-accion btn-agregar" title="Agregar Receta">
-      <i class="fas fa-file-medical"></i>
     </a>
     <a href="eliminar_afiliado.php" class="btn-accion btn-eliminar" title="Eliminar" onclick="return confirm('¿Seguro que deseas eliminar este afiliado?');">
       <i class="fas fa-trash"></i>
