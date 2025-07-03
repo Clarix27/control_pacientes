@@ -17,7 +17,7 @@
   $tarjeton = $stmt->fetch(PDO::FETCH_ASSOC);
 
   // Datos del beneficiario:
-  $sql = $pdo->prepare("SELECT nombre, a_paterno, a_materno FROM beneficiarios WHERE pk_beneficiario = :bid");
+  $sql = $pdo->prepare("SELECT nombre, a_paterno, a_materno, parentesco FROM beneficiarios WHERE pk_beneficiario = :bid");
   $sql->bindParam(':bid', $id_b, PDO::PARAM_INT);
   $sql->execute();
   $beneficiario = $sql->fetch(PDO::FETCH_ASSOC);
@@ -195,36 +195,36 @@
             <h2 class="form-title">Registro de Consulta</h2>
             <form id="formCB">
                 <div class="form-row">
-                <div class="form-group">
+                  <div class="form-group">
                     <input type="text" name="nombre" placeholder="Nombre del Paciente" value="<?= htmlspecialchars($beneficiario['nombre']) ?>" readonly>
-                </div>
-                <div class="form-group">
+                  </div>
+                  <div class="form-group">
                     <input type="text" name="apellido_paterno" placeholder="Apellido Paterno" value="<?= htmlspecialchars($beneficiario['a_paterno']) ?>" readonly>
-                </div>
+                  </div>
                 </div>
 
                 <div class="form-row">
-                <div class="form-group">
+                  <div class="form-group">
                     <input type="text" name="apellido_materno" placeholder="Apellido Materno" value="<?= htmlspecialchars($beneficiario['a_materno']) ?>" readonly>
-                </div>
-                <div class="form-group">
+                  </div>
+                  <div class="form-group">
                     <input type="text" name="tarjeton" placeholder="Tarjetón (Ej. 231-C)" value="<?= htmlspecialchars($tarjeton['folio']) ?>" readonly>
-                </div>
+                  </div>
                 </div>
 
                 <div class="form-row" style="justify-content: center;">
-                <div class="form-group" style="max-width: 48%;">
-                    <!-- <input type="text" name="area" placeholder="Área de Consulta (Ej. Dental)" > -->
+                  <div class="form-group" style="max-width: 48%;">
                     <select name="area">
-                    <option value="">-- Selecciona un Área de Consulta --</option>
-                    <option value="DENTAL">Dental</option>
-                    <option value="CONSULTA GENERAL">Consulta General</option>
+                      <option value="">-- Selecciona un Área de Consulta --</option>
+                      <option value="DENTAL">Dental</option>
+                      <option value="CONSULTA GENERAL">Consulta General</option>
                     </select>
-                </div>
+                  </div>
                 </div>
                 
                 <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($id_titular) ?>">
                 <input type="hidden" name="pk_b" value="<?= htmlspecialchars($id_b) ?>">
+                <input type="hidden" name="parentesco" value="<?= htmlspecialchars($beneficiario['parentesco']) ?>">
                 <button type="submit" class="submit-btn smaller-btn">Registrar</button>
 
             </form>
