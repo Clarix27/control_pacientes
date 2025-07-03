@@ -9,17 +9,18 @@
 
   require_once 'controladores/conexion.php';
   $id_titular = intval($_GET['id_t']);
+  $id_b = intval($_GET['id_b']);
   $pdo = Conexion::getPDO();
   $stmt = $pdo->prepare("SELECT folio FROM tarjeton WHERE fk_titular = :id");
   $stmt->bindParam(':id', $id_titular, PDO::PARAM_INT);
   $stmt->execute();
   $tarjeton = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  // Datos del titular:
-  $sql = $pdo->prepare("SELECT nombre, a_paterno, a_materno FROM titular WHERE pk_titular = :titu");
-  $sql->bindParam(':titu', $id_titular, PDO::PARAM_INT);
+  // Datos del beneficiario:
+  $sql = $pdo->prepare("SELECT nombre, a_paterno, a_materno FROM beneficiarios WHERE pk_beneficiario = :bid");
+  $sql->bindParam(':bid', $id_b, PDO::PARAM_INT);
   $sql->execute();
-  $titular = $sql->fetch(PDO::FETCH_ASSOC);
+  $beneficiario = $sql->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -179,61 +180,62 @@
 </head>
 
 <body>
-  <?php include 'menu.php' ?>
+    <?php include 'menu.php' ?>
 
-  <!-- BOTÓN REGRESAR -->
-  <div>
-    <a href="Historial_titular.php?id=<?=urlencode($id_titular)?>" class="back-button">
-      <i class="fas fa-arrow-left"></i> <span class="back-text">Regresar</span>
-    </a>
-  </div>
-
-  <!-- FORMULARIO CON DISEÑO UNIFICADO -->
-  <div class="main-content">
-    <div class="form-container">
-      <h2 class="form-title">Registro de Consulta</h2>
-      <form id="formCT">
-        <div class="form-row">
-          <div class="form-group">
-            <input type="text" name="nombre" placeholder="Nombre del Paciente" value="<?= htmlspecialchars($titular['nombre']) ?>" readonly>
-          </div>
-          <div class="form-group">
-            <input type="text" name="apellido_paterno" placeholder="Apellido Paterno" value="<?= htmlspecialchars($titular['a_paterno']) ?>" readonly>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <input type="text" name="apellido_materno" placeholder="Apellido Materno" value="<?= htmlspecialchars($titular['a_materno']) ?>" readonly>
-          </div>
-          <div class="form-group">
-            <input type="text" name="tarjeton" placeholder="Tarjetón (Ej. 231-C)" value="<?= htmlspecialchars($tarjeton['folio']) ?>" readonly>
-          </div>
-        </div>
-
-        <div class="form-row" style="justify-content: center;">
-          <div class="form-group" style="max-width: 48%;">
-            <!-- <input type="text" name="area" placeholder="Área de Consulta (Ej. Dental)" > -->
-            <select name="area">
-              <option value="">-- Selecciona un Área de Consulta --</option>
-              <option value="DENTAL">Dental</option>
-              <option value="CONSULTA GENERAL">Consulta General</option>
-            </select>
-          </div>
-        </div>
-        
-        <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($id_titular) ?>">
-        <button type="submit" class="submit-btn smaller-btn">Registrar</button>
-
-      </form>
+    <!-- BOTÓN REGRESAR -->
+    <div>
+        <a href="Historial_titular.php?id=<?=urlencode($id_titular)?>" class="back-button">
+            <i class="fas fa-arrow-left"></i> <span class="back-text">Regresar</span>
+        </a>
     </div>
-  </div>
 
-  <footer>
-    Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo.
-    <a href="aviso_privacidad.php">Aviso de privacidad</a>
-  </footer>
+    <!-- FORMULARIO CON DISEÑO UNIFICADO -->
+    <div class="main-content">
+        <div class="form-container">
+            <h2 class="form-title">Registro de Consulta</h2>
+            <form id="formCB">
+                <div class="form-row">
+                <div class="form-group">
+                    <input type="text" name="nombre" placeholder="Nombre del Paciente" value="<?= htmlspecialchars($beneficiario['nombre']) ?>" readonly>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="apellido_paterno" placeholder="Apellido Paterno" value="<?= htmlspecialchars($beneficiario['a_paterno']) ?>" readonly>
+                </div>
+                </div>
 
-  <script src="js/consulta_titular.js"></script>
+                <div class="form-row">
+                <div class="form-group">
+                    <input type="text" name="apellido_materno" placeholder="Apellido Materno" value="<?= htmlspecialchars($beneficiario['a_materno']) ?>" readonly>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="tarjeton" placeholder="Tarjetón (Ej. 231-C)" value="<?= htmlspecialchars($tarjeton['folio']) ?>" readonly>
+                </div>
+                </div>
+
+                <div class="form-row" style="justify-content: center;">
+                <div class="form-group" style="max-width: 48%;">
+                    <!-- <input type="text" name="area" placeholder="Área de Consulta (Ej. Dental)" > -->
+                    <select name="area">
+                    <option value="">-- Selecciona un Área de Consulta --</option>
+                    <option value="DENTAL">Dental</option>
+                    <option value="CONSULTA GENERAL">Consulta General</option>
+                    </select>
+                </div>
+                </div>
+                
+                <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($id_titular) ?>">
+                <input type="hidden" name="pk_b" value="<?= htmlspecialchars($id_b) ?>">
+                <button type="submit" class="submit-btn smaller-btn">Registrar</button>
+
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo.
+        <a href="aviso_privacidad.php">Aviso de privacidad</a>
+    </footer>
+
+    <script src="js/consulta_b.js"></script>
 </body>
 </html>

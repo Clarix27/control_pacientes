@@ -68,7 +68,7 @@
         $materno_p3 = str_replace($toRemove, '', $materno_p2);
         $materno_p = mb_strtoupper($materno_p3, 'UTF-8');  
 
-        $tarjeton = isset($_POST['tarjeton']) ? trim($_POST['tarjeton']) : '';
+        //$tarjeton = isset($_POST['tarjeton']) ? trim($_POST['tarjeton']) : '';
         $parentesco = isset($_POST['parentesco']) ? trim($_POST['parentesco']) : ''; 
         $categoria = 'Normal';
         $var_area = isset($_POST['area']) ? trim($_POST['area']) : '';
@@ -80,7 +80,6 @@
         $turno = 'Sin turno';
         $fk_empleado = 1;
         $fk_receta = null;
-        $pk_titular = 0;
         $paciente_id = 0;
         $consulta_id = 0;
 
@@ -127,54 +126,31 @@
         }
 
         // Traer tarjeton
-        function traer_t($tarjeton, $nombre_t, $paterno_t) {
-            $pdo = Conexion::getPDO();
-            $stmt = $pdo->prepare("SELECT t.pk_titular, t.a_materno FROM titular t INNER JOIN tarjeton tar WHERE tar.folio = :folio && t.nombre = :nombre && t.a_paterno = :paterno");
-            $stmt->bindParam(':folio', $tarjeton, PDO::PARAM_STR);
-            $stmt->bindParam(':nombre', $nombre_t, PDO::PARAM_STR);
-            $stmt->bindParam(':paterno', $paterno_t, PDO::PARAM_STR);
-            $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+        // function traer_t($tarjeton, $nombre_t, $paterno_t) {
+        //     $pdo = Conexion::getPDO();
+        //     $stmt = $pdo->prepare("SELECT t.pk_titular, t.a_materno FROM titular t INNER JOIN tarjeton tar WHERE tar.folio = :folio && t.nombre = :nombre && t.a_paterno = :paterno");
+        //     $stmt->bindParam(':folio', $tarjeton, PDO::PARAM_STR);
+        //     $stmt->bindParam(':nombre', $nombre_t, PDO::PARAM_STR);
+        //     $stmt->bindParam(':paterno', $paterno_t, PDO::PARAM_STR);
+        //     $stmt->execute();
+        //     return $stmt->fetch(PDO::FETCH_ASSOC);
+        // }
+
+        
+        // Se empieza a registrar y validar registros.
+        $titular_id = insertar_titular($nombre_t, $paterno_t, $materno_t, $dependencia, $categoria);
+        if (empty($titular_id)) {
+            throw new Exception("Ocurrio un problema al registrar el titular.");
         }
 
-        if(!empty($tarjeton)){
-            // Se obtiene el numero de tarjeton del titular
-            $dato = traer_t($tarjeton, $nombre_t, $paterno_t);
-            // Verificar que devolvió algo (array y no false)
-            if (!is_array($dato)) {
-                throw new Exception("El número del tarjetón no concuerda o el nombre del titular está mal escrito.");
-            }
-            $pk_titular = isset($dato['pk_titular']) ? intval($dato['pk_titular']) : null;
-            $ma = $dato['a_materno'];
-            if ($materno_t !== $ma) {
-                throw new Exception("El apellido materno no concuerda con ese titular.");
-            }
+        $paciente_id = insertar_paciente($nombre_p, $paterno_p, $materno_p, $parentesco, $titular_id);
+        if (empty($paciente_id)) {
+            throw new Exception("Ocurrio un problema al registrar el paciente.");
+        }
 
-            $paciente_id = insertar_paciente($nombre_p, $paterno_p, $materno_p, $parentesco, $pk_titular);
-            if (empty($paciente_id)) {
-                throw new Exception("Ocurrio un problema al registrar el paciente.");
-            }
-
-            $consulta_id = registrar_consulta($fecha, $apoyo, $turno, $area, $pk_titular, $paciente_id, $fk_receta, $fk_empleado);
-            if (empty($consulta_id)) {
-                throw new Exception("Ocurrio un problema al registrar la consulta.");
-            }
-        }else{
-            // Se empieza a registrar y validar registros.
-            $titular_id = insertar_titular($nombre_t, $paterno_t, $materno_t, $dependencia, $categoria);
-            if (empty($titular_id)) {
-                throw new Exception("Ocurrio un problema al registrar el titular.");
-            }
-
-            $paciente_id = insertar_paciente($nombre_p, $paterno_p, $materno_p, $parentesco, $titular_id);
-            if (empty($paciente_id)) {
-                throw new Exception("Ocurrio un problema al registrar el paciente.");
-            }
-
-            $consulta_id = registrar_consulta($fecha, $apoyo, $turno, $area, $titular_id, $paciente_id, $fk_receta, $fk_empleado);
-            if (empty($consulta_id)) {
-                throw new Exception("Ocurrio un problema al registrar la consulta.");
-            }
+        $consulta_id = registrar_consulta($fecha, $apoyo, $turno, $area, $titular_id, $paciente_id, $fk_receta, $fk_empleado);
+        if (empty($consulta_id)) {
+            throw new Exception("Ocurrio un problema al registrar la consulta.");
         }
 
         // Devolver JSON de éxito

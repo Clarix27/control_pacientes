@@ -41,7 +41,7 @@
 
 
   <div style="margin: 15px 0 0 20px;">
-  <a href="Lista_consultas_titular.php" class="back-button">
+  <a href="Lista_consultas_titular.php?id_t=<?=urlencode($id_titular)?>" class="back-button">
     <i class="fas fa-arrow-left"></i>
     <span class="back-text">Regresar</span>
   </a>
