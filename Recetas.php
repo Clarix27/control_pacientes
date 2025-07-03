@@ -45,7 +45,7 @@ $folio_tarjeton = $tarjeton['folio'] ?? 'No asignado';
 
 
   <div style="margin: 15px 0 0 20px;">
-  <a href="Historial_titular.php?id=<?=urlencode($id_titular)?>" class="back-button">
+  <a href="Lista_consultas.php" class="back-button">
     <i class="fas fa-arrow-left"></i>
     <span class="back-text">Regresar</span>
   </a>

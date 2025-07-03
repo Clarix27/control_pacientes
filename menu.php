@@ -29,7 +29,6 @@
     </div>
   </div>
 
-  <!-- Modal de confirmación de cierre de sesión -->
   <div id="modalCerrarSesion">
     <div class="modal-contenido">
       <p>¿Estás seguro que deseas cerrar sesión?</p>
@@ -38,7 +37,6 @@
     </div>
   </div>
 
-  <!-- Scripts -->
   <script>
     function mostrarModalCerrarSesion() {
       document.getElementById('modalCerrarSesion').style.display = 'flex';
