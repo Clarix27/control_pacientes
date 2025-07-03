@@ -16,11 +16,16 @@
       box-sizing: border-box;
     }
 
-    .contenedor-consultas {
+.contenedor-consultas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 30px 40px;
   width: 95%;
-  max-width: 1000px;
-  margin: 20px auto;
+  max-width: 1400px;
+  margin: 30px auto;
 }
+
+
 
     .tarjeta-consulta {
   background-color: #e7e7e7;
@@ -220,7 +225,35 @@ footer a:hover {
     </div>
   </div>
 
-  <div class="tarjeta-consulta">
+  <div class="tarjeta-consulta"> 
+    <div class="fecha-etiqueta">23/05/2025</div>
+    <div class="contenido-tarjeta">
+      <div class="texto-consulta">
+        <p><strong>Paciente:</strong> Jose Guadalupe Llamas Padilla</p>
+        <p><strong>Tarjetón:</strong> <span class="tarjeton">231-C</span></p>
+        <p><strong>Área De Consulta:</strong> Dental</p>
+      </div>
+      <div class="boton-consulta">
+        <a href="Recetas.php" class="btn-agregar">Agregar Receta</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tarjeta-consulta"> 
+    <div class="fecha-etiqueta">23/05/2025</div>
+    <div class="contenido-tarjeta">
+      <div class="texto-consulta">
+        <p><strong>Paciente:</strong> Jose Guadalupe Llamas Padilla</p>
+        <p><strong>Tarjetón:</strong> <span class="tarjeton">231-C</span></p>
+        <p><strong>Área De Consulta:</strong> Dental</p>
+      </div>
+      <div class="boton-consulta">
+        <a href="Recetas.php" class="btn-agregar">Agregar Receta</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tarjeta-consulta"> 
     <div class="fecha-etiqueta">23/05/2025</div>
     <div class="contenido-tarjeta">
       <div class="texto-consulta">
