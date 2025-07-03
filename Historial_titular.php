@@ -107,19 +107,15 @@
         <td>
   <div class="acciones-container">
   <a href="Editar_afiliado.php?id=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-accion btn-editar" title="Editar">
-    <i class="fas fa-pen-to-square"></i>
-  </a>
-  <a href="Lista_consultas.php?id_t=<?= urlencode($pk_titular) ?>&id_b=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-accion btn-historial" title="Ver Lista de Consultas">
-    <i class="fas fa-envelope-open-text"></i>
-  </a>
-  <a href="Registro_consulta_afiliado.php?id_t=<?= urlencode($pk_titular) ?>&id_b=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-accion btn-agregar" title="Agregar Consulta">
-    <i class="fas fa-calendar-plus"></i>
-  </a>
-  <a href="eliminar_afiliado.php" class="btn-accion btn-eliminar" title="Eliminar" onclick="return confirm('¿Seguro que deseas eliminar este afiliado?');">
-    <i class="fas fa-trash"></i>
-  </a>
-</div>
-
+      <i class="fas fa-pen-to-square"></i>
+    </a>
+    <a href="Lista_consultas.php?id_t=<?=urlencode($pk_titular)?>&id_b=<?=urlencode($fila['pk_beneficiario'])?>" class="btn-accion btn-historial" title="Ver Lista de Consultas">
+      <i class="fas fa-envelope-open-text"></i>
+    </a>
+    <a href="eliminar_afiliado.php" class="btn-accion btn-eliminar" title="Eliminar" onclick="return confirm('¿Seguro que deseas eliminar este afiliado?');">
+      <i class="fas fa-trash"></i>
+    </a>
+  </div>
 </td>
 
 
