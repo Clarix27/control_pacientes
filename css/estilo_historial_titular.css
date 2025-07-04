@@ -236,33 +236,41 @@
     color: white;
   }
 
-  .btn-editar {
-    background: #3498db;
-  }
-  .btn-editar:hover {
-    background: #2980b9;
-  }
+  .btn-lista {
+  background: #6C5CE7; /* Púrpura */
+}
+.btn-lista:hover {
+  background: #5B4DCC;
+}
 
-  .btn-historial {
-    background: #27ae60;
-  }
-  .btn-historial:hover {
-    background: #229954;
-  }
+.btn-ver {
+  background: #0984E3; /* Azul acero */
+}
+.btn-ver:hover {
+  background: #086FBC;
+}
 
-  .btn-agregar {
-    background: #f39c12;
-  }
-  .btn-agregar:hover {
-    background: #e67e22;
-  }
+.btn-registrar {
+  background: #00B894; /* Verde lima oscuro */
+}
+.btn-registrar:hover {
+  background: #019875;
+}
 
-  .btn-eliminar {
-    background: #e74c3c;
-  }
-  .btn-eliminar:hover {
-    background: #c0392b;
-  }
+.btn-editar {
+  background: #E67E22; /* Naranja fuerte */
+}
+.btn-editar:hover {
+  background: #CA6F1E;
+}
+
+.btn-eliminar {
+  background: #D63031; /* Rojo oscuro */
+}
+.btn-eliminar:hover {
+  background: #B72525;
+}
+
 
 
 

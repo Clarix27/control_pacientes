@@ -170,7 +170,7 @@
   <?php include 'menu.php'; ?>
 
   <div style="margin: 15px 0 0 20px;">
-    <a href="Historial_titular.php.php?id=<?=urlencode($pk_titular)?>" class="back-button">
+    <a href="Historial_titular.php?id=<?=urlencode($pk_titular)?>" class="back-button">
       <i class="fas fa-arrow-left"></i>
       <span class="back-text">Regresar</span>
     </a>

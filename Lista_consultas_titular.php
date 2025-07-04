@@ -223,7 +223,7 @@
   </div>
 
   <div class="titulo-container-subtle">
-    <h2 class="titulo-pagina">LISTA DE CONSULTAS DEL TITULAR</h2>
+    <h2 style="text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA DE CONSULTAS DEL TITULAR</h2>
   </div>
 
   <div class="contenedor-consultas">
