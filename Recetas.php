@@ -10,6 +10,12 @@
   require_once 'controladores/info_titular.php';
   $id_titular = $_GET['id_t'];
   $id_beneficiario = $_GET['id_b'];
+  $pk_consulta = $_GET['consulta_id'];
+  if (empty($id_titular) && empty($pk_consulta) && empty($id_beneficiario)) {
+    echo "<script>alert('No se encontro el ID');</script>";
+    echo("<script>window.location.assign('Inicio.php');</script>");
+    exit;
+  }
 
   $titular = titular_id($id_titular);
   // Obtener tarjetón del titular
@@ -113,6 +119,7 @@
 
     <!-- Campo oculto que no se muestra -->
     <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($id_titular, ENT_QUOTES, 'UTF-8') ?>">
+    <input type="hidden" name="pk_consulta" value="<?= htmlspecialchars($pk_consulta, ENT_QUOTES, 'UTF-8') ?>">
 
     <div style="text-align: center; margin: 30px 0;">
       <button type="submit" class="btn-submit">

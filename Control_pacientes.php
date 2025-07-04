@@ -171,27 +171,26 @@
         <label>Parentesco:</label>
         <select id="opciones" name="parentesco" onchange="cambiarCampos()">
           <option value="">-- Selecciona el Parentesco --</option>
-          <option value="Esposo">Esposa/o</option>
-          <option value="Hija">Hija</option>
-          <option value="Hijo">Hijo</option>
-          <option value="Misma persona">Misma persona</option>
+          <option value="ESPOSO/A">Esposa/o</option>
+          <option value="HIJA">Hija</option>
+          <option value="HIJO">Hijo</option>
+          <option value="MISMA PERSONA">Misma persona</option>
         </select>
 
         
-        <div id="camposPaciente">
-          <label>Nombre Acompañante:</label>
-          <input type="text" name="nombre_p" id="nombre_p" placeholder="Nombre">
-          <input type="text" name="paterno_p" id="paterno_p" placeholder="Apellido paterno">
-          <input type="text" name="materno_p" id="materno_p" placeholder="Apellido materno">
-        </div>
-
         <div id="camposTitular">
-          <label>Nombre Paciente:</label>
+          <label>Nombre Acompañante:</label>
           <input type="text" name="nombre_t" id="nombre_t" placeholder="Nombre">
-          <input type="text" name="paterno_t" id="paterno_t" placeholder="Apellido paterno">
-          <input type="text" name="materno_t" id="materno_t" placeholder="Apellido materno">
+          <input type="text" name="paterno_t" id="paterno_t" placeholder="Apellido Paterno">
+          <input type="text" name="materno_t" id="materno_t" placeholder="Apellido Materno">
         </div>
 
+        <div id="camposPaciente">
+          <label>Nombre Paciente:</label>
+          <input type="text" name="nombre_p" id="nombre_p" placeholder="Nombre">
+          <input type="text" name="paterno_p" id="paterno_p" placeholder="Apellido Paterno">
+          <input type="text" name="materno_p" id="materno_p" placeholder="Apellido Materno">
+        </div>
 
         <label>Área de consulta:</label>
         <input type="text" name="area" class="resaltado-azul" placeholder="Área de consulta">
@@ -218,19 +217,19 @@
 
     function cambiarCampos() {
       const parentesco = document.getElementById('opciones').value;
-      const camposPaciente = document.getElementById('camposPaciente');
+      const camposTitular = document.getElementById('camposTitular');
 
       if (parentesco === "Misma persona") {
-        camposPaciente.style.display = "none";
+        camposTitular.style.display = "none";
 
-        document.getElementById('nombre_p').value = document.getElementById('nombre_t').value;
-        document.getElementById('paterno_p').value = document.getElementById('paterno_t').value;
-        document.getElementById('materno_p').value = document.getElementById('materno_t').value;
+        // document.getElementById('nombre_p').value = document.getElementById('nombre_t').value;
+        // document.getElementById('paterno_p').value = document.getElementById('paterno_t').value;
+        // document.getElementById('materno_p').value = document.getElementById('materno_t').value;
       } else {
-        camposPaciente.style.display = "block";
-        document.getElementById('nombre_p').value = "";
-        document.getElementById('paterno_p').value = "";
-        document.getElementById('materno_p').value = "";
+        camposTitular.style.display = "block";
+        document.getElementById('nombre_t').value = "";
+        document.getElementById('paterno_t').value = "";
+        document.getElementById('materno_t').value = "";
       }
     }
 
@@ -248,6 +247,8 @@
       });
     });
   </script>
+
+  <script src="js/control_pacientes.js"></script>
 
   <footer>
     Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo. 

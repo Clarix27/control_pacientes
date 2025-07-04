@@ -4,16 +4,10 @@
         require_once 'conexion.php';
 
         // Validar campos obligatorios de titular/tarjetón
-        $requiredTitular = ['nombre_t', 'paterno_t', 'nombre_p', 'paterno_p', 'area', 'fecha', 'dependencia', 'parentesco'];
-        foreach ($requiredTitular as $campo) {
+        $requiredPaciente = ['nombre_p', 'paterno_p', 'area', 'fecha', 'dependencia', 'parentesco'];
+        foreach ($requiredPaciente as $campo) {
             if (!isset($_POST[$campo]) || trim($_POST[$campo]) === '') {
                 switch ($campo) {
-                    case 'nombre_t':
-                        $campo = 'Nombre Titular';
-                        break;
-                    case 'paterno_t':
-                        $campo = 'Apellido paterno del Titular';
-                        break;
                     case 'nombre_p':
                         $campo = 'Nombre Paciente';
                         break;
@@ -40,6 +34,34 @@
                 exit;
             }
         }
+
+        $parentesco = isset($_POST['parentesco']) ? trim($_POST['parentesco']) : ''; 
+
+        if ($parentesco !== 'MISMA PERSONA') {
+            // Validar campos obligatorios de titular/tarjetón
+            $requiredTitular = ['nombre_t', 'paterno_t'];
+            foreach ($requiredTitular as $campot) {
+                if (!isset($_POST[$campot]) || trim($_POST[$campot]) === '') {
+                    switch ($campot) {
+                        case 'nombre_t':
+                            $campot = 'Nombre Titular';
+                            break;
+                        case 'paterno_t':
+                            $campot = 'Apellido paterno del Titular';
+                            break;
+                        default:
+                            // throw new Exception("Error en la estructura de validación.");
+                            break;
+                    }
+                    echo json_encode([
+                        'success' => false,
+                        'message' => "Falta el campo obligatorio: $campot"
+                    ]);
+                    exit;
+                }
+            }
+        }
+
         // Lista de caracteres a eliminar
         $toRemove = ['-','@','#','$','%','&','*','+','/','=','.',',',';',':','!','?','\''];
 
@@ -68,8 +90,11 @@
         $materno_p3 = str_replace($toRemove, '', $materno_p2);
         $materno_p = mb_strtoupper($materno_p3, 'UTF-8');  
 
-        //$tarjeton = isset($_POST['tarjeton']) ? trim($_POST['tarjeton']) : '';
-        $parentesco = isset($_POST['parentesco']) ? trim($_POST['parentesco']) : ''; 
+        if (empty($nombre_t) && empty($paterno_t) && empty($materno_t)) {
+            $nombre_t = $nombre_p;
+            $paterno_t = $paterno_p;
+            $materno_t = $materno_p;
+        }
         $categoria = 'Normal';
         $var_area = isset($_POST['area']) ? trim($_POST['area']) : '';
         $area = mb_strtoupper($var_area);

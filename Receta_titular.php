@@ -9,6 +9,12 @@
   
   require_once 'controladores/info_titular.php';
   $id_titular = $_GET['id_t'];
+  $pk_consulta = $_GET['consulta_id'];
+  if (empty($id_titular) && empty($pk_consulta)) {
+    echo "<script>alert('No se encontro el ID');</script>";
+    echo("<script>window.location.assign('Inicio.php');</script>");
+    exit;
+  }
 
   $titular = titular_id($id_titular);
   $t_materno = $titular['a_materno'] ?? '';
@@ -96,6 +102,7 @@
 
     <!-- Campo oculto que no se muestra -->
     <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($id_titular, ENT_QUOTES, 'UTF-8') ?>">
+    <input type="hidden" name="pk_consulta" value="<?= htmlspecialchars($pk_consulta, ENT_QUOTES, 'UTF-8') ?>">
 
     <div style="text-align: center; margin: 30px 0;">
       <button type="submit" class="btn-submit">
