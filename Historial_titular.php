@@ -60,10 +60,10 @@
   <div class="content">
     <div class="card">
       <div style="float: right; margin-bottom: 10px;">
-  <a href="Lista_consultas_titular.php?id_t=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Lista de Consultas">
+  <a href="Lista_consultas_tit.php?id_t=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Lista de Consultas">
     <i class="fas fa-envelope-open-text"></i>
   </a>
-  <a href="Registro_consulta_titular.php?id=<?= $pk_titular ?>" class="btn-accion btn-agregar" title="Agregar Consulta">
+  <a href="Registro_consulta.php?id=<?= $pk_titular ?>" class="btn-accion btn-agregar" title="Agregar Consulta">
     <i class="fas fa-calendar-plus"></i>
   </a>
 </div>

@@ -41,7 +41,7 @@
         </div>
         <div class="menu-item" onclick="location.href='Lista_titulares.php'" style="cursor: pointer;">
           <i style=" filter: brightness(0) invert(1);" class="fas fa-users"></i>
-          <p style=" filter: brightness(0) invert(1);">Lista De Titulares DIF</p>
+          <p style=" filter: brightness(0) invert(1);">Titulares DIF</p>
         </div>
         <div class="menu-item" onclick="location.href='Expedientes.php'" style="cursor: pointer;">
           <i style=" filter: brightness(0) invert(1);" class="fas fa-folder-open"></i>
