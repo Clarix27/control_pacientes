@@ -155,20 +155,21 @@ footer a:hover {
 }
 
 .titulo-container-subtle {
-      background: #008080;
-      border-left: 8px solid #CC1A1A;
-      padding: 2px 5px;
-      margin: 20px 0 10px 0;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-    }
+  background: #008080;
+  border-left: 8px solid #CC1A1A;
+  padding: 2px 5px;
+  margin: 20px 0 10px 0;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 
-    .titulo-container-subtle h2 {
-      margin: 0;
-      font-size: 21px;
-      font-weight: 600;
-      text-align: center;
-      color: white;
-    }
+  }
+
+  .titulo-container-subtle h2 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+  }
 
     .back-button {
       color: #333;
@@ -202,7 +203,7 @@ footer a:hover {
 </div>
 
 <div class="titulo-container-subtle">
-  <h2 class="titulo-pagina">LISTA DE CONSULTAS BENEFICIARIO</h2>
+  <h2 style="text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA DE CONSULTAS BENEFICIARIO</h2>
 </div>
 
 <div class="contenedor-consultas">

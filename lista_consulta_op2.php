@@ -280,7 +280,7 @@
 
 <!-- Simulación de inclusión del menú -->
 <div  class="titulo-container-subtle">
-    <h2 style= "text-align: center; margin-top: 30px;" class="titulo-pagina">HISTORIAL CLÍNICO </h2>
+    <h2 style= "text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA GENERAL</h2>
   </div>
 
   <div class="registro-container" style="margin-top: 10px;">
