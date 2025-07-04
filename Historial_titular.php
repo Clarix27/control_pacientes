@@ -60,10 +60,15 @@
   <div class="content">
     <div class="card">
       <div style="float: right; margin-bottom: 10px;">
-        <a href="Lista_consultas_titular.php?id_t=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Lista de Consultas">
-          <i class="fas fa-envelope-open-text"></i>
-        </a>
-      </div>
+  <a href="Lista_consultas_tit.php?id_t=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Lista de Consultas">
+    <i class="fas fa-envelope-open-text"></i>
+  </a>
+  <a href="Registro_consulta.php?id=<?= $pk_titular ?>" class="btn-accion btn-agregar" title="Agregar Consulta">
+    <i class="fas fa-calendar-plus"></i>
+  </a>
+</div>
+
+
 
       <h4>Sistema Municipal para el Desarrollo Integral de la Familia del Municipio de Escuinapa</h4>
       <div class="info-grid">
