@@ -13,12 +13,12 @@
 
   $titular = titular_id($id_titular);
   // Obtener tarjetón del titular
-require_once 'controladores/conexion.php';
-$pdo = Conexion::getPDO();
-$stmt_tarjeton = $pdo->prepare("SELECT folio FROM tarjeton WHERE fk_titular = ?");
-$stmt_tarjeton->execute([$id_titular]);
-$tarjeton = $stmt_tarjeton->fetch(PDO::FETCH_ASSOC);
-$folio_tarjeton = $tarjeton['folio'] ?? 'No asignado';
+  require_once 'controladores/conexion.php';
+  $pdo = Conexion::getPDO();
+  $stmt_tarjeton = $pdo->prepare("SELECT folio FROM tarjeton WHERE fk_titular = ?");
+  $stmt_tarjeton->execute([$id_titular]);
+  $tarjeton = $stmt_tarjeton->fetch(PDO::FETCH_ASSOC);
+  $folio_tarjeton = $tarjeton['folio'] ?? 'No asignado';
 
   $t_materno = $titular['a_materno'] ?? '';
   $beneficiario = info_beneficiario($id_beneficiario);
@@ -45,10 +45,10 @@ $folio_tarjeton = $tarjeton['folio'] ?? 'No asignado';
 
 
   <div style="margin: 15px 0 0 20px;">
-  <a href="Historial_titular.php?id=<?=urlencode($id_titular)?>" class="back-button">
-    <i class="fas fa-arrow-left"></i>
-    <span class="back-text">Regresar</span>
-  </a>
+    <a href="Lista_consultas.php?id_t=<?=urlencode($id_titular)?>&id_b=<?=urlencode($id_beneficiario)?>" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+      <span class="back-text">Regresar</span>
+    </a>
   </div>
 
 

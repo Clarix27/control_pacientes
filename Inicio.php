@@ -27,7 +27,6 @@
     <div class="navbar">
       CONTROL DE PACIENTES DIF
       <div class="icono-config">
-        <!-- Se elimina href directo para activar el modal con onclick -->
         <a href="#" onclick="mostrarModalCerrarSesion(); return false;" title="Cerrar sesión">
           <img src="img/ingresar.png" alt="Cerrar sesión" style="height: 35px;">
         </a>
@@ -42,7 +41,7 @@
         </div>
         <div class="menu-item" onclick="location.href='Lista_titulares.php'" style="cursor: pointer;">
           <i style=" filter: brightness(0) invert(1);" class="fas fa-users"></i>
-          <p style=" filter: brightness(0) invert(1);">Lista De Titulares DIF</p>
+          <p style=" filter: brightness(0) invert(1);">Titulares DIF</p>
         </div>
         <div class="menu-item" onclick="location.href='Expedientes.php'" style="cursor: pointer;">
           <i style=" filter: brightness(0) invert(1);" class="fas fa-folder-open"></i>
@@ -56,7 +55,6 @@
     </div>
   </div>
 
-  <!-- Modal de confirmación de cierre de sesión -->
   <div id="modalCerrarSesion">
     <div class="modal-contenido">
       <p>¿Estás seguro que deseas cerrar sesión?</p>

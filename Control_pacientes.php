@@ -50,20 +50,16 @@
       </div>
     </div>
   </div>
-<div class="titulo-containerr-subtlee">
-    <h2 style="text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA DE PACIENTES</h2>
-  </div>
+
 
 
   <table class="tabla-pacientes" id="tablaPacientes">
 
     <thead>
-      <tr>
+      <tr>,
         <th>Nombre Titular:</th>
         <th>Nombre Paciente:</th>
-        <th>Tarjeton:</th>
-        <th>Área:</th>
-        <th>Dependencia:</th>
+        <th>Área de consulta:</th>
         <th>Apoyo/Pago:</th>
       </tr>
     </thead>
@@ -79,69 +75,160 @@
         <tr>
           <td><?= htmlspecialchars($paciente['t_nombre'].' '.$paciente['t_paterno'].' '.$paciente['t_materno'], ENT_QUOTES, 'UTF-8') ?></td>
           <td><?= htmlspecialchars($paciente['nombre'].' '.$paciente['a_paterno'].' '.$paciente['a_materno'], ENT_QUOTES, 'UTF-8') ?></td>
-          <td class="resaltado">
-            <?= !empty($paciente['folio']) ? htmlspecialchars($paciente['folio'], ENT_QUOTES, 'UTF-8'): 'Sin Tarjeton'?>
-          </td>
+         
           <td>
             <span class="resaltado-azul">
               <?= htmlspecialchars($paciente['tipo_consulta'], ENT_QUOTES, 'UTF-8') ?>
             </span>
           </td>
-          <td><?= !empty($paciente['dependencia']) ? htmlspecialchars($paciente['dependencia'], ENT_QUOTES, 'UTF-8'): 'No Tiene' ?></td>
+         
           <td><?= htmlspecialchars($paciente['pago'],   ENT_QUOTES, 'UTF-8') ?></td>
         </tr>
       <?php endforeach; ?>
     </tbody>
   </table>
-  
+ <style>
+  /* --- Estilos profesionales para el modal --- */
+  #modalFormulario {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  .modal-contenido {
+    background: #fff;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 420px;
+    padding: 20px 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeInUp 0.25s ease-out;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  @keyframes fadeInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+
+  .modal-contenido .cerrar {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: #CC1A1A;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .modal-contenido .cerrar:hover {
+    color: #A00F12;
+  }
+
+  .modal-contenido h3 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #096B68;
+    text-align: center;
+  }
+
+  #formControlP {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  #formControlP label {
+    font-weight: 600;
+    color: #096B68;
+    font-size: 14px;
+  }
+
+  #formControlP input[type="text"],
+  #formControlP input[type="number"],
+  #formControlP select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    font-size: 13px;
+    transition: border-color 0.2s;
+  }
+
+  #formControlP input:focus,
+  #formControlP select:focus {
+    outline: none;
+    border-color: #129990;
+  }
+
+  .enviar-modal {
+    background-color: #008080;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 8px;
+  }
+
+  .enviar-modal:hover {
+    background-color: #006B6B;
+  }
+</style>
+
   <div id="modalFormulario">
-    <div class="modal-contenido">
+  <div class="modal-contenido">
+    <button class="cerrar" onclick="cerrarModal()" title="Cerrar">
+      <i class="fas fa-times"></i>
+    </button>
+      <h3>Registrar Consulta</h3>
 
-      <!-- Botón de cerrar con ícono de X -->
-      <button class="cerrar" onclick="cerrarModal()" title="Cerrar">
-        <i class="fas fa-times"></i>
-      </button>
+    <form id="formControlP">
+      <label>Nombre Titular:</label>
+      <input type="text" name="nombre_t" placeholder="Nombre">
+      <input type="text" name="paterno_t" placeholder="Apellido paterno">
+      <input type="text" name="materno_t" placeholder="Apellido materno">
 
-      <form id="formControlP">
-        <label>Nombre Titular:</label>
-        <input type="text" name="nombre_t" placeholder="Nombre">
-        <input type="text" name="paterno_t" placeholder="Apellido paterno">
-        <input type="text" name="materno_t" placeholder="Apellido materno">
+      <label>Nombre Paciente:</label>
+      <input type="text" name="nombre_p" placeholder="Nombre">
+      <input type="text" name="paterno_p" placeholder="Apellido paterno">
+      <input type="text" name="materno_p" placeholder="Apellido materno">
 
-        <label>Tarjeton:</label>
-        <input type="text" name="tarjeton" class="resaltado" placeholder="Tarjeton">
+        <label>Área de consulta:</label>
+        <input type="text" name="area" class="resaltado-azul" placeholder="Área de consulta">
 
-        <label>Dependencia:</label>
-        <input type="text" name="dependencia" placeholder="Dependencia">
-
-        <label>Nombre Paciente:</label>
-        <input type="text" name="nombre_p" placeholder="Nombre">
-        <input type="text" name="paterno_p" placeholder="Apellido paterno">
-        <input type="text" name="materno_p" placeholder="Apellido materno">
-
-        <label>Área:</label>
-        <input type="text" name="area" class="resaltado-azul" placeholder="Área">
-
-        <label>Apoyo/Pago:</label>
+       <label>Apoyo/Pago:</label>
         <input type="number" min="0" name="apoyo" placeholder="Apoyo">
 
-        <label>Fecha:</label>
-        <input type="date" name="fecha">
+      <label>Parentesco:</label>
+      <select id="opciones" name="parentesco">
+        <option value="">-- Selecciona el Parentesco --</option>
+        <option value="Esposo">Esposa/o</option>
+        <option value="Hija">Hija</option>
+        <option value="Hijo">Hijo</option>
+        <option value="Misma persona">Misma persona</option>
+      </select>
 
-        <label>Parentesco:</label>
-        <select id="opciones" name="parentesco">
-          <option value="">-- Selecciona el Parentesco --</option>
-          <option value="Esposo">Esposa/o</option>
-          <option value="Hija">Hija</option>
-          <option value="Hijo">Hijo</option>
-          <option value="Misma persona">Misma persona</option>
-        </select>
+      <!-- Botón enviar agregado debajo del formulario -->
+      <button type="submit" class="enviar-modal">Enviar Datos</button>
+    </form>
+  </div>  
+</div>
 
-        <!-- Botón enviar agregado debajo del formulario -->
-        <button type="submit" class="enviar-modal">Enviar Datos</button>
-      </form>
-    </div>  
-  </div>
 
   <script>
     function mostrarModal() {

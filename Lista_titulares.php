@@ -66,7 +66,6 @@
     </div>
   </div>
 
-  <!-- Tabla -->
   <table id="tablaTitulares">
     <thead>
       <tr>
