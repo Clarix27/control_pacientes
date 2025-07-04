@@ -35,9 +35,24 @@ function actualizar_direccion($id, $calle, $num_casa, $colonia, $municipio) {
 
 try {
     $id = intval($_POST['id'] ?? 0);
-    $nombre = trim($_POST['nombre'] ?? '');
-    $a_paterno = trim($_POST['apaterno'] ?? '');
-    $a_materno = trim($_POST['amaterno'] ?? '');
+    // Lista de caracteres a eliminar
+    $toRemove = ['-','@','#','$','%','&','*','+','/','=','.',',',';',':','!','?','\''];
+
+    // 1) Recolectar y sanear datos del titular y tarjetón
+    $nombre_t     = trim($_POST['nombre']     ?? '');
+    $nombre_t2 = str_replace($toRemove, '', $nombre_t);
+    $nombre = mb_strtoupper($nombre_t2, 'UTF-8');
+
+    // Quito caracteres y vuelvo en mayusculas
+    $a_paterno_t  = trim($_POST['apaterno']   ?? '');
+    $paterno_t2 = str_replace($toRemove, '', $a_paterno_t);
+    $a_paterno = mb_strtoupper($paterno_t2, 'UTF-8');  
+
+    // Quito caracteres y vuelvo en mayusculas
+    $a_materno_t  = isset($_POST['amaterno']) ? trim($_POST['amaterno']) : '';
+    $materno_t2 = str_replace($toRemove, '', $a_materno_t);
+    $a_materno = mb_strtoupper($materno_t2, 'UTF-8');  
+    
     $categoria = trim($_POST['categoria'] ?? '');
     $puesto = trim($_POST['puesto'] ?? '');
     $direccion = trim($_POST['direccion'] ?? '');

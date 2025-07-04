@@ -4,7 +4,7 @@
         require_once 'conexion.php';
 
         // Validar campos obligatorios de titular/tarjetón
-        $requiredPaciente = ['nombre_p', 'paterno_p', 'area', 'fecha', 'dependencia', 'parentesco'];
+        $requiredPaciente = ['nombre_p', 'paterno_p', 'area', 'parentesco'];
         foreach ($requiredPaciente as $campo) {
             if (!isset($_POST[$campo]) || trim($_POST[$campo]) === '') {
                 switch ($campo) {
@@ -14,15 +14,9 @@
                     case 'paterno_p':
                         $campo = 'Apellido Paterno del Paciente';
                         break;
-                    case 'fecha':
-                        $campo = 'Fecha';
-                        break;
                     case 'parentesco':
                         $campo = 'Parentesco';
-                        break;   
-                    case 'dependencia':
-                        $campo = 'Dependencia';
-                        break;   
+                        break;    
                     default:
                         // throw new Exception("Error en la estructura de validación.");
                         break;
@@ -98,7 +92,7 @@
         $categoria = 'Normal';
         $var_area = isset($_POST['area']) ? trim($_POST['area']) : '';
         $area = mb_strtoupper($var_area);
-        $fecha = $_POST['fecha'];
+        $fecha = date('Y-m-d');
         $var_d = isset($_POST['dependencia']) ? trim($_POST['dependencia']) : '';
         $dependencia = mb_strtoupper($var_d);
         $apoyo = isset($_POST['apoyo']) ? intval(trim($_POST['apoyo'])) : 0;
