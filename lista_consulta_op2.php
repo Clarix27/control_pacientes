@@ -191,48 +191,6 @@
   </div>
 
   <div class="contenedor-consultas-multicolumna">
-    <!-- Ejemplo de tarjeta -->
-    <div class="tarjeta-consulta">
-      <div class="fecha-etiqueta">24/06/2025</div>
-      <div style="display:flex; flex-direction:column; gap:10px; font-size:15px; color:#333;">
-        <div><strong>Paciente:</strong> Clara Juliana Estrada Peraza</div>
-        <div><strong>Tarjetón:</strong> <span class="tarjeton">000123456</span></div>
-        <div><strong>Área de Consulta:</strong> Psicología</div>
-        <div style="background:#fff; padding:10px; border-left:4px solid #129990; border-radius:6px;">
-          <i class="fas fa-capsules" style="color:#129990; margin-right:8px;"></i>
-          <span><strong>Receta:</strong> Sertralina 50mg</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="tarjeta-consulta">
-      <div class="fecha-etiqueta">03/07/2025</div>
-      <div style="display:flex; flex-direction:column; gap:10px; font-size:15px; color:#333;">
-        <div><strong>Paciente:</strong> Clara Juliana Estrada Peraza</div>
-        <div><strong>Tarjetón:</strong> <span class="tarjeton">000123456</span></div>
-        <div><strong>Área de Consulta:</strong> Psicología</div>
-        <div style="background:#fff; padding:10px; border-left:4px solid #129990; border-radius:6px;">
-          <i class="fas fa-capsules" style="color:#129990; margin-right:8px;"></i>
-          <span><strong>Receta:</strong> Sertralina 50mg</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="tarjeta-consulta">
-      <div class="fecha-etiqueta">24/06/2025</div>
-      <div style="display:flex; flex-direction:column; gap:10px; font-size:15px; color:#333;">
-        <div><strong>Paciente:</strong> Clara Juliana Estrada Peraza</div>
-        <div><strong>Tarjetón:</strong> <span class="tarjeton">000123456</span></div>
-        <div><strong>Área de Consulta:</strong> Psicología</div>
-        <div style="background:#fff; padding:10px; border-left:4px solid #129990; border-radius:6px;">
-          <i class="fas fa-capsules" style="color:#129990; margin-right:8px;"></i>
-          <span><strong>Receta:</strong> Sertralina 50mg</span>
-        </div>
-      </div>
-    </div>
-
-
     <!-- Repite más tarjetas según datos -->
     <?php if (empty($consultas)): ?>
       <div class="sin-consultas">
