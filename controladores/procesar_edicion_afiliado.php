@@ -12,9 +12,24 @@ try {
     }
 
     $id = intval($_POST['id']);
-    $nombre = trim($_POST['nombre']);
-    $apaterno = trim($_POST['apaterno']);
-    $amaterno = isset($_POST['amaterno']) ? trim($_POST['amaterno']) : null;
+    // Lista de caracteres a eliminar
+    $toRemove = ['-','@','#','$','%','&','*','+','/','=','.',',',';',':','!','?','\''];
+
+    // 1) Recolectar y sanear datos del titular y tarjetón
+    $nombre_t     = trim($_POST['nombre']     ?? '');
+    $nombre_t2 = str_replace($toRemove, '', $nombre_t);
+    $nombre = mb_strtoupper($nombre_t2, 'UTF-8');
+
+    // Quito caracteres y vuelvo en mayusculas
+    $a_paterno_t  = trim($_POST['apaterno']   ?? '');
+    $paterno_t2 = str_replace($toRemove, '', $a_paterno_t);
+    $apaterno = mb_strtoupper($paterno_t2, 'UTF-8');  
+
+    // Quito caracteres y vuelvo en mayusculas
+    $a_materno_t  = isset($_POST['amaterno']) ? trim($_POST['amaterno']) : '';
+    $materno_t2 = str_replace($toRemove, '', $a_materno_t);
+    $amaterno = mb_strtoupper($materno_t2, 'UTF-8');  
+
     $edad = intval($_POST['edad']);
     $sexo = trim($_POST['sexo']);
     $parentesco = trim($_POST['parentesco']);

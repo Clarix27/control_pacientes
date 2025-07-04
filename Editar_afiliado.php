@@ -73,8 +73,6 @@
       name="nombre"
       placeholder="Nombre"
       value="<?= htmlspecialchars($beneficiario['nombre']) ?>"
-      pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{4,}"
-      title="Solo letras, mínimo 4 caracteres"
       required
     >
   </div>
@@ -84,8 +82,6 @@
       name="apaterno"
       placeholder="Apellido Paterno"
       value="<?= htmlspecialchars($beneficiario['a_paterno']) ?>"
-      pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"
-      title="Solo letras"
       required
     >
   </div>
@@ -98,9 +94,6 @@
       name="amaterno"
       placeholder="Apellido Materno"
       value="<?= htmlspecialchars($beneficiario['a_materno']) ?>"
-      pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"
-      title="Solo letras"
-      required
     >
   </div>
   <div class="form-group">

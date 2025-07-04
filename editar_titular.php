@@ -58,7 +58,7 @@
 
       <div class="form-row">
         <div class="form-group">
-          <input type="text" name="amaterno" placeholder="Apellido materno" value="<?= htmlspecialchars($titular['a_materno']) ?>"required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,40}" title="Solo letras, mínimo 4 caracteres.">
+          <input type="text" name="amaterno" placeholder="Apellido materno" value="<?= htmlspecialchars($titular['a_materno']) ?>" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,40}" title="Solo letras, mínimo 4 caracteres.">
         </div>
         <div class="form-group">
           <input type="text" name="puesto" placeholder="Puesto" value="<?= htmlspecialchars($titular['puesto']) ?>" required>

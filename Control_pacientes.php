@@ -193,7 +193,12 @@
         </div>
 
         <label>Área de consulta:</label>
-        <input type="text" name="area" class="resaltado-azul" placeholder="Área de consulta">
+        <!-- <input type="text" name="area" class="resaltado-azul" placeholder="Área de consulta"> -->
+        <select name="area" class="resaltado-azul">
+          <option value="">-- Selecciona un Área de Consulta --</option>
+          <option value="DENTAL">Dental</option>
+          <option value="CONSULTA GENERAL">Consulta General</option>
+        </select>
 
         <label>Apoyo/Pago:</label>
         <input type="number" min="0" name="apoyo" placeholder="Apoyo">
@@ -219,7 +224,7 @@
       const parentesco = document.getElementById('opciones').value;
       const camposTitular = document.getElementById('camposTitular');
 
-      if (parentesco === "Misma persona") {
+      if (parentesco === "MISMA PERSONA") {
         camposTitular.style.display = "none";
 
         // document.getElementById('nombre_p').value = document.getElementById('nombre_t').value;

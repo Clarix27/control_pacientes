@@ -52,12 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
     box.querySelector('.close-btn')
        .addEventListener('click', () => box.remove());
     
-    // Si fue exitoso, redirige tras 2 segundos
-    if (isSuccess) {
-      setTimeout(() => {
-        // opcional: box.remove();
-        window.location.href = 'Lista_titulares.php'; // <- Ajusta aquí tu página de destino
-      }, 2000);
-    }
+    // // Si fue exitoso, redirige tras 2 segundos
+    // if (isSuccess) {
+    //   setTimeout(() => {
+    //     // opcional: box.remove();
+    //     window.location.href = 'Lista_titulares.php'; // <- Ajusta aquí tu página de destino
+    //   }, 2000);
+    // }
   }
 });
