@@ -57,30 +57,30 @@
   border-collapse: collapse;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 18px rgba(184, 172, 172, 0.1);
   font-size: 15px;
   background-color: #fff;
 }
 
 .tabla-pacientes th {
-  background-color: #bcb8b8;
-  color: white;
+  background-color: #d9d9d9;
+  color: rgb(19, 14, 14);
   font-weight: 600;
   padding: 14px;
   text-align: center;
-  border-bottom: 2px solid #181c1c;
+  border-bottom: 2px solid #cddede;
 }
 
 .tabla-pacientes td {
   padding: 12px;
   text-align: center;
-  background-color: #f2fdfd;
+  background-color: #faf7f7;
   border-bottom: 1px solid #ddd;
   transition: background 0.2s ease;
 }
 
 .tabla-pacientes tr:hover td {
-  background-color: #e0f7f7;
+  background-color: #d9d9d9;
 }
 
 
