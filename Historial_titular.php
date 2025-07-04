@@ -32,6 +32,54 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+<style>
+  /* --- Forzar estilo de acciones en el card header --- */
+.card {
+  position: relative; /* para que el header-posicionado funcione */
+}
+.card > div:first-of-type {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  z-index: 1;
+}
+.card > div:first-of-type a.btn-lista,
+.card > div:first-of-type a.btn-ver,
+.card > div:first-of-type a.btn-registrar {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: #fff !important;
+  font-size: 16px;
+  transition: filter 0.2s;
+}
+/* tus colores originales */
+.card > div:first-of-type a.btn-lista      { background: #6C5CE7; }
+.card > div:first-of-type a.btn-ver        { background: #0984E3; }
+.card > div:first-of-type a.btn-registrar  { background: #00B894; }
+
+.card > div:first-of-type a.btn-lista:hover {
+  filter: brightness(0.9);
+}
+.card > div:first-of-type a.btn-ver:hover {
+  filter: brightness(0.9);
+}
+.card > div:first-of-type a.btn-registrar:hover {
+  filter: brightness(0.9);
+}
+/* Asegurarnos de que los íconos dentro se pinten de blanco */
+.card > div:first-of-type a.btn-lista i,
+.card > div:first-of-type a.btn-ver i,
+.card > div:first-of-type a.btn-registrar i {
+  color: #fff;
+}
+
+</style>
 <body>
   <?php if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'actualizado'): ?>
     <div id="toast-exito" class="toast-exito">Titular actualizado con éxito</div>
