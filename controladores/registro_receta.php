@@ -117,7 +117,7 @@
         // Se obtiene la clave de la consulta
         $consulta = traer_consulta($id_titular, $pk_paciente);
         if (empty($consulta)) {
-            throw new Exception("Ocurrio al traer los datos de la consulta.");
+            throw new Exception("Ocurrio un problema al traer los datos de la consulta.");
         }
         $pk_consulta = intval($consulta['pk_consulta']);
 
