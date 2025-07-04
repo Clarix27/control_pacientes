@@ -60,15 +60,10 @@
   <div class="content">
     <div class="card">
       <div style="float: right; margin-bottom: 10px;">
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <a href="ver_receta_titular.php?id_t=<?= urlencode($pk_titular) ?>" class="btn-accion btn-historial" title="Ver Recetas">
-=======
+
+
         <a href="ver_receta_titular.php?id_t=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Recetas">
->>>>>>> origin/Jose
-=======
-        <a href="ver_receta_titular.php?id_t=<?= $pk_titular ?>" class="btn-accion btn-historial" title="Ver Recetas">
->>>>>>> origin/Prueba
+
           <i class="fas fa-envelope-open-text"></i>
         </a>
         <a href="Receta_titular.php?id_t=<?=urlencode($pk_titular)?>" class="btn-accion btn-agregar" title="Agregar Receta">
