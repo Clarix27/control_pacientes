@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('formRecetas');
+  const form = document.getElementById('formCT');
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       // Envía la petición al backend
-      const res = await fetch('controladores/registro_receta.php', {
+      const res = await fetch('controladores/consulta_titular.php', {
         method: 'POST',
         body: formData
       });
@@ -21,11 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       //const json = await res.json();
       showAlert(json.message, json.success);
-
-      // Si fue exitoso, limpia el formulario
-      if (json.success) {
-        form.reset();
-      }
 
     } catch (error) {
       showAlert('Ocurrio un error al registrar algo.', false);

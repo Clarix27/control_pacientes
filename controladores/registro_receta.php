@@ -13,27 +13,6 @@
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Traer paciente
-    function traer_paciente($nombre, $apaterno, $amaterno) {
-        $pdo = Conexion::getPDO();
-        $stmt = $pdo->prepare("SELECT pk_paciente FROM paciente WHERE nombre = :nombre AND a_paterno = :paterno AND a_materno = :materno ORDER BY pk_paciente DESC LIMIT 1");
-        $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-        $stmt->bindParam(':paterno', $apaterno, PDO::PARAM_STR);
-        $stmt->bindParam(':materno', $amaterno, PDO::PARAM_STR);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    // Traer consulta.
-    function traer_consulta($titular, $paciente) {
-        $pdo = Conexion::getPDO();
-        $stmt = $pdo->prepare("SELECT pk_consulta FROM consulta c WHERE c.fecha=CURDATE() AND c.fk_titular = :titular AND c.fk_paciente = :paciente");
-        $stmt->bindParam(':titular', $titular, PDO::PARAM_INT);
-        $stmt->bindParam(':paciente', $paciente, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
     // Registrar receta
     function insertar_receta($texto, $folio, $fk) : int {
         $pdo = Conexion::getPDO();
@@ -63,6 +42,7 @@
     try {
         // Recolección de id.
         $id_titular = !empty($_POST['pk_titular']) ? intval($_POST['pk_titular']) : false;
+        $pk_consulta = !empty($_POST['pk_consulta']) ? intval($_POST['pk_consulta']) : false;
 
         // Datos del beneficiario.
         $p_nombre     = trim($_POST['p_nombre']  ?? '');
@@ -107,27 +87,13 @@
             throw new Exception("El folio no concuerda con el titular.");
         }
 
-        // Traer el pk del paciente.
-        $paciente = traer_paciente($p_nombre, $p_paterno, $p_materno);
-        if (empty($paciente)) {
-            throw new Exception("Ocurrio un error al registrar al paciente.");
-        }
-        $pk_paciente = intval($paciente['pk_paciente']);
-
-        // Se obtiene la clave de la consulta
-        $consulta = traer_consulta($id_titular, $pk_paciente);
-        if (empty($consulta)) {
-            throw new Exception("Ocurrio al traer los datos de la consulta.");
-        }
-        $pk_consulta = intval($consulta['pk_consulta']);
-
         // Se inserta la receta de ese paciente.
         $receta_id = insertar_receta($rx, $folio, $fk_empleado);
         if ($receta_id=== 0) {
             throw new Exception("Ocurrio un error al registrar la receta.");
         }
 
-        // Se registra la consulta
+        // Se actualiza la consulta
         $consulta_id = editar_consulta($receta_id, $pk_consulta);
         
         // error de ejecución

@@ -1,8 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
   session_start();
   // Verificar si el usuario ha iniciado sesión
   if (!isset($_SESSION['pk_usuario'])) {
@@ -13,6 +9,12 @@ error_reporting(E_ALL);
   
   require_once 'controladores/info_titular.php';
   $id_titular = $_GET['id_t'];
+  $pk_consulta = $_GET['consulta_id'];
+  if (empty($id_titular) && empty($pk_consulta)) {
+    echo "<script>alert('No se encontro el ID');</script>";
+    echo("<script>window.location.assign('Inicio.php');</script>");
+    exit;
+  }
 
   $titular = titular_id($id_titular);
   $t_materno = $titular['a_materno'] ?? '';
@@ -45,7 +47,7 @@ error_reporting(E_ALL);
 
 
   <div style="margin: 15px 0 0 20px;">
-  <a href="Lista_consultas_titular.php" class="back-button">
+  <a href="Lista_consultas_titular.php?id_t=<?=urlencode($id_titular)?>" class="back-button">
     <i class="fas fa-arrow-left"></i>
     <span class="back-text">Regresar</span>
   </a>
@@ -100,6 +102,7 @@ error_reporting(E_ALL);
 
     <!-- Campo oculto que no se muestra -->
     <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($id_titular, ENT_QUOTES, 'UTF-8') ?>">
+    <input type="hidden" name="pk_consulta" value="<?= htmlspecialchars($pk_consulta, ENT_QUOTES, 'UTF-8') ?>">
 
     <div style="text-align: center; margin: 30px 0;">
       <button type="submit" class="btn-submit">
