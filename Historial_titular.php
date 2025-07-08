@@ -1,13 +1,22 @@
 <?php
+  session_start();
+  // Verificar si el usuario ha iniciado sesión
+  if (!isset($_SESSION['pk_usuario'])) {
+    // Redirigir a la página de login si no está autenticado
+    echo("<script>window.location.assign('Login.html');</script>");
+    exit();
+  }
+  
   require_once 'controladores/info_titular.php';
   $pk_titular = intval($_GET['id']);
+  $estatus = 1;
 
   if (empty($pk_titular)) {
     echo "<script>alert('No se encontro el ID');</script>";
     echo("<script>window.location.assign('Inicio.php');</script>");
     exit;
   }else{
-    $beneficiarios = datos_beneficiarios($pk_titular);
+    $beneficiarios = datos_beneficiarios($pk_titular, $estatus);
     $titular = titular_id($pk_titular);
   }
 ?>

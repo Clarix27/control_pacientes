@@ -148,6 +148,7 @@
     }
     function cerrarModal() {
       document.getElementById('modalFormulario').style.display = 'none';
+      document.getElementById('formControlP').reset();  // ← agrega esto
     }
 
     // Buscador dinámico

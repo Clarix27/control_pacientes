@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
   session_start();
   // Verificar si el usuario ha iniciado sesión
   if (!isset($_SESSION['pk_usuario'])) {
@@ -14,12 +18,12 @@
   $t_materno = $titular['a_materno'] ?? '';
 
   // Obtener el número de tarjetón del titular
-require_once 'controladores/conexion.php';
-$pdo = Conexion::getPDO();
-$stmt_tarjeton = $pdo->prepare("SELECT folio FROM tarjeton WHERE fk_titular = ?");
-$stmt_tarjeton->execute([$id_titular]);
-$tarjeton = $stmt_tarjeton->fetch(PDO::FETCH_ASSOC);
-$folio_tarjeton = $tarjeton['folio'] ?? '';
+  require_once 'controladores/conexion.php';
+  $pdo = Conexion::getPDO();
+  $stmt_tarjeton = $pdo->prepare("SELECT folio FROM tarjeton WHERE fk_titular = ?");
+  $stmt_tarjeton->execute([$id_titular]);
+  $tarjeton = $stmt_tarjeton->fetch(PDO::FETCH_ASSOC);
+  $folio_tarjeton = $tarjeton['folio'] ?? '';
 
 ?>
 
@@ -72,27 +76,13 @@ $folio_tarjeton = $tarjeton['folio'] ?? '';
           </tr>
           <tr>
             <td>
-              <label>Nombre Titular:</label>
-              <input type="text" value="<?= htmlspecialchars($titular['nombre'], ENT_QUOTES, 'UTF-8') ?>" disabled>
-            </td>
-            <td>
-              <label>Apellido Paterno Titular:</label>
-              <input type="text" value="<?= htmlspecialchars($titular['a_paterno'], ENT_QUOTES, 'UTF-8') ?>" disabled>
-            </td>
-            <td>
-              <label>Apellido Materno Titular:</label>
-              <input type="text" value="<?= htmlspecialchars($t_materno, ENT_QUOTES, 'UTF-8') ?>" disabled>
-            </td>
-          </tr>
-          <tr>
-            <td>
               <label>Fecha:</label>
               <input type="date" name="fecha">
             </td>
             <td>
-  <label>Núm. de Tarjetón:</label>
-  <input type="text" name="num_tarjeton" value="<?= htmlspecialchars($folio_tarjeton, ENT_QUOTES, 'UTF-8') ?>" readonly>
-</td>
+              <label>Núm. de Tarjetón:</label>
+              <input type="text" name="num_tarjeton" value="<?= htmlspecialchars($folio_tarjeton, ENT_QUOTES, 'UTF-8') ?>" readonly>
+            </td>
 
             <td>
               <label>Área:</label>
