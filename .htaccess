@@ -1,0 +1,4 @@
+RewriteEngine On
+
+ErrorDocument 404 http://localhost/control_pacientes/error404.php
+
