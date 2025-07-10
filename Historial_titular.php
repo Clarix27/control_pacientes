@@ -103,12 +103,22 @@
         <td><?= htmlspecialchars($fila['sexo'], ENT_QUOTES, 'UTF-8') ?></td>
         <td><?= htmlspecialchars($fila['parentesco'], ENT_QUOTES, 'UTF-8') ?></td>
         <td>
-<div class="acciones-extendidas">
-  <a href="Lista_general_consultas_b.php?id_t=<?= urlencode($pk_titular) ?>&id_b=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-inline btn-lista">Lista general</a>
-  <a href="Lista_consultas.php?id_t=<?= urlencode($pk_titular) ?>&id_b=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-inline btn-ver">Lista consulta</a>
-  <a href="Registro_consulta_b.php?id_t=<?= urlencode($pk_titular) ?>&id_b=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-inline btn-registrar">Agregar consulta</a>
-  <a href="Editar_afiliado.php?id=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-inline btn-editar">Editar afiliado</a>
-  <a href="eliminar_afiliado.php" class="btn-inline btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este afiliado?');">Eliminar</a>
+  <div class="acciones-container">
+  <a href="Lista_general_consultas_b.php?id_t=<?= urlencode($pk_titular) ?>&id_b=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-accion btn-lista" title="Lista General">
+    <i class="fas fa-list"></i>
+  </a>
+  <a href="Lista_consultas.php?id_t=<?= urlencode($pk_titular) ?>&id_b=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-accion btn-ver" title="Ver Consultas">
+    <i class="fas fa-envelope-open-text"></i>
+  </a>
+  <a href="Registro_consulta_b.php?id_t=<?= urlencode($pk_titular) ?>&id_b=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-accion btn-registrar" title="Agregar Consulta">
+    <i class="fas fa-calendar-plus"></i>
+  </a>
+  <a href="Editar_afiliado.php?id=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-accion btn-editar" title="Editar Afiliado">
+    <i class="fas fa-pen-to-square"></i>
+  </a>
+  <a href="eliminar_afiliado.php" class="btn-accion btn-eliminar delete-link" title="Eliminar" data-id="<?=urlencode($fila['pk_beneficiario'])?>">
+    <i class="fas fa-trash"></i>
+  </a>
 </div>
 
 
