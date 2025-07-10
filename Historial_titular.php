@@ -122,7 +122,7 @@
   <a href="Editar_afiliado.php?id=<?= urlencode($fila['pk_beneficiario']) ?>" class="btn-accion btn-editar" title="Editar Afiliado">
     <i class="fas fa-pen-to-square"></i>
   </a>
-  <a href="eliminar_afiliado.php" class="btn-accion btn-eliminar" title="Eliminar" onclick="return confirm('¿Seguro que deseas eliminar este afiliado?');">
+  <a href="eliminar_afiliado.php" class="btn-accion btn-eliminar delete-link" title="Eliminar" data-id="<?=urlencode($fila['pk_beneficiario'])?>">
     <i class="fas fa-trash"></i>
   </a>
 </div>
