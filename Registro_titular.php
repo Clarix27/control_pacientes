@@ -34,7 +34,7 @@
   <!-- FORMULARIO -->
   <div class="main-content">
     <div class="form-container">
-      <h2 style=" filter: brightness(0) invert(1);" class="form-title">Registro de titular</h2>
+      <h2 style=" filter: brightness(0) invert(1);" class="form-title">REGISTRO DE TITULAR</h2>
       <form id="formTitular">
         <div class="form-row">
           <div class="form-group">

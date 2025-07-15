@@ -22,10 +22,16 @@
   // Obtener el número de tarjetón del titular
   require_once 'controladores/conexion.php';
   $pdo = Conexion::getPDO();
-  $stmt_tarjeton = $pdo->prepare("SELECT folio FROM tarjeton WHERE fk_titular = ?");
+  $stmt_tarjeton = $pdo->prepare("SELECT folio, puesto FROM tarjeton WHERE fk_titular = ?");
   $stmt_tarjeton->execute([$id_titular]);
   $tarjeton = $stmt_tarjeton->fetch(PDO::FETCH_ASSOC);
   $folio_tarjeton = $tarjeton['folio'] ?? '';
+  $puesto_trabajo = $tarjeton['puesto'] ?? '';
+
+    $stmt_fecha = $pdo->prepare("SELECT fecha FROM consulta WHERE pk_consulta = ?");
+  $stmt_fecha->execute([$pk_consulta]);
+  $consulta = $stmt_fecha->fetch(PDO::FETCH_ASSOC);
+  $fecha_consulta = $consulta['fecha'] ?? '';
 
 ?>
 
@@ -79,7 +85,7 @@
           <tr>
             <td>
               <label>Fecha:</label>
-              <input type="date" name="fecha">
+              <input type="date" name="fecha" value="<?= htmlspecialchars($fecha_consulta, ENT_QUOTES, 'UTF-8') ?>" readonly>
             </td>
             <td>
               <label>Núm. de Tarjetón:</label>
@@ -87,8 +93,8 @@
             </td>
 
             <td>
-              <label>Área:</label>
-              <input type="text" name="area_trabajo">
+              <label>Área de trabajo:</label>
+              <input type="text" name="area_trabajo" value="<?= htmlspecialchars($puesto_trabajo, ENT_QUOTES, 'UTF-8') ?>" readonly>
             </td>
           </tr>
         </table>

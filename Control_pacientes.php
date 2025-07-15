@@ -7,7 +7,7 @@
 
   require_once 'controladores/conexion.php';
   $pdo = Conexion::getPDO();
-  $sql = $pdo->query("SELECT ti.nombre AS t_nombre, ti.a_paterno AS t_paterno, ti.a_materno AS t_materno, p.nombre, p.a_paterno, p.a_materno, tar.folio, c.tipo_consulta, ti.dependencia, c.pago FROM consulta c INNER JOIN paciente p ON c.fk_paciente=p.pk_paciente INNER JOIN titular ti ON p.fk_titular=ti.pk_titular LEFT JOIN tarjeton tar ON ti.pk_titular=tar.fk_titular WHERE c.fecha = CURDATE() ORDER BY c.pk_consulta DESC");
+  $sql = $pdo->query("SELECT c.pk_consulta, ti.nombre AS t_nombre, ti.a_paterno AS t_paterno, ti.a_materno AS t_materno, p.nombre, p.a_paterno, p.a_materno, tar.folio, c.tipo_consulta, ti.dependencia, c.pago FROM consulta c INNER JOIN paciente p ON c.fk_paciente=p.pk_paciente INNER JOIN titular ti ON p.fk_titular=ti.pk_titular LEFT JOIN tarjeton tar ON ti.pk_titular=tar.fk_titular WHERE c.fecha = CURDATE() ORDER BY c.pk_consulta DESC");
   $pacientes = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -106,6 +106,109 @@
     .enviar-modal:hover {
       background-color: #006B6B;
     }
+
+    .btn-accion {
+  display: inline-block;
+  padding: 6px 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: #006666;
+  font-size: 16px;
+}
+
+.btn-accion:hover {
+  color: #004d4d;
+}
+
+.btn-editar i {
+  font-size: 18px;
+}
+
+.modal-editar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-editar .modal-contenido {
+  background: #fff;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 420px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: fadeInUp 0.25s ease-out;
+  font-family: 'Roboto', sans-serif;
+}
+
+.modal-editar .modal-contenido h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #096B68;
+  text-align: center;
+}
+
+.modal-editar .modal-contenido .cerrar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #CC1A1A;
+  cursor: pointer;
+}
+
+.modal-editar input[type="text"],
+.modal-editar input[type="number"],
+.modal-editar select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.modal-editar label {
+  font-weight: 600;
+  color: #096B68;
+  font-size: 14px;
+}
+
+.modal-editar .enviar-modal {
+  background-color: #008080;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.modal-editar .enviar-modal:hover {
+  background-color: #006B6B;
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+
+
+
   </style>
 </head>
 <body>
@@ -137,28 +240,47 @@
 
   <table class="tabla-pacientes" id="tablaPacientes">
     <thead>
-      <tr>
-        <th>Nombre Titular:</th>
-        <th>Nombre Paciente:</th>
-        <th>Área de consulta:</th>
-        <th>Apoyo/Pago:</th>
-      </tr>
-    </thead>
+  <tr>
+    <th>Nombre Titular:</th>
+    <th>Nombre Paciente:</th>
+    <th>Área de consulta:</th>
+    <th>Apoyo/Pago:</th>
+    <th>Acciones:</th>
+  </tr>
+</thead>
+
     <tbody>
-      <?php if (empty($pacientes)): ?>
-        <tr>
-          <td colspan="6" style="text-align:center">No se encontraron pacientes.</td>
-        </tr>
-      <?php endif; ?>
-      <?php foreach ($pacientes as $paciente): ?>
-        <tr>
-          <td><?= htmlspecialchars($paciente['t_nombre'].' '.$paciente['t_paterno'].' '.$paciente['t_materno']) ?></td>
-          <td><?= htmlspecialchars($paciente['nombre'].' '.$paciente['a_paterno'].' '.$paciente['a_materno']) ?></td>
-          <td><span class="resaltado-azul"><?= htmlspecialchars($paciente['tipo_consulta']) ?></span></td>
-          <td><?= htmlspecialchars($paciente['pago']) ?></td>
-        </tr>
-      <?php endforeach; ?>
-    </tbody>
+  <?php if (empty($pacientes)): ?>
+    <tr>
+      <td colspan="5" style="text-align:center">No se encontraron pacientes.</td>
+    </tr>
+  <?php endif; ?>
+  <?php foreach ($pacientes as $paciente): ?>
+    <tr>
+      <td><?= htmlspecialchars($paciente['t_nombre'].' '.$paciente['t_paterno'].' '.$paciente['t_materno']) ?></td>
+      <td><?= htmlspecialchars($paciente['nombre'].' '.$paciente['a_paterno'].' '.$paciente['a_materno']) ?></td>
+      <td><span class="resaltado-azul"><?= htmlspecialchars($paciente['tipo_consulta']) ?></span></td>
+      <td><?= htmlspecialchars($paciente['pago']) ?></td>
+<td>
+  <button class="btn-accion btn-editar"
+    data-id="<?= (int) $paciente['pk_consulta'] ?>"
+    data-area="<?= htmlspecialchars($paciente['tipo_consulta'], ENT_QUOTES, 'UTF-8') ?>"
+    data-pago="<?= htmlspecialchars($paciente['pago'], ENT_QUOTES, 'UTF-8') ?>"
+    data-nombre="<?= htmlspecialchars($paciente['nombre'], ENT_QUOTES, 'UTF-8') ?>"
+    data-paterno="<?= htmlspecialchars($paciente['a_paterno'], ENT_QUOTES, 'UTF-8') ?>"
+    data-materno="<?= htmlspecialchars($paciente['a_materno'], ENT_QUOTES, 'UTF-8') ?>"
+    data-nombre-t="<?= htmlspecialchars($paciente['t_nombre'], ENT_QUOTES, 'UTF-8') ?>"
+    data-paterno-t="<?= htmlspecialchars($paciente['t_paterno'], ENT_QUOTES, 'UTF-8') ?>"
+    data-materno-t="<?= htmlspecialchars($paciente['t_materno'], ENT_QUOTES, 'UTF-8') ?>"
+    onclick="abrirModalEditarDesdeAttr(this)">
+    <i class="fas fa-pen-to-square"></i>
+  </button>
+</td>
+
+    </tr>
+  <?php endforeach; ?>
+</tbody>
+
   </table>
 
   <!-- Modal -->
@@ -252,6 +374,56 @@
       });
     });
   </script>
+
+<div id="modalEditar" class="modal-editar" style="display:none;">
+  <div class="modal-contenido">
+    <button class="cerrar" onclick="cerrarModalEditar()" title="Cerrar"><i class="fas fa-times"></i></button>
+    <h3>Editar Consulta</h3>
+
+    <form id="formEditarConsulta">
+      <input type="hidden" name="id_consulta" id="edit_id_consulta">
+
+      <!-- CAMPOS PACIENTE -->
+<div id="grupoPaciente">
+  <label>Nombre del paciente:</label>
+  <input type="text" name="nombre_p" id="edit_nombre_p" placeholder="Nombre">
+
+  <label>Apellido paterno:</label>
+  <input type="text" name="paterno_p" id="edit_paterno_p" placeholder="Apellido paterno">
+
+  <label>Apellido materno:</label>
+  <input type="text" name="materno_p" id="edit_materno_p" placeholder="Apellido materno">
+</div>
+
+<!-- CAMPOS TITULAR -->
+<div id="grupoTitular">
+  <label>Nombre del titular:</label>
+  <input type="text" name="nombre_t" id="edit_nombre_t" placeholder="Nombre titular">
+
+  <label>Apellido paterno titular:</label>
+  <input type="text" name="paterno_t" id="edit_paterno_t" placeholder="Apellido paterno">
+
+  <label>Apellido materno titular:</label>
+  <input type="text" name="materno_t" id="edit_materno_t" placeholder="Apellido materno">
+</div>
+
+
+      <label>Área de consulta:</label>
+      <select name="area" id="edit_area">
+        <option value="DENTAL">Dental</option>
+        <option value="CONSULTA GENERAL">Consulta General</option>
+      </select>
+
+      <label>Apoyo/Pago:</label>
+      <input type="number" name="pago" id="edit_pago" min="0">
+
+      <button type="submit" class="enviar-modal">Guardar Cambios</button>
+    </form>
+  </div>
+</div>
+
+
+
 
   <script src="js/control_pacientes.js"></script>
 

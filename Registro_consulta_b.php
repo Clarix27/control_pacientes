@@ -192,7 +192,7 @@
     <!-- FORMULARIO CON DISEÑO UNIFICADO -->
     <div class="main-content">
         <div class="form-container">
-            <h2 class="form-title">Registro de Consulta</h2>
+            <h2 class="form-title">REGISTRO DEL BENEFICIARIO</h2>
             <form id="formCB">
                 <div class="form-row">
                   <div class="form-group">
@@ -217,7 +217,7 @@
                     <select name="area">
                       <option value="">-- Selecciona un Área de Consulta --</option>
                       <option value="DENTAL">Dental</option>
-                      <option value="CONSULTA GENERAL">Consulta General</option>
+                      <option value="CONSULTA MEDICA">Consulta Medica</option>
                     </select>
                   </div>
                 </div>
