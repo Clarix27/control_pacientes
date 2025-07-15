@@ -1,5 +1,6 @@
 <?php
     header('Content-Type: application/json');
+    date_default_timezone_set('America/Mazatlan');
     require_once 'conexion.php';
     $pdo = Conexion::getPDO();
 

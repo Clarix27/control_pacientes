@@ -7,7 +7,7 @@
 
   require_once 'controladores/conexion.php';
   $pdo = Conexion::getPDO();
-  $sql = $pdo->query("SELECT c.pk_consulta, ti.nombre AS t_nombre, ti.a_paterno AS t_paterno, ti.a_materno AS t_materno, p.nombre, p.a_paterno, p.a_materno, tar.folio, c.tipo_consulta, ti.dependencia, c.pago FROM consulta c INNER JOIN paciente p ON c.fk_paciente=p.pk_paciente INNER JOIN titular ti ON p.fk_titular=ti.pk_titular LEFT JOIN tarjeton tar ON ti.pk_titular=tar.fk_titular WHERE c.fecha = CURDATE() ORDER BY c.pk_consulta DESC");
+  $sql = $pdo->query("SELECT c.pk_consulta, ti.nombre AS t_nombre, ti.a_paterno AS t_paterno, ti.a_materno AS t_materno, p.nombre, p.a_paterno, p.a_materno, c.tipo_consulta, c.pago FROM consulta c INNER JOIN paciente p ON c.fk_paciente=p.pk_paciente INNER JOIN titular ti ON p.fk_titular=ti.pk_titular WHERE c.fecha = CURDATE() AND c.fk_receta IS NULL AND c.fk_beneficiario IS NULL ORDER BY c.pk_consulta DESC");
   $pacientes = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -108,107 +108,103 @@
     }
 
     .btn-accion {
-  display: inline-block;
-  padding: 6px 10px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  text-decoration: none;
-  color: #006666;
-  font-size: 16px;
-}
+      display: inline-block;
+      padding: 6px 10px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      text-decoration: none;
+      color: #006666;
+      font-size: 16px;
+    }
 
-.btn-accion:hover {
-  color: #004d4d;
-}
+    .btn-accion:hover {
+      color: #004d4d;
+    }
 
-.btn-editar i {
-  font-size: 18px;
-}
+    .btn-editar i {
+      font-size: 18px;
+    }
 
-.modal-editar {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
+    .modal-editar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
 
-.modal-editar .modal-contenido {
-  background: #fff;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 420px;
-  padding: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  position: relative;
-  animation: fadeInUp 0.25s ease-out;
-  font-family: 'Roboto', sans-serif;
-}
+    .modal-editar .modal-contenido {
+      background: #fff;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 420px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      position: relative;
+      animation: fadeInUp 0.25s ease-out;
+      font-family: 'Roboto', sans-serif;
+    }
 
-.modal-editar .modal-contenido h3 {
-  margin-bottom: 15px;
-  font-size: 20px;
-  font-weight: 600;
-  color: #096B68;
-  text-align: center;
-}
+    .modal-editar .modal-contenido h3 {
+      margin-bottom: 15px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #096B68;
+      text-align: center;
+    }
 
-.modal-editar .modal-contenido .cerrar {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: transparent;
-  border: none;
-  font-size: 18px;
-  color: #CC1A1A;
-  cursor: pointer;
-}
+    .modal-editar .modal-contenido .cerrar {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      color: #CC1A1A;
+      cursor: pointer;
+    }
 
-.modal-editar input[type="text"],
-.modal-editar input[type="number"],
-.modal-editar select {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1px solid #CCC;
-  border-radius: 4px;
-  font-size: 13px;
-  margin-bottom: 10px;
-}
+    .modal-editar input[type="text"],
+    .modal-editar input[type="number"],
+    .modal-editar select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #CCC;
+      border-radius: 4px;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
 
-.modal-editar label {
-  font-weight: 600;
-  color: #096B68;
-  font-size: 14px;
-}
+    .modal-editar label {
+      font-weight: 600;
+      color: #096B68;
+      font-size: 14px;
+    }
 
-.modal-editar .enviar-modal {
-  background-color: #008080;
-  color: #fff;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 8px;
-}
+    .modal-editar .enviar-modal {
+      background-color: #008080;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+    }
 
-.modal-editar .enviar-modal:hover {
-  background-color: #006B6B;
-}
+    .modal-editar .enviar-modal:hover {
+      background-color: #006B6B;
+    }
 
-@keyframes fadeInUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-
-
-
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
   </style>
 </head>
 <body>

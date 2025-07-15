@@ -183,10 +183,10 @@
 
   <div class="registro-container">
     <div class="registro-fila">
-      <a>Filtro por fecha:</a>
+      <label for="filtro-fecha">Filtro por fecha:</label>
       <div class="search-box">
         <i class="fas fa-calendar-alt"></i>
-        <input id="filtro-fecha" type="date" placeholder="Seleccionar fecha">
+        <input id="filtro-fecha" type="date">
       </div>
     </div>
   </div>
@@ -227,17 +227,48 @@
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const filtro = document.getElementById('filtro-fecha');
-      const tarjetas = document.querySelectorAll('.tarjeta-consulta');
+    document.addEventListener("DOMContentLoaded", () => {
+      const filtro = document.getElementById("filtro-fecha");
 
-      filtro.addEventListener('change', () => {
-        const sel = filtro.value; // "YYYY-MM-DD"
-        tarjetas.forEach(t => {
-          const txt = t.querySelector('.fecha-etiqueta').textContent.trim();
-          const [d,m,y] = txt.split('/');
-          const fechaTar = `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`;
-          t.style.display = (!sel || fechaTar === sel) ? 'block' : 'none';
+      function parseDateString(str) {
+        // str puede ser "DD/MM/YYYY" o "YYYY-MM-DD" o "YYYYMMDD"
+        let y,m,d;
+        if (str.includes("/")) {
+          [d,m,y] = str.split("/");
+        } else if (str.includes("-")) {
+          [y,m,d] = str.split("-");
+        } else if (/^\d{8}$/.test(str)) {
+          y = str.slice(0,4);
+          m = str.slice(4,6);
+          d = str.slice(6,8);
+        } else {
+          return null;
+        }
+        // JavaScript Date constructor con "YYYY-MM-DD" es seguro
+        return new Date(`${y}-${m}-${d}`).getTime();
+      }
+
+      filtro.addEventListener("input", () => {
+        const selected = filtro.value;           // "YYYY-MM-DD" o ""
+        const tsSelected = selected 
+          ? parseDateString(selected) 
+          : null;
+
+        document.querySelectorAll(".tarjeta-consulta").forEach(t => {
+          const txt = t.querySelector(".fecha-etiqueta")
+                      .textContent.trim();
+          const tsCard = parseDateString(txt);
+
+          // Si no pudimos parsear la fecha de la tarjeta, la mostramos
+          if (tsCard === null) {
+            t.style.display = "";
+            return;
+          }
+
+          // Si no hay filtro o coinciden timestamps, la mostramos
+          t.style.display = (!tsSelected || tsCard === tsSelected)
+            ? ""
+            : "none";
         });
       });
     });
