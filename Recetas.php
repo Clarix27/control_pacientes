@@ -30,6 +30,11 @@
   $beneficiario = info_beneficiario($id_beneficiario);
   $b_materno = $beneficiario['a_materno'] ?? '';
 
+    $stmt_fecha = $pdo->prepare("SELECT fecha FROM consulta WHERE pk_consulta = ?");
+  $stmt_fecha->execute([$pk_consulta]);
+  $consulta = $stmt_fecha->fetch(PDO::FETCH_ASSOC);
+  $fecha_consulta = $consulta['fecha'] ?? '';
+
 
 ?>
 
@@ -97,7 +102,7 @@
           <tr>
             <td>
               <label>Fecha:</label>
-              <input type="date" name="fecha">
+              <input type="date" name="fecha" value="<?= htmlspecialchars($fecha_consulta, ENT_QUOTES, 'UTF-8') ?>" readonly>
             </td>
             <td>
   <label>Núm. de Tarjetón:</label>

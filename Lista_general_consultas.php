@@ -177,7 +177,7 @@
   </div>
 
   <div class="tituloo_container-subtle">
-    <h2>LISTA DE RECETAS</h2>
+    <h2>LISTA GENERAL DE CONSULTAS DEL TITULAR</h2>
   </div>
 
   <div class="registro-container">
