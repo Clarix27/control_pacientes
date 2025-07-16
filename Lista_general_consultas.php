@@ -26,7 +26,7 @@
   $materno = $tarjeton['a_materno'];
 
   // Parte de la consulta
-  $sql = $pdo->prepare("SELECT p.nombre, p.a_paterno, p.a_materno, c.tipo_consulta, c.fecha, r.texto_receta FROM consulta c INNER JOIN paciente p ON c.fk_paciente = p.pk_paciente INNER JOIN receta r ON c.fk_receta = r.pk_receta WHERE p.nombre=:nombre AND p.a_paterno=:paterno AND p.a_materno=:materno AND c.fk_titular = :idt AND p.fk_titular = :id AND c.fk_beneficiario IS NULL ORDER BY c.fecha DESC, c.pk_consulta DESC;");
+  $sql = $pdo->prepare("SELECT p.nombre, p.a_paterno, p.a_materno, c.tipo_consulta, c.fecha, r.texto_receta FROM consulta c INNER JOIN paciente p ON c.fk_paciente = p.pk_paciente INNER JOIN receta r ON c.fk_receta = r.pk_receta WHERE p.nombre=:nombre AND p.a_paterno=:paterno AND p.a_materno=:materno AND c.fk_titular = :idt AND p.fk_titular = :id AND c.fk_beneficiario IS NULL AND c.tipo_consulta = 'CONSULTA MÉDICA' ORDER BY c.fecha DESC, c.pk_consulta DESC");
   $sql->bindParam(':nombre', $nombre, PDO::PARAM_INT);
   $sql->bindParam(':paterno', $paterno, PDO::PARAM_INT);
   $sql->bindParam(':materno', $materno, PDO::PARAM_INT);

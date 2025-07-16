@@ -217,7 +217,7 @@
                     <select name="area">
                       <option value="">-- Selecciona un Área de Consulta --</option>
                       <option value="DENTAL">Dental</option>
-                      <option value="CONSULTA MEDICA">Consulta Medica</option>
+                      <option value="CONSULTA MÉDICA">Consulta Médica</option>
                     </select>
                   </div>
                 </div>

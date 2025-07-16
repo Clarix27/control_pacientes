@@ -315,7 +315,7 @@
         <select name="area" class="resaltado-azul">
           <option value="">-- Selecciona un Área de Consulta --</option>
           <option value="DENTAL">Dental</option>
-          <option value="CONSULTA GENERAL">Consulta General</option>
+          <option value="CONSULTA MÉDICA">Consulta Médica</option>
         </select>
 
         <label>Apoyo/Pago:</label>
@@ -407,7 +407,7 @@
       <label>Área de consulta:</label>
       <select name="area" id="edit_area">
         <option value="DENTAL">Dental</option>
-        <option value="CONSULTA GENERAL">Consulta General</option>
+        <option value="CONSULTA MÉDICA">Consulta Médica</option>
       </select>
 
       <label>Apoyo/Pago:</label>
