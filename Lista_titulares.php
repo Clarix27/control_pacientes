@@ -66,7 +66,6 @@
     </div>
   </div>
 
-  <!-- Tabla -->
   <table id="tablaTitulares">
     <thead>
       <tr>
@@ -94,7 +93,7 @@
             <td>
               <div class="acciones-container">
                 <a href="editar_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-editar" title="Editar">
-                  <i class="fas fa-edit"></i>
+                  <i class="fas fa-pen-to-square"></i>
                 </a>
                 <a href="Historial_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-historial" title="Historial">
                   <i class="fas fa-file-medical"></i>

@@ -10,19 +10,30 @@
   require_once 'controladores/info_titular.php';
   $id_titular = $_GET['id_t'];
   $id_beneficiario = $_GET['id_b'];
+  $pk_consulta = $_GET['consulta_id'];
+  if (empty($id_titular) && empty($pk_consulta) && empty($id_beneficiario)) {
+    echo "<script>alert('No se encontro el ID');</script>";
+    echo("<script>window.location.assign('Inicio.php');</script>");
+    exit;
+  }
 
   $titular = titular_id($id_titular);
   // Obtener tarjetón del titular
-require_once 'controladores/conexion.php';
-$pdo = Conexion::getPDO();
-$stmt_tarjeton = $pdo->prepare("SELECT folio FROM tarjeton WHERE fk_titular = ?");
-$stmt_tarjeton->execute([$id_titular]);
-$tarjeton = $stmt_tarjeton->fetch(PDO::FETCH_ASSOC);
-$folio_tarjeton = $tarjeton['folio'] ?? 'No asignado';
+  require_once 'controladores/conexion.php';
+  $pdo = Conexion::getPDO();
+  $stmt_tarjeton = $pdo->prepare("SELECT folio FROM tarjeton WHERE fk_titular = ?");
+  $stmt_tarjeton->execute([$id_titular]);
+  $tarjeton = $stmt_tarjeton->fetch(PDO::FETCH_ASSOC);
+  $folio_tarjeton = $tarjeton['folio'] ?? 'No asignado';
 
   $t_materno = $titular['a_materno'] ?? '';
   $beneficiario = info_beneficiario($id_beneficiario);
   $b_materno = $beneficiario['a_materno'] ?? '';
+
+    $stmt_fecha = $pdo->prepare("SELECT fecha FROM consulta WHERE pk_consulta = ?");
+  $stmt_fecha->execute([$pk_consulta]);
+  $consulta = $stmt_fecha->fetch(PDO::FETCH_ASSOC);
+  $fecha_consulta = $consulta['fecha'] ?? '';
 
 
 ?>
@@ -45,10 +56,10 @@ $folio_tarjeton = $tarjeton['folio'] ?? 'No asignado';
 
 
   <div style="margin: 15px 0 0 20px;">
-  <a href="Historial_titular.php?id=<?=urlencode($id_titular)?>" class="back-button">
-    <i class="fas fa-arrow-left"></i>
-    <span class="back-text">Regresar</span>
-  </a>
+    <a href="Lista_consultas.php?id_t=<?=urlencode($id_titular)?>&id_b=<?=urlencode($id_beneficiario)?>" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+      <span class="back-text">Regresar</span>
+    </a>
   </div>
 
 
@@ -91,7 +102,7 @@ $folio_tarjeton = $tarjeton['folio'] ?? 'No asignado';
           <tr>
             <td>
               <label>Fecha:</label>
-              <input type="date" name="fecha">
+              <input type="date" name="fecha" value="<?= htmlspecialchars($fecha_consulta, ENT_QUOTES, 'UTF-8') ?>" readonly>
             </td>
             <td>
   <label>Núm. de Tarjetón:</label>
@@ -113,6 +124,7 @@ $folio_tarjeton = $tarjeton['folio'] ?? 'No asignado';
 
     <!-- Campo oculto que no se muestra -->
     <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($id_titular, ENT_QUOTES, 'UTF-8') ?>">
+    <input type="hidden" name="pk_consulta" value="<?= htmlspecialchars($pk_consulta, ENT_QUOTES, 'UTF-8') ?>">
 
     <div style="text-align: center; margin: 30px 0;">
       <button type="submit" class="btn-submit">

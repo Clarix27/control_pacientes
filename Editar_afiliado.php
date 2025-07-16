@@ -42,7 +42,6 @@
 <body>
 <?php include 'menu.php'; ?>
 
-<!-- Botón regresar -->
 <div style="margin: 15px 0 0 20px;">
   <a href="Historial_titular.php?id=<?= urlencode($pk_titular) ?>" class="back-button" title="Regresar">
     <i class="fas fa-arrow-left"></i>
@@ -50,7 +49,6 @@
   </a>
 </div>
 
-<!-- Mensaje de error -->
 <?php if (isset($_GET['error'])): ?>
   <div id="toast-error" class="toast-error"><?= htmlspecialchars($_GET['error']) ?></div>
   <script>
@@ -61,10 +59,9 @@
   </script>
 <?php endif; ?>
 
-<!-- Formulario -->
 <div class="main-content">
   <div class="form-container">
-    <h2 style=" filter: brightness(0) invert(1);" class="form-title">Editar afiliado</h2>
+    <h2 style=" filter: brightness(0) invert(1);" class="form-title">EDITAR BENEFICIARIO</h2>
     <form id="formEditarBeneficiario" method="POST" action="controladores/procesar_edicion_afiliado.php" onsubmit="return validarFormulario();">
       <input type="hidden" name="id" value="<?= htmlspecialchars($beneficiario['pk_beneficiario']) ?>">
       <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($pk_titular) ?>">
@@ -76,8 +73,6 @@
       name="nombre"
       placeholder="Nombre"
       value="<?= htmlspecialchars($beneficiario['nombre']) ?>"
-      pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{4,}"
-      title="Solo letras, mínimo 4 caracteres"
       required
     >
   </div>
@@ -87,8 +82,6 @@
       name="apaterno"
       placeholder="Apellido Paterno"
       value="<?= htmlspecialchars($beneficiario['a_paterno']) ?>"
-      pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"
-      title="Solo letras"
       required
     >
   </div>
@@ -101,9 +94,6 @@
       name="amaterno"
       placeholder="Apellido Materno"
       value="<?= htmlspecialchars($beneficiario['a_materno']) ?>"
-      pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"
-      title="Solo letras"
-      required
     >
   </div>
   <div class="form-group">

@@ -9,7 +9,7 @@
   // Continua si esta bien
   require_once 'controladores/conexion.php';
   $pdo = Conexion::getPDO();
-  $consulta = $pdo->query("SELECT YEAR(fecha) AS anio, MONTH(fecha) AS mes FROM consulta GROUP BY anio, mes ORDER BY anio DESC, mes DESC");
+  $consulta = $pdo->query("SELECT YEAR(fecha) AS anio, MONTH(fecha) AS mes FROM consulta WHERE tipo_consulta = 'DENTAL' GROUP BY anio, mes ORDER BY anio DESC, mes DESC");
   $expedientes = $consulta->fetchAll(PDO::FETCH_ASSOC);
   $i = 1;
   // 2) Arreglo de nombres de mes

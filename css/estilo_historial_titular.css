@@ -172,7 +172,7 @@
   }
 
   .btn-afiliado {
-    background: #008080;
+    background: #019b39;
     color: white;
     font-weight: bold;
     padding: 6px 12px;
@@ -215,54 +215,167 @@
     text-decoration: none;
   }
 
-  .btn-accion {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    text-decoration: none;
-    color: white;
-    font-size: 12px;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-    margin-right: 5px;
-  }
+.titulo-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 10px;
+}
 
-  .btn-accion:hover {
-    transform: scale(1.1);
-    text-decoration: none;
-    color: white;
-  }
+.titulo-sistema {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+  flex: 1;
+}
 
-  .btn-editar {
-    background: #3498db;
-  }
-  .btn-editar:hover {
-    background: #2980b9;
-  }
+.acciones-inline-titular {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-  .btn-historial {
-    background: #27ae60;
-  }
-  .btn-historial:hover {
-    background: #229954;
-  }
+.btn-inline {
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+  transition: background-color 0.3s ease;
+}
 
-  .btn-agregar {
-    background: #f39c12;
-  }
-  .btn-agregar:hover {
-    background: #e67e22;
-  }
+.btn-lista {
+  background: #6C5CE7;
+}
+.btn-lista:hover {
+  background: #5B4DCC;
+}
 
-  .btn-eliminar {
-    background: #e74c3c;
-  }
-  .btn-eliminar:hover {
-    background: #c0392b;
-  }
+.btn-ver {
+  background: #0984E3;
+}
+.btn-ver:hover {
+  background: #086FBC;
+}
+
+.btn-registrar {
+  background: #00b844;
+}
+.btn-registrar:hover {
+  background: #00b844;
+}
+
+
+.acciones-extendidas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+}
+
+
+/* Colores específicos */
+.btn-lista {
+  background: #6C5CE7;
+}
+.btn-lista:hover {
+  background: #5B4DCC;
+}
+
+.btn-ver {
+  background: #0984E3;
+}
+.btn-ver:hover {
+  background: #086FBC;
+}
+
+.btn-registrar {
+  background: #00b844;
+}
+.btn-registrar:hover {
+  background: #00b844;
+}
+
+.btn-editar {
+  background: #E67E22;
+}
+.btn-editar:hover {
+  background: #CA6F1E;
+}
+
+.btn-eliminar {
+  background: #D63031;
+}
+.btn-eliminar:hover {
+  background: #B72525;
+}
+
+
+
+.btn-accion {
+  flex-direction: column;
+  width: 60px;
+  height: 60px;
+  font-size: 10px;
+  padding: 6px;
+  text-align: center;
+  line-height: 1;
+}
+
+.btn-accion i {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.btn-accion span {
+  font-size: 11px;
+  font-weight: bold;
+  display: block;
+  color: white;
+}
+
+
+  .btn-lista {
+  background: #6C5CE7; /* Púrpura */
+}
+.btn-lista:hover {
+  background: #5B4DCC;
+}
+
+.btn-ver {
+  background: #0984E3; /* Azul acero */
+}
+.btn-ver:hover {
+  background: #086FBC;
+}
+
+.btn-registrar {
+  background: #019b39; /* Verde lima oscuro */
+}
+.btn-registrar:hover {
+  background: #019b39;
+}
+
+.btn-editar {
+  background: #E67E22; /* Naranja fuerte */
+}
+.btn-editar:hover {
+  background: #CA6F1E;
+}
+
+.btn-eliminar {
+  background: #D63031; /* Rojo oscuro */
+}
+.btn-eliminar:hover {
+  background: #B72525;
+}
+
+
 
 
 

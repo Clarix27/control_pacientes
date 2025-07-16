@@ -2,33 +2,22 @@
     try {
         header('Content-Type: application/json');
         require_once 'conexion.php';
+        date_default_timezone_set('America/Mazatlan');
 
         // Validar campos obligatorios de titular/tarjetón
-        $requiredTitular = ['nombre_t', 'paterno_t', 'nombre_p', 'paterno_p', 'area', 'fecha', 'dependencia', 'parentesco'];
-        foreach ($requiredTitular as $campo) {
+        $requiredPaciente = ['nombre_p', 'paterno_p', 'area', 'parentesco'];
+        foreach ($requiredPaciente as $campo) {
             if (!isset($_POST[$campo]) || trim($_POST[$campo]) === '') {
                 switch ($campo) {
-                    case 'nombre_t':
-                        $campo = 'Nombre Titular';
-                        break;
-                    case 'paterno_t':
-                        $campo = 'Apellido paterno del Titular';
-                        break;
                     case 'nombre_p':
                         $campo = 'Nombre Paciente';
                         break;
                     case 'paterno_p':
                         $campo = 'Apellido Paterno del Paciente';
                         break;
-                    case 'fecha':
-                        $campo = 'Fecha';
-                        break;
                     case 'parentesco':
                         $campo = 'Parentesco';
-                        break;   
-                    case 'dependencia':
-                        $campo = 'Dependencia';
-                        break;   
+                        break;    
                     default:
                         // throw new Exception("Error en la estructura de validación.");
                         break;
@@ -40,6 +29,34 @@
                 exit;
             }
         }
+
+        $parentesco = isset($_POST['parentesco']) ? trim($_POST['parentesco']) : ''; 
+
+        if ($parentesco !== 'MISMA PERSONA') {
+            // Validar campos obligatorios de titular/tarjetón
+            $requiredTitular = ['nombre_t', 'paterno_t'];
+            foreach ($requiredTitular as $campot) {
+                if (!isset($_POST[$campot]) || trim($_POST[$campot]) === '') {
+                    switch ($campot) {
+                        case 'nombre_t':
+                            $campot = 'Nombre Titular';
+                            break;
+                        case 'paterno_t':
+                            $campot = 'Apellido paterno del Titular';
+                            break;
+                        default:
+                            // throw new Exception("Error en la estructura de validación.");
+                            break;
+                    }
+                    echo json_encode([
+                        'success' => false,
+                        'message' => "Falta el campo obligatorio: $campot"
+                    ]);
+                    exit;
+                }
+            }
+        }
+
         // Lista de caracteres a eliminar
         $toRemove = ['-','@','#','$','%','&','*','+','/','=','.',',',';',':','!','?','\''];
 
@@ -68,19 +85,21 @@
         $materno_p3 = str_replace($toRemove, '', $materno_p2);
         $materno_p = mb_strtoupper($materno_p3, 'UTF-8');  
 
-        $tarjeton = isset($_POST['tarjeton']) ? trim($_POST['tarjeton']) : '';
-        $parentesco = isset($_POST['parentesco']) ? trim($_POST['parentesco']) : ''; 
+        if (empty($nombre_t) && empty($paterno_t) && empty($materno_t)) {
+            $nombre_t = $nombre_p;
+            $paterno_t = $paterno_p;
+            $materno_t = $materno_p;
+        }
         $categoria = 'Normal';
         $var_area = isset($_POST['area']) ? trim($_POST['area']) : '';
         $area = mb_strtoupper($var_area);
-        $fecha = $_POST['fecha'];
+        $fecha = date('Y-m-d');
         $var_d = isset($_POST['dependencia']) ? trim($_POST['dependencia']) : '';
         $dependencia = mb_strtoupper($var_d);
         $apoyo = isset($_POST['apoyo']) ? intval(trim($_POST['apoyo'])) : 0;
         $turno = 'Sin turno';
         $fk_empleado = 1;
         $fk_receta = null;
-        $pk_titular = 0;
         $paciente_id = 0;
         $consulta_id = 0;
 
@@ -127,54 +146,31 @@
         }
 
         // Traer tarjeton
-        function traer_t($tarjeton, $nombre_t, $paterno_t) {
-            $pdo = Conexion::getPDO();
-            $stmt = $pdo->prepare("SELECT t.pk_titular, t.a_materno FROM titular t INNER JOIN tarjeton tar WHERE tar.folio = :folio && t.nombre = :nombre && t.a_paterno = :paterno");
-            $stmt->bindParam(':folio', $tarjeton, PDO::PARAM_STR);
-            $stmt->bindParam(':nombre', $nombre_t, PDO::PARAM_STR);
-            $stmt->bindParam(':paterno', $paterno_t, PDO::PARAM_STR);
-            $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+        // function traer_t($tarjeton, $nombre_t, $paterno_t) {
+        //     $pdo = Conexion::getPDO();
+        //     $stmt = $pdo->prepare("SELECT t.pk_titular, t.a_materno FROM titular t INNER JOIN tarjeton tar WHERE tar.folio = :folio && t.nombre = :nombre && t.a_paterno = :paterno");
+        //     $stmt->bindParam(':folio', $tarjeton, PDO::PARAM_STR);
+        //     $stmt->bindParam(':nombre', $nombre_t, PDO::PARAM_STR);
+        //     $stmt->bindParam(':paterno', $paterno_t, PDO::PARAM_STR);
+        //     $stmt->execute();
+        //     return $stmt->fetch(PDO::FETCH_ASSOC);
+        // }
+
+        
+        // Se empieza a registrar y validar registros.
+        $titular_id = insertar_titular($nombre_t, $paterno_t, $materno_t, $dependencia, $categoria);
+        if (empty($titular_id)) {
+            throw new Exception("Ocurrio un problema al registrar el titular.");
         }
 
-        if(!empty($tarjeton)){
-            // Se obtiene el numero de tarjeton del titular
-            $dato = traer_t($tarjeton, $nombre_t, $paterno_t);
-            // Verificar que devolvió algo (array y no false)
-            if (!is_array($dato)) {
-                throw new Exception("El número del tarjetón no concuerda o el nombre del titular está mal escrito.");
-            }
-            $pk_titular = isset($dato['pk_titular']) ? intval($dato['pk_titular']) : null;
-            $ma = $dato['a_materno'];
-            if ($materno_t !== $ma) {
-                throw new Exception("El apellido materno no concuerda con ese titular.");
-            }
+        $paciente_id = insertar_paciente($nombre_p, $paterno_p, $materno_p, $parentesco, $titular_id);
+        if (empty($paciente_id)) {
+            throw new Exception("Ocurrio un problema al registrar el paciente.");
+        }
 
-            $paciente_id = insertar_paciente($nombre_p, $paterno_p, $materno_p, $parentesco, $pk_titular);
-            if (empty($paciente_id)) {
-                throw new Exception("Ocurrio un problema al registrar el paciente.");
-            }
-
-            $consulta_id = registrar_consulta($fecha, $apoyo, $turno, $area, $pk_titular, $paciente_id, $fk_receta, $fk_empleado);
-            if (empty($consulta_id)) {
-                throw new Exception("Ocurrio un problema al registrar la consulta.");
-            }
-        }else{
-            // Se empieza a registrar y validar registros.
-            $titular_id = insertar_titular($nombre_t, $paterno_t, $materno_t, $dependencia, $categoria);
-            if (empty($titular_id)) {
-                throw new Exception("Ocurrio un problema al registrar el titular.");
-            }
-
-            $paciente_id = insertar_paciente($nombre_p, $paterno_p, $materno_p, $parentesco, $titular_id);
-            if (empty($paciente_id)) {
-                throw new Exception("Ocurrio un problema al registrar el paciente.");
-            }
-
-            $consulta_id = registrar_consulta($fecha, $apoyo, $turno, $area, $titular_id, $paciente_id, $fk_receta, $fk_empleado);
-            if (empty($consulta_id)) {
-                throw new Exception("Ocurrio un problema al registrar la consulta.");
-            }
+        $consulta_id = registrar_consulta($fecha, $apoyo, $turno, $area, $titular_id, $paciente_id, $fk_receta, $fk_empleado);
+        if (empty($consulta_id)) {
+            throw new Exception("Ocurrio un problema al registrar la consulta.");
         }
 
         // Devolver JSON de éxito

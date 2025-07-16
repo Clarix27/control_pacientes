@@ -243,12 +243,13 @@
     color: white;
   }
 
-  .btn-editar {
-    background: #3498db;
-  }
-  .btn-editar:hover {
-    background: #2980b9;
-  }
+.btn-editar {
+  background: #E67E22; /* Naranja fuerte */
+}
+.btn-editar:hover {
+  background: #CA6F1E;
+}
+
 
   .btn-historial {
     background: #27ae60;

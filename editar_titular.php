@@ -30,7 +30,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Editar Titular - DIF Escuinapa</title>
 
-  <!-- Rutas corregidas (en minúsculas y apuntando a carpetas correctas) -->
   <link rel="stylesheet" href="css/estilo_reg_titular.css">
   <link rel="stylesheet" href="css/alerta_titular.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -42,10 +41,9 @@
 
 <?php include 'regresar.php'?>
 
-<!-- FORMULARIO -->
 <div class="main-content">
   <div class="form-container">
-    <h2 style=" filter: brightness(0) invert(1);" class="form-title">Editar titular</h2>
+    <h2 style=" filter: brightness(0) invert(1);" class="form-title">EDITAR TITULAR</h2>
     <form id="formEditarTitular" method="POST" action="controladores/procesar_edicion.php">
       <input type="hidden" name="id" value="<?= htmlspecialchars($titular['pk_titular']) ?>">
 
@@ -60,7 +58,7 @@
 
       <div class="form-row">
         <div class="form-group">
-          <input type="text" name="amaterno" placeholder="Apellido materno" value="<?= htmlspecialchars($titular['a_materno']) ?>"required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,40}" title="Solo letras, mínimo 4 caracteres.">
+          <input type="text" name="amaterno" placeholder="Apellido materno" value="<?= htmlspecialchars($titular['a_materno']) ?>" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,40}" title="Solo letras, mínimo 4 caracteres.">
         </div>
         <div class="form-group">
           <input type="text" name="puesto" placeholder="Puesto" value="<?= htmlspecialchars($titular['puesto']) ?>" required>

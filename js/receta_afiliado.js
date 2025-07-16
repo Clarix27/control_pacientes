@@ -55,14 +55,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Cierre manual con la X
     box.querySelector('.close-btn')
-       .addEventListener('click', () => box.remove());
-    
+      .addEventListener('click', () => box.remove());
+      // Cierre automático tras 2 segundos (2000 ms)
+    setTimeout(() => {
+      if (document.body.contains(box)) {
+        box.remove();
+      }
+    }, 2000);
     // Si fue exitoso, redirige tras 2 segundos
-    if (isSuccess) {
-      setTimeout(() => {
-        // opcional: box.remove();
-        window.location.href = 'Lista_titulares.php'; // <- Ajusta aquí tu página de destino
-      }, 2000);
-    }
+    // if (isSuccess) {
+    //   setTimeout(() => {
+    //     // opcional: box.remove();
+    //     window.location.href = 'Lista_titulares.php'; // <- Ajusta aquí tu página de destino
+    //   }, 2000);
+    // }
   }
 });

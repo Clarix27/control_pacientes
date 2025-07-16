@@ -18,7 +18,7 @@
     <div class="navbar-section navbar-center">
       <a href="Inicio.php">Inicio</a>
       <a href="Registro_titular.php">Agregar Titular</a>
-      <a href="Lista_titulares.php">Lista de Titulares</a>
+      <a href="Lista_titulares.php">Titulares DIF</a>
       <a href="Expedientes.php">Expedientes</a>
       <a href="Control_pacientes.php">Control de Pacientes</a>
     </div>
@@ -29,7 +29,6 @@
     </div>
   </div>
 
-  <!-- Modal de confirmación de cierre de sesión -->
   <div id="modalCerrarSesion">
     <div class="modal-contenido">
       <p>¿Estás seguro que deseas cerrar sesión?</p>
@@ -38,7 +37,6 @@
     </div>
   </div>
 
-  <!-- Scripts -->
   <script>
     function mostrarModalCerrarSesion() {
       document.getElementById('modalCerrarSesion').style.display = 'flex';
