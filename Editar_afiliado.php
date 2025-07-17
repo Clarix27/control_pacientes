@@ -61,7 +61,7 @@
 
 <div class="main-content">
   <div class="form-container">
-    <h2 style=" filter: brightness(0) invert(1);" class="form-title">Editar afiliado</h2>
+    <h2 style=" filter: brightness(0) invert(1);" class="form-title">EDITAR BENEFICIARIO</h2>
     <form id="formEditarBeneficiario" method="POST" action="controladores/procesar_edicion_afiliado.php" onsubmit="return validarFormulario();">
       <input type="hidden" name="id" value="<?= htmlspecialchars($beneficiario['pk_beneficiario']) ?>">
       <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($pk_titular) ?>">

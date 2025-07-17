@@ -54,6 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Cierre manual con la X
     box.querySelector('.close-btn')
-       .addEventListener('click', () => box.remove());
+      .addEventListener('click', () => box.remove());
+      // Cierre automático tras 2 segundos (2000 ms)
+    setTimeout(() => {
+      if (document.body.contains(box)) {
+        box.remove();
+      }
+    }, 2000);
   }
 });

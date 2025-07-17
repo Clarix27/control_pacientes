@@ -2,6 +2,7 @@
     try {
         header('Content-Type: application/json');
         require_once 'conexion.php';
+        date_default_timezone_set('America/Mazatlan');
 
         // Validar campos obligatorios de titular/tarjetón
         $requiredPaciente = ['nombre_p', 'paterno_p', 'area', 'parentesco'];
