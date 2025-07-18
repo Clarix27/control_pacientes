@@ -7,7 +7,7 @@
 
   require_once 'controladores/conexion.php';
   $pdo = Conexion::getPDO();
-  $sql = $pdo->query("SELECT c.pk_consulta, ti.nombre AS t_nombre, ti.a_paterno AS t_paterno, ti.a_materno AS t_materno, p.nombre, p.a_paterno, p.a_materno, c.tipo_consulta, c.pago FROM consulta c INNER JOIN paciente p ON c.fk_paciente=p.pk_paciente INNER JOIN titular ti ON p.fk_titular=ti.pk_titular WHERE c.fecha = CURDATE() AND c.fk_receta IS NULL AND c.fk_beneficiario IS NULL ORDER BY c.pk_consulta DESC");
+  $sql = $pdo->query("SELECT c.pk_consulta, ti.nombre AS t_nombre, ti.a_paterno AS t_paterno, ti.a_materno AS t_materno, p.nombre, p.a_paterno, p.a_materno, c.tipo_consulta, c.pago FROM consulta c INNER JOIN paciente p ON c.fk_paciente=p.pk_paciente INNER JOIN titular ti ON p.fk_titular=ti.pk_titular WHERE c.fecha = CURDATE() AND c.fk_receta IS NULL AND c.fk_beneficiario IS NULL AND ti.categoria = 'Normal' ORDER BY c.pk_consulta DESC");
   $pacientes = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
