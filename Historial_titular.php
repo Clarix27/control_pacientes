@@ -33,9 +33,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <style>
-  /* --- Forzar estilo de acciones en el card header --- */
+
 .card {
-  position: relative; /* para que el header-posicionado funcione */
+  position: relative;
 }
 .card > div:first-of-type {
   position: absolute;
@@ -58,7 +58,7 @@
   font-size: 16px;
   transition: filter 0.2s;
 }
-/* tus colores originales */
+
 .card > div:first-of-type a.btn-lista      { background: #6C5CE7; }
 .card > div:first-of-type a.btn-ver        { background: #0984E3; }
 .card > div:first-of-type a.btn-registrar  { background: #00B894; }
