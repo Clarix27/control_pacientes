@@ -51,6 +51,10 @@
           <i style=" filter: brightness(0) invert(1);" class="fas fa-desktop"></i>
           <p style=" filter: brightness(0) invert(1);" >Control De Pacientes</p>
         </div>
+        <div class="menu-item" onclick="location.href='bajas_titulares.php'" style="cursor: pointer;">
+          <i style=" filter: brightness(0) invert(1);" class="fa-solid fa-circle-xmark"></i>
+          <p style=" filter: brightness(0) invert(1);" >Bajas Titulares</p>
+        </div>
       </div>
     </div>
   </div>
