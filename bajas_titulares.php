@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/menu.css">
   <link rel="stylesheet" href="css/estilo_bajas.css">
+  <link rel="stylesheet" href="css/restaurar.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <body>
 <?php if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'actualizado'): ?>
@@ -35,7 +36,7 @@
 <?php include 'menu.php'?>
 
 <div style="margin: 15px 0 0 20px;">
-  <a href="Inicio.php" class="back-button" title="Regresar">
+  <a href="Lista_titulares.php" class="back-button" title="Regresar">
     <i class="fas fa-arrow-left"></i>
     <span class="back-text">Regresar</span>
   </a>
@@ -78,13 +79,16 @@
       </tr>
     </thead>
     <tbody>
+      <tr class="no-results" style="display: none">
+        <td colspan="7" style="text-align:center">Vacío</td>
+      </tr>
       <?php if (empty($datos_titular)): ?>
         <tr>
-          <td colspan="6">No se encontraron titulares.</td>
+          <td colspan="7">No hay titulares dados de baja actualmente.</td>
         </tr>
       <?php else: ?>
         <?php foreach ($datos_titular as $fila): ?>
-          <tr>
+          <tr class="data-row">
             <td><?= htmlspecialchars($fila['nombre'].' '.$fila['a_paterno'].' '.$fila['a_materno'], ENT_QUOTES, 'UTF-8') ?></td>
             <td><?= htmlspecialchars($fila['calle'], ENT_QUOTES, 'UTF-8') ?></td>
             <td><?= htmlspecialchars($fila['puesto'], ENT_QUOTES, 'UTF-8') ?></td>
@@ -92,8 +96,9 @@
             <td><span class="badge"><?= htmlspecialchars($fila['categoria'], ENT_QUOTES, 'UTF-8') ?></span></td>
             <td>
               <div class="acciones-container">
-                <a href="editar_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="btn-accion btn-editar" title="Editar">
+                <a href="restaurar.php" class="btn-accion btn-editar delete-link" data-id="<?=urlencode($fila['pk_titular'])?>" title="Restaurar">
                   <i class="fa-solid fa-rotate-right"></i>
+                  Restaurar Titular
                 </a>
               </div>
             </td>
@@ -104,32 +109,52 @@
   </table>
 </div>
 
-<!-- Script de filtro y búsqueda -->
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const buscador = document.getElementById("buscador");
+  (() => {
+    const buscador        = document.getElementById("buscador");
     const filtroCategoria = document.getElementById("categoria");
-    const filas = document.querySelectorAll("#tablaTitulares tbody tr");
+    const tbody           = document.querySelector("#tablaTitulares tbody");
+    const dataRows        = Array.from(tbody.querySelectorAll("tr.data-row"));
+    const noResultsRow    = tbody.querySelector("tr.no-results");
 
     function filtrar() {
-      const texto = buscador.value.toLowerCase();
-      const categoria = filtroCategoria.value.toLowerCase();
+      const texto     = buscador.value.trim().toLowerCase();
+      const categoria = filtroCategoria.value.trim().toLowerCase();
+      let visibles    = 0;
 
-      filas.forEach(fila => {
-        const nombre = fila.cells[0].textContent.toLowerCase();
-        const cat = fila.cells[4].textContent.toLowerCase();
+      for (const row of dataRows) {
+        const nombre      = row.cells[0].textContent.trim().toLowerCase();
+        const cat         = row.cells[4].textContent.trim().toLowerCase();
+        const okNombre    = !texto     || nombre.includes(texto);
+        const okCategoria = !categoria || cat.includes(categoria);
 
-        const coincideNombre = nombre.includes(texto);
-        const coincideCategoria = !categoria || cat.includes(categoria);
+        const show = okNombre && okCategoria;
+        row.style.display = show ? "" : "none";
+        if (show) visibles++;
+      }
 
-        fila.style.display = (coincideNombre && coincideCategoria) ? "" : "none";
-      });
+      noResultsRow.style.display = visibles === 0 ? "table-row" : "none";
     }
 
-    buscador.addEventListener("input", filtrar);
+    // Filtrar al escribir
+    buscador.addEventListener("input", filtrar, { passive: true });
+    // Limpiar búsqueda si hace click fuera (blur)
+    buscador.addEventListener("blur", () => {
+      if (buscador.value !== "") {
+        buscador.value = "";
+        filtrar();
+      }
+    });
+
+    // Filtrar al cambiar categoría
     filtroCategoria.addEventListener("change", filtrar);
-  });
+
+    // Estado inicial
+    filtrar();
+  })();
 </script>
+
+<script src="js/restaurar.js"></script>
 
 <footer>
   Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo. 

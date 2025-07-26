@@ -4,17 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    // Prepara datos del formulario
     const formData = new FormData(this);
 
     try {
-      // Envía la petición al backend
       const res = await fetch('controladores/control_paciente.php', {
         method: 'POST',
         body: formData
       });
 
-      // Para hacer pruebas con los errores:
       const text = await res.text();
       console.log('RESPUESTA CRUDA:', text);
       const json = JSON.parse(text);
@@ -22,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
       //const json = await res.json();
       showAlert(json.message, json.success);
 
-      // Si fue exitoso, limpia el formulario
       if (json.success) {
   document.getElementById('modalFormulario').style.display = 'none';
   setTimeout(() => {
@@ -37,16 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /**
-   * Muestra una alerta centrada con mensaje y cierre.
-   * @param {string} message - Texto a mostrar.
-   * @param {boolean} isSuccess - true=success, false=error.
+   * 
+   * @param {string} message
+   * @param {boolean} isSuccess
    */
   function showAlert(message, isSuccess) {
     // Remueve alerta previa
     const existing = document.querySelector('.alert');
     if (existing) existing.remove();
 
-    // Crea el cuadro
     const box = document.createElement('div');
     box.classList.add('alert', isSuccess ? 'success' : 'error');
     box.innerHTML = `
@@ -54,10 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
       <p>${message}</p>
     `;
 
-    // Lo añadimos al body
     document.body.appendChild(box);
 
-    // Cierre manual con la X
     box.querySelector('.close-btn')
        .addEventListener('click', () => box.remove());
   }
@@ -82,22 +75,18 @@ function abrirModalEditarDesdeAttr(btn) {
     paciente.materno === titular.materno
   );
 
-  // Llenar campos
   document.getElementById('edit_id_consulta').value = btn.getAttribute('data-id');
   document.getElementById('edit_area').value = btn.getAttribute('data-area');
   document.getElementById('edit_pago').value = btn.getAttribute('data-pago');
 
-  // Paciente
   document.getElementById('edit_nombre_p').value = paciente.nombre;
   document.getElementById('edit_paterno_p').value = paciente.paterno;
   document.getElementById('edit_materno_p').value = paciente.materno;
 
-  // Titular
   document.getElementById('edit_nombre_t').value = titular.nombre;
   document.getElementById('edit_paterno_t').value = titular.paterno;
   document.getElementById('edit_materno_t').value = titular.materno;
 
-  // Mostrar u ocultar los campos del titular
   if (sonIguales) {
     document.getElementById('grupoTitular').style.display = 'none';
   } else {

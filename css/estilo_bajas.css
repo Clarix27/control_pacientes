@@ -231,15 +231,17 @@
   .btn-accion {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
+    justify-content: space-between;
+    width: 160px;
+    height: 30px;
     border-radius: 6px;
     text-decoration: none;
     color: white;
-    font-size: 12px;
+    font-size: 14px;
     transition: all 0.2s ease;
     flex-shrink: 0;
+    padding: 0px 10px 0px 10px;
+    font-weight: bold;
   }
 
   .btn-accion:hover {
@@ -248,33 +250,11 @@
     color: white;
   }
 
-.btn-editar {
-  background: #E67E22; /* Naranja fuerte */
-}
-.btn-editar:hover {
-  background: #CA6F1E;
-}
-
-
-  .btn-historial {
+  .btn-editar {
+    background: #27ae60; /* Naranja fuerte */
+  }
+  .btn-editar:hover {
     background: #27ae60;
-  }
-  .btn-historial:hover {
-    background: #229954;
-  }
-
-  .btn-agregar {
-    background: #f39c12;
-  }
-  .btn-agregar:hover {
-    background: #e67e22;
-  }
-
-  .btn-eliminar {
-    background: #e74c3c;
-  }
-  .btn-eliminar:hover {
-    background: #c0392b;
   }
 
   .filter {
@@ -421,4 +401,8 @@ footer a:hover {
   .acciones-container {
     flex-direction: column;
   }
+}
+
+.no-results {
+  background-color: none;
 }

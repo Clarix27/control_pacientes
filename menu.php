@@ -17,10 +17,10 @@
     CONTROL DE PACIENTES DIF
     <div class="navbar-section navbar-center">
       <a href="Inicio.php">Inicio</a>
-      <a href="Registro_titular.php">Agregar Titular</a>
-      <a href="Lista_titulares.php">Titulares DIF</a>
-      <a href="Expedientes.php">Expedientes</a>
       <a href="Control_pacientes.php">Control de Pacientes</a>
+      <a href="Lista_titulares.php">Titulares DIF</a>
+      <a href="Registro_titular.php">Agregar Titular</a>
+      <a href="Expedientes.php">Expedientes</a>
     </div>
     <div class="icono-config">
       <a href="#" onclick="mostrarModalCerrarSesion(); return false;" title="Cerrar sesión">

@@ -35,25 +35,21 @@
 
     <div class="center-content">
       <div class="menu">
-        <div class="menu-item" onclick="location.href='Registro_titular.php'" style="cursor: pointer;">
-          <i style=" filter: brightness(0) invert(1);" class="fas fa-user-plus"></i>
-          <p style=" filter: brightness(0) invert(1);">Agregar Titular</p>
+        <div class="menu-item" onclick="location.href='Control_pacientes.php'" style="cursor: pointer;">
+          <i style=" filter: brightness(0) invert(1);" class="fas fa-desktop"></i>
+          <p style=" filter: brightness(0) invert(1);" >Control De Pacientes</p>
         </div>
         <div class="menu-item" onclick="location.href='Lista_titulares.php'" style="cursor: pointer;">
           <i style=" filter: brightness(0) invert(1);" class="fas fa-users"></i>
           <p style=" filter: brightness(0) invert(1);">Titulares DIF</p>
         </div>
+        <div class="menu-item" onclick="location.href='Registro_titular.php'" style="cursor: pointer;">
+          <i style=" filter: brightness(0) invert(1);" class="fas fa-user-plus"></i>
+          <p style=" filter: brightness(0) invert(1);">Agregar Titular</p>
+        </div>
         <div class="menu-item" onclick="location.href='Expedientes.php'" style="cursor: pointer;">
           <i style=" filter: brightness(0) invert(1);" class="fas fa-folder-open"></i>
           <p style=" filter: brightness(0) invert(1);">Expedientes</p>
-        </div>
-        <div class="menu-item" onclick="location.href='Control_pacientes.php'" style="cursor: pointer;">
-          <i style=" filter: brightness(0) invert(1);" class="fas fa-desktop"></i>
-          <p style=" filter: brightness(0) invert(1);" >Control De Pacientes</p>
-        </div>
-        <div class="menu-item" onclick="location.href='bajas_titulares.php'" style="cursor: pointer;">
-          <i style=" filter: brightness(0) invert(1);" class="fa-solid fa-circle-xmark"></i>
-          <p style=" filter: brightness(0) invert(1);" >Bajas Titulares</p>
         </div>
       </div>
     </div>

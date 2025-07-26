@@ -181,14 +181,12 @@
 <body>
   <?php include 'menu.php' ?>
 
-  <!-- BOTÓN REGRESAR -->
   <div>
     <a href="Historial_titular.php?id=<?=urlencode($id_titular)?>" class="back-button">
       <i class="fas fa-arrow-left"></i> <span class="back-text">Regresar</span>
     </a>
   </div>
 
-  <!-- FORMULARIO CON DISEÑO UNIFICADO -->
   <div class="main-content">
     <div class="form-container">
       <h2 class="form-title">Registro de Consulta</h2>
@@ -213,7 +211,6 @@
 
         <div class="form-row" style="justify-content: center;">
           <div class="form-group" style="max-width: 48%;">
-            <!-- <input type="text" name="area" placeholder="Área de Consulta (Ej. Dental)" > -->
             <select name="area">
               <option value="">-- Selecciona un Área de Consulta --</option>
               <option value="DENTAL">Dental</option>

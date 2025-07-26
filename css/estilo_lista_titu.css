@@ -273,7 +273,7 @@
   }
 
   .filter {
-    background: #eee;
+    background: #d9d9d9;
     padding: 15px 20px;
     margin-bottom: 30px;
     border-radius: 10px;
@@ -290,10 +290,14 @@
     gap: 10px;
   }
 
+  .boton-bajas {
+    margin-left: 10px;
+  }
+
   .filter-right {
     display: flex;
     align-items: center;
-    margin-top: 10px;
+    /* margin-top: 10px; */
   }
 
   .search-box {
@@ -418,5 +422,6 @@ footer a:hover {
   }
 }
 
-
-
+.no-results {
+  background-color: none;
+}

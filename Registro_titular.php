@@ -89,7 +89,7 @@
             <option value="" disabled selected>CATEGORÍA</option>
             <option value="confianza">Confianza</option>
             <option value="sindicalizado">Sindicalizado</option>
-            <option value="seguridad">Seguridad Pública</option>
+            <option value="seguridad pública">Seguridad Pública</option>
           </select>
         </div>
 

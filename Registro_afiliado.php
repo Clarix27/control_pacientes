@@ -82,7 +82,7 @@
               <option value="">-- Selecciona el Sexo --</option>
               <option value="M">M</option>
               <option value="F">F</option>
-              <option value="N">Otro</option>
+              <option value="Otro">Otro</option>
             </select>
           </div>
           <div class="form-group">

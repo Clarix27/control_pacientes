@@ -106,7 +106,6 @@
       </div>
     </div>
 
-    <!-- Campo oculto que no se muestra -->
     <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($id_titular, ENT_QUOTES, 'UTF-8') ?>">
     <input type="hidden" name="pk_consulta" value="<?= htmlspecialchars($pk_consulta, ENT_QUOTES, 'UTF-8') ?>">
 

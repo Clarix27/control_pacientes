@@ -40,14 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const id = link.dataset.id;
 
-      const ok = await showConfirm('¿Seguro que deseas eliminar este registro?');
+      const ok = await showConfirm('¿Seguro que deseas restaurar este titular?');
       if (!ok) return;
 
       try {
         const formData = new FormData();
         formData.append('id', id);
 
-        const res = await fetch('controladores/eliminar_afiliado.php', {
+        const res = await fetch('controladores/restaurar.php', {
           method: 'POST',
           body: formData
         });
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showAlert(json.message, json.success);
 
         if (json.success) {
-          setTimeout(() => location.reload(), 2500);
+          setTimeout(() => location.reload(), 1500);
         }
 
       } catch (error) {

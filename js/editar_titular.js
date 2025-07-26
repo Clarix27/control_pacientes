@@ -1,46 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('formCT');
+  const form = document.getElementById('formEditarTitular');
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const formData = new FormData(this);
-    const idPersona = formData.get('pk_titular');
 
     try {
-      const res = await fetch('controladores/consulta_titular.php', {
+      const res = await fetch('controladores/procesar_edicion.php', {
         method: 'POST',
         body: formData
       });
 
-      const text = await res.text();
-      console.log('RESPUESTA CRUDA:', text);
-      const json = JSON.parse(text);
-
+      const json = await res.json();
       showAlert(json.message, json.success);
 
       if (json.success) {
+        form.reset();
         setTimeout(() => {
           // opcional: box.remove();
-          window.location.href = `Historial_titular.php?id=${encodeURIComponent(idPersona)}`;
+          window.location.href = `Lista_titulares.php`;
         }, 1500);
       }
 
     } catch (error) {
-      showAlert('Ocurrio un error al registrar algo.', false);
+      showAlert('Error de conexión. Intenta de nuevo.', false);
     }
   });
 
   /**
+   * 
    * @param {string} message
    * @param {boolean} isSuccess
    */
   function showAlert(message, isSuccess) {
-    // Remueve alerta previa
     const existing = document.querySelector('.alert');
     if (existing) existing.remove();
 
-    // Crea el cuadro
     const box = document.createElement('div');
     box.classList.add('alert', isSuccess ? 'success' : 'error');
     box.innerHTML = `
