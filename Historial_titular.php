@@ -79,7 +79,7 @@
     </div>
     
     <div class="tabla-container">
-      <button class="btn-afiliado"  onclick="location.href='Registro_afiliado.php?id=<?= urlencode($pk_titular) ?>'">Agregar afiliado</button>
+      <button class="btn-afiliado"  onclick="location.href='Registro_afiliado.php?id=<?= urlencode($pk_titular) ?>'">Agregar familiar</button>
       <table>
       <thead>
         <tr>
