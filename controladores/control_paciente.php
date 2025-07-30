@@ -94,8 +94,6 @@
         $var_area = isset($_POST['area']) ? trim($_POST['area']) : '';
         $area = mb_strtoupper($var_area);
         $fecha = date('Y-m-d');
-        $var_d = isset($_POST['dependencia']) ? trim($_POST['dependencia']) : '';
-        $dependencia = mb_strtoupper($var_d);
         $apoyo = isset($_POST['apoyo']) ? intval(trim($_POST['apoyo'])) : 0;
         $turno = 'Sin turno';
         $fk_empleado = 1;
@@ -104,13 +102,12 @@
         $consulta_id = 0;
 
         // Se crea la funcion para insertar el titular
-        function insertar_titular($nombre_t, $paterno_t, $materno_t, $dependencia, $categoria): int {
+        function insertar_titular($nombre_t, $paterno_t, $materno_t, $categoria): int {
             $pdo = Conexion::getPDO();
-            $sql = $pdo->prepare("INSERT INTO titular(nombre, a_paterno, a_materno, dependencia, categoria) VALUES(:nombre, :a_paterno, :a_materno, :dependencia, :categoria)");
+            $sql = $pdo->prepare("INSERT INTO titular(nombre, a_paterno, a_materno, categoria) VALUES(:nombre, :a_paterno, :a_materno, :categoria)");
             $sql->bindParam(':nombre', $nombre_t, PDO::PARAM_STR);
             $sql->bindParam(':a_paterno', $paterno_t, PDO::PARAM_STR);
             $sql->bindParam(':a_materno', $materno_t, PDO::PARAM_STR);
-            $sql->bindParam(':dependencia', $dependencia, PDO::PARAM_STR);
             $sql->bindParam(':categoria', $categoria, PDO::PARAM_STR);
             $sql->execute();
             return $pdo->lastInsertId();
@@ -158,7 +155,7 @@
 
         
         // Se empieza a registrar y validar registros.
-        $titular_id = insertar_titular($nombre_t, $paterno_t, $materno_t, $dependencia, $categoria);
+        $titular_id = insertar_titular($nombre_t, $paterno_t, $materno_t, $categoria);
         if (empty($titular_id)) {
             throw new Exception("Ocurrio un problema al registrar el titular.");
         }

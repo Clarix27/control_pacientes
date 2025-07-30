@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('formControlP');
+  const btn  = form.querySelector('.enviar-modal');
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
+    btn.disabled = true;
 
     const formData = new FormData(this);
 
@@ -20,13 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
       showAlert(json.message, json.success);
 
       if (json.success) {
-  document.getElementById('modalFormulario').style.display = 'none';
-  setTimeout(() => {
-    location.reload();
-  }, 1000);
-}
-
-
+        document.getElementById('modalFormulario').style.display = 'none';
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
+      }
     } catch (error) {
       showAlert('Ocurrio un error al registrar algo.', false);
     }

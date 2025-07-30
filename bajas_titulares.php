@@ -74,7 +74,7 @@
         <th>Domicilio</th>
         <th>Puesto</th>
         <th>Dirección</th>
-        <th>Dependencia</th>
+        <th>Categoria</th>
         <th>Restaurar Titular</th>
       </tr>
     </thead>
