@@ -27,7 +27,7 @@
   $materno = $tarjeton['a_materno'];
 
   // Parte de la consulta
-  $sql = $pdo->prepare("SELECT p.nombre, p.a_paterno, p.a_materno, c.tipo_consulta, c.fecha, r.texto_receta FROM consulta c INNER JOIN paciente p ON c.fk_paciente = p.pk_paciente INNER JOIN receta r ON c.fk_receta = r.pk_receta WHERE p.nombre=:nombre AND p.a_paterno=:paterno AND p.a_materno=:materno AND c.fk_titular = :idt AND p.fk_titular = :id ORDER BY c.fecha DESC, c.pk_consulta DESC;");
+  $sql = $pdo->prepare("SELECT p.nombre, p.a_paterno, p.a_materno, c.tipo_consulta, c.fecha, r.texto_receta FROM consulta c INNER JOIN paciente p ON c.fk_paciente = p.pk_paciente INNER JOIN receta r ON c.fk_receta = r.pk_receta WHERE p.nombre=:nombre AND p.a_paterno=:paterno AND p.a_materno=:materno AND c.fk_titular = :idt AND p.fk_titular = :id AND c.tipo_consulta = 'CONSULTA MÉDICA' ORDER BY c.fecha DESC, c.pk_consulta DESC;");
   $sql->bindParam(':nombre', $nombre, PDO::PARAM_INT);
   $sql->bindParam(':paterno', $paterno, PDO::PARAM_INT);
   $sql->bindParam(':materno', $materno, PDO::PARAM_INT);
@@ -178,15 +178,15 @@
   </div>
 
   <div class="tituloo_container-subtle">
-    <h2>LISTA DE RECETAS</h2>
+    <h2>LISTA GENERAL DE CONSULTAS DEL BENEFICIARIO</h2>
   </div>
 
   <div class="registro-container">
     <div class="registro-fila">
-      <a>Filtro por fecha:</a>
+      <label for="filtro-fecha">Filtro por fecha:</label>
       <div class="search-box">
         <i class="fas fa-calendar-alt"></i>
-        <input id="filtro-fecha" type="date" placeholder="Seleccionar fecha">
+        <input id="filtro-fecha" type="date">
       </div>
     </div>
   </div>
@@ -227,17 +227,48 @@
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const filtro = document.getElementById('filtro-fecha');
-      const tarjetas = document.querySelectorAll('.tarjeta-consulta');
+    document.addEventListener("DOMContentLoaded", () => {
+      const filtro = document.getElementById("filtro-fecha");
 
-      filtro.addEventListener('change', () => {
-        const sel = filtro.value; // "YYYY-MM-DD"
-        tarjetas.forEach(t => {
-          const txt = t.querySelector('.fecha-etiqueta').textContent.trim();
-          const [d,m,y] = txt.split('/');
-          const fechaTar = `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`;
-          t.style.display = (!sel || fechaTar === sel) ? 'block' : 'none';
+      function parseDateString(str) {
+        // str puede ser "DD/MM/YYYY" o "YYYY-MM-DD" o "YYYYMMDD"
+        let y,m,d;
+        if (str.includes("/")) {
+          [d,m,y] = str.split("/");
+        } else if (str.includes("-")) {
+          [y,m,d] = str.split("-");
+        } else if (/^\d{8}$/.test(str)) {
+          y = str.slice(0,4);
+          m = str.slice(4,6);
+          d = str.slice(6,8);
+        } else {
+          return null;
+        }
+        // JavaScript Date constructor con "YYYY-MM-DD" es seguro
+        return new Date(`${y}-${m}-${d}`).getTime();
+      }
+
+      filtro.addEventListener("input", () => {
+        const selected = filtro.value;           // "YYYY-MM-DD" o ""
+        const tsSelected = selected 
+          ? parseDateString(selected) 
+          : null;
+
+        document.querySelectorAll(".tarjeta-consulta").forEach(t => {
+          const txt = t.querySelector(".fecha-etiqueta")
+                      .textContent.trim();
+          const tsCard = parseDateString(txt);
+
+          // Si no pudimos parsear la fecha de la tarjeta, la mostramos
+          if (tsCard === null) {
+            t.style.display = "";
+            return;
+          }
+
+          // Si no hay filtro o coinciden timestamps, la mostramos
+          t.style.display = (!tsSelected || tsCard === tsSelected)
+            ? ""
+            : "none";
         });
       });
     });

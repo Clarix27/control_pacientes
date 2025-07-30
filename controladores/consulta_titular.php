@@ -2,6 +2,7 @@
     try {
         header('Content-Type: application/json');
         require_once 'conexion.php';
+        date_default_timezone_set('America/Mazatlan');
 
         // Función para insertar paciente.
         function insertar_paciente($nombre_p, $paterno_p, $materno_p, $parentesco , $fk): int {

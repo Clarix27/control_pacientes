@@ -61,53 +61,53 @@
 
 <div class="main-content">
   <div class="form-container">
-    <h2 style=" filter: brightness(0) invert(1);" class="form-title">Editar afiliado</h2>
-    <form id="formEditarBeneficiario" method="POST" action="controladores/procesar_edicion_afiliado.php" onsubmit="return validarFormulario();">
+    <h2 style=" filter: brightness(0) invert(1);" class="form-title">EDITAR BENEFICIARIO</h2>
+    <form id="formEditarBeneficiario" onsubmit="return validarFormulario();">
       <input type="hidden" name="id" value="<?= htmlspecialchars($beneficiario['pk_beneficiario']) ?>">
       <input type="hidden" name="pk_titular" value="<?= htmlspecialchars($pk_titular) ?>">
 
       <div class="form-row">
-  <div class="form-group">
-    <input
-      type="text"
-      name="nombre"
-      placeholder="Nombre"
-      value="<?= htmlspecialchars($beneficiario['nombre']) ?>"
-      required
-    >
-  </div>
-  <div class="form-group">
-    <input
-      type="text"
-      name="apaterno"
-      placeholder="Apellido Paterno"
-      value="<?= htmlspecialchars($beneficiario['a_paterno']) ?>"
-      required
-    >
-  </div>
-</div>
+        <div class="form-group">
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre"
+            value="<?= htmlspecialchars($beneficiario['nombre']) ?>"
+            required
+          >
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            name="apaterno"
+            placeholder="Apellido Paterno"
+            value="<?= htmlspecialchars($beneficiario['a_paterno']) ?>"
+            required
+          >
+        </div>
+      </div>
 
-<div class="form-row">
-  <div class="form-group">
-    <input
-      type="text"
-      name="amaterno"
-      placeholder="Apellido Materno"
-      value="<?= htmlspecialchars($beneficiario['a_materno']) ?>"
-    >
-  </div>
-  <div class="form-group">
-    <input
-      type="number"
-      name="edad"
-      placeholder="Edad"
-      value="<?= htmlspecialchars($beneficiario['edad']) ?>"
-      min="0"
-      max="130"
-      required
-    >
-  </div>
-</div>
+      <div class="form-row">
+        <div class="form-group">
+          <input
+            type="text"
+            name="amaterno"
+            placeholder="Apellido Materno"
+            value="<?= htmlspecialchars($beneficiario['a_materno']) ?>"
+          >
+        </div>
+        <div class="form-group">
+          <input
+            type="number"
+            name="edad"
+            placeholder="Edad"
+            value="<?= htmlspecialchars($beneficiario['edad']) ?>"
+            min="0"
+            max="130"
+            required
+          >
+        </div>
+      </div>
 
       <div class="form-row">
         <div class="form-group">
@@ -127,30 +127,32 @@
           </select>
         </div>
       </div>
-
+      
       <button type="submit" class="submit-btn">Guardar Cambios</button>
     </form>
   </div>
 </div>
 
-<script>
-function validarFormulario() {
-  const form = document.forms['formEditarBeneficiario'];
-  const campos = ['nombre', 'apaterno', 'edad', 'sexo', 'parentesco'];
-  for (let campo of campos) {
-    if (form[campo].value.trim() === "") {
-      alert(`Por favor completa el campo: ${campo}`);
-      return false;
+  <script>
+    function validarFormulario() {
+      const form = document.forms['formEditarBeneficiario'];
+      const campos = ['nombre', 'apaterno', 'edad', 'sexo', 'parentesco'];
+      for (let campo of campos) {
+        if (form[campo].value.trim() === "") {
+          alert(`Por favor completa el campo: ${campo}`);
+          return false;
+        }
+      }
+      return true;
     }
-  }
-  return true;
-}
-</script>
+  </script>
 
   <footer>
     Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo. 
     <a href="aviso_privacidad.php">Aviso de privacidad</a>
   </footer>
+
+  <script src="js/editar_a.js"></script>
 
 </body>
 </html>

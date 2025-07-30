@@ -157,7 +157,6 @@
         exit;
 
     } catch (Exception $e) {
-        // Si hay error, revertir transacción y devolver JSON de error
         echo json_encode([
             'success' => false,
             'message' => $e->getMessage()

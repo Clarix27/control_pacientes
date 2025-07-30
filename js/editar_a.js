@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('formCT');
+  const form = document.getElementById('formEditarBeneficiario');
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -8,39 +8,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const idPersona = formData.get('pk_titular');
 
     try {
-      const res = await fetch('controladores/consulta_titular.php', {
+      const res = await fetch('controladores/procesar_edicion_afiliado.php', {
         method: 'POST',
         body: formData
       });
 
-      const text = await res.text();
-      console.log('RESPUESTA CRUDA:', text);
-      const json = JSON.parse(text);
-
+      const json = await res.json();
       showAlert(json.message, json.success);
 
       if (json.success) {
+        form.reset();
         setTimeout(() => {
           // opcional: box.remove();
           window.location.href = `Historial_titular.php?id=${encodeURIComponent(idPersona)}`;
-        }, 1500);
+        }, 1000);
       }
 
     } catch (error) {
-      showAlert('Ocurrio un error al registrar algo.', false);
+      showAlert('Error de conexión. Intenta de nuevo.', false);
     }
   });
 
   /**
+   * 
    * @param {string} message
    * @param {boolean} isSuccess
    */
   function showAlert(message, isSuccess) {
-    // Remueve alerta previa
     const existing = document.querySelector('.alert');
     if (existing) existing.remove();
 
-    // Crea el cuadro
     const box = document.createElement('div');
     box.classList.add('alert', isSuccess ? 'success' : 'error');
     box.innerHTML = `

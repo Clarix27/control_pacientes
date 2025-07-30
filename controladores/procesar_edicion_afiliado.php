@@ -1,5 +1,6 @@
 <?php
 try {
+    header('Content-Type: application/json');
     require_once 'conexion.php';
     $pdo = Conexion::getPDO();
 
@@ -48,10 +49,16 @@ try {
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
 
-    header("Location: ../Historial_titular.php?id=" . urlencode($pk_titular) . "&mensaje=actualizado");
+    echo json_encode([
+        'success' => true,
+        'message' => "Se actualizaron con exito los datos de: $nombre $apaterno $amaterno"
+    ]);
     exit;
 
 } catch (Exception $e) {
-    header("Location: ../Editar_afiliado.php?id=" . urlencode($_POST['id']) . "&error=" . urlencode($e->getMessage()));
+    echo json_encode([
+        'success' => false,
+        'message' => $e->getMessage()
+    ]);
     exit;
 }

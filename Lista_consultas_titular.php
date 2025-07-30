@@ -16,7 +16,7 @@
 
   require_once 'controladores/conexion.php';
   $pdo = Conexion::getPDO();
-  $sql = $pdo->prepare("SELECT c.pk_consulta, t.nombre, t.a_paterno, t.a_materno, c.tipo_consulta, c.fecha, tar.folio FROM consulta c INNER JOIN titular t ON c.fk_titular=t.pk_titular INNER JOIN tarjeton tar ON t.pk_titular=tar.fk_titular WHERE c.fk_titular = :id AND c.fk_receta IS NULL AND c.fk_beneficiario IS NULL ORDER BY DAY(c.fecha) DESC, c.pk_consulta DESC");
+  $sql = $pdo->prepare("SELECT c.pk_consulta, t.nombre, t.a_paterno, t.a_materno, c.tipo_consulta, c.fecha, tar.folio FROM consulta c INNER JOIN titular t ON c.fk_titular=t.pk_titular INNER JOIN tarjeton tar ON t.pk_titular=tar.fk_titular WHERE c.fk_titular = :id AND c.fk_receta IS NULL AND c.fk_beneficiario IS NULL AND c.tipo_consulta = 'CONSULTA MÉDICA' ORDER BY DAY(c.fecha) DESC, c.pk_consulta DESC;");
   $sql->bindParam(':id', $id_titular, PDO::PARAM_INT);
   $sql->execute();
   $consultas = $sql->fetchAll(PDO::FETCH_ASSOC);

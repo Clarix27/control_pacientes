@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 require_once 'conexion.php';
 $pdo = Conexion::getPDO();
 
@@ -53,37 +54,77 @@ try {
     $materno_t2 = str_replace($toRemove, '', $a_materno_t);
     $a_materno = mb_strtoupper($materno_t2, 'UTF-8');  
     
-    $categoria = trim($_POST['categoria'] ?? '');
-    $puesto = trim($_POST['puesto'] ?? '');
-    $direccion = trim($_POST['direccion'] ?? '');
+    // Quito lo inecesario y pongo en mayusculas.
+    $categoria_t  = trim($_POST['categoria']  ?? '');
+    $categoria_t2 = str_replace($toRemove, '', $categoria_t);
+    $categoria = mb_strtoupper($categoria_t2, 'UTF-8');
 
-    $calle = trim($_POST['calle'] ?? '');
-    $num_casa = trim($_POST['num_casa'] ?? '');
-    $colonia = trim($_POST['colonia'] ?? '');
-    $municipio = trim($_POST['municipio'] ?? '');
+    // Quito lo inecesario y pongo en mayusculas.
+    $puesto_t     = trim($_POST['puesto']     ?? '');
+    $puesto_t2 = str_replace($toRemove, '', $puesto_t);
+    $puesto = mb_strtoupper($puesto_t2, 'UTF-8');
+
+    // Quito lo inecesario y pongo en mayusculas.
+    $direccion_t  = trim($_POST['direccion']  ?? 'ejemplo');
+    $direccion_t2 = str_replace($toRemove, '', $direccion_t);
+    $direccion = mb_strtoupper($direccion_t2, 'UTF-8');
+
+    // 2) Recolectar y sanear datos del domicilio (pueden estar vacíos)
+    $calle_t      = trim($_POST['calle']    ?? '');
+    $calle_t2 = str_replace($toRemove, '', $calle_t);
+    $calle = mb_strtoupper($calle_t2, 'UTF-8');
+
+    $num_casa   = !empty($_POST['num_casa']) ? trim($_POST['num_casa']) : 'S/N';
+
+    // Quito lo inecesario y pongo en mayusculas.
+    $colonia_t    = trim($_POST['colonia']    ?? '');
+    $colonia_t2 = str_replace($toRemove, '', $colonia_t);
+    $colonia = mb_strtoupper($colonia_t2, 'UTF-8');
+
+    // Quito lo inecesario y pongo en mayusculas.
+    $municipio_t  = trim($_POST['municipio']  ?? '');
+    $municipio_t2 = str_replace($toRemove, '', $municipio_t);
+    $municipio = mb_strtoupper($municipio_t2, 'UTF-8');
 
     if (!$id || $nombre === '' || $a_paterno === '' || $puesto === '' || $categoria === '') {
         throw new Exception("Faltan campos obligatorios.");
     }
     
 
-    $pdo->beginTransaction();
+    
 
-    actualizar_titular($id, $nombre, $a_paterno, $a_materno, $categoria);
-    actualizar_tarjeton($id, $puesto, $direccion);
+    $v1 = actualizar_titular($id, $nombre, $a_paterno, $a_materno, $categoria);
+    $v2 = actualizar_tarjeton($id, $puesto, $direccion);
+    $v3 = 0;
 
     // Si alguno de los campos de domicilio está lleno, se actualiza dirección
     if ($calle !== '' || $num_casa !== '' || $colonia !== '' || $municipio !== '') {
-        actualizar_direccion($id, $calle, $num_casa, $colonia, $municipio);
+        $v3 = actualizar_direccion($id, $calle, $num_casa, $colonia, $municipio);
     }
 
-    $pdo->commit();
+    if ($v1 === false) {
+        throw new Exception("Error al actualizar titular");
+    }
+    
+    if ($v2 === false) {
+        throw new Exception("Error al actualizar tarjetón");
+    }
+    
+    if ($v3 === false) {
+        throw new Exception("Error al actualizar dirección");
+    }
 
-    header("Location: ../lista_titulares.php?mensaje=actualizado");
+    // 10) Devolver JSON de éxito
+    echo json_encode([
+        'success' => true,
+        'message' => "Se actualizaron con exito los datos de: $nombre $a_paterno $a_materno"
+    ]);
     exit;
 
 } catch (Exception $e) {
-    $pdo->rollBack();
-    echo "Error: " . $e->getMessage();
+    echo json_encode([
+        'success' => false,
+        'message' => $e->getMessage()
+    ]);
     exit;
 }

@@ -8,7 +8,8 @@
   }
   
   require_once 'controladores/info_titular.php';
-  $datos_titular = info_titilar();
+  $pk_titular = true;
+  $datos_titular = bajas_titilar();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -18,42 +19,10 @@
   <title>Listado de Pacientes - DIF Escuinapa</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/menu.css">
-  <link rel="stylesheet" href="css/estilo_lista_titu.css">
-  <link rel="stylesheet" href="css/eliminar_a.css">
+  <link rel="stylesheet" href="css/estilo_bajas.css">
+  <link rel="stylesheet" href="css/restaurar.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <body>
-<style>
-   .acciones-container {
-    display: flex;
-    gap: 8px;          /* Espacio entre botones */
-    flex-wrap: nowrap; /* Evita que brinquen de línea */
-    justify-content: flex-start; /* Alinea a la izquierda */
-    align-items: center;
-  }
-
-  .boton {
-    display: inline-block;       /* Asegura que sean pequeños y horizontales */
-    white-space: nowrap;         /* No permita salto de línea en el texto */
-    padding: 5px 10px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: bold;
-    font-family: 'Poppins', sans-serif;
-    color: white;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .boton-morado { background-color: #6C5CE7; }
-  .boton-naranja { background-color: #E67E22; }
-  .boton-rojo { background-color: #b1071e; }
-
-  .boton:hover {
-    opacity: 0.9;
-  }
-</style>
 <?php if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'actualizado'): ?>
   <div id="toast-exito" class="toast-exito">Titular actualizado con éxito</div>
   <script>
@@ -67,7 +36,7 @@
 <?php include 'menu.php'?>
 
 <div style="margin: 15px 0 0 20px;">
-  <a href="Inicio.php" class="back-button" title="Regresar">
+  <a href="Lista_titulares.php" class="back-button" title="Regresar">
     <i class="fas fa-arrow-left"></i>
     <span class="back-text">Regresar</span>
   </a>
@@ -75,7 +44,7 @@
 
 
 <div class="titulo-container-subtle">
-  <h2 style="text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA DE TITULARES AFILIADOS AL DIF</h2>
+  <h2 style="text-align: center; margin-top: 20px;" class="titulo-pagina">LISTA DE TITULARES DADOS DE BAJA</h2>
 </div>
 
 <div class="content">
@@ -86,12 +55,8 @@
         <option value="" selected>Ver todos</option>
         <option value="confianza">Confianza</option>
         <option value="sindicalizado">Sindicalizado</option>
-        <option value="seguridad pública">Seguridad</option>
+        <option value="seguridad pública">Seguridad Pública</option>
       </select>
-
-      <div class="boton-bajas">
-        <a class="boton boton-rojo" href="bajas_titulares.php">Ver Bajas</a>
-      </div>
     </div>
 
     <div class="filter-right">
@@ -109,8 +74,8 @@
         <th>Domicilio</th>
         <th>Puesto</th>
         <th>Dirección</th>
-        <th>Categoria</th>
-        <th>Acciones</th>
+        <th>Dependencia</th>
+        <th>Restaurar Titular</th>
       </tr>
     </thead>
     <tbody>
@@ -119,21 +84,22 @@
       </tr>
       <?php if (empty($datos_titular)): ?>
         <tr>
-          <td colspan="7">No se encontraron titulares.</td>
+          <td colspan="7">No hay titulares dados de baja actualmente.</td>
         </tr>
       <?php else: ?>
         <?php foreach ($datos_titular as $fila): ?>
           <tr class="data-row">
             <td><?= htmlspecialchars($fila['nombre'].' '.$fila['a_paterno'].' '.$fila['a_materno'], ENT_QUOTES, 'UTF-8') ?></td>
             <td><?= htmlspecialchars($fila['calle'], ENT_QUOTES, 'UTF-8') ?></td>
-            <td><strong><?= htmlspecialchars($fila['puesto'], ENT_QUOTES, 'UTF-8') ?></strong></td>
+            <td><?= htmlspecialchars($fila['puesto'], ENT_QUOTES, 'UTF-8') ?></td>
             <td><?= htmlspecialchars($fila['direccion'], ENT_QUOTES, 'UTF-8') ?></td>
             <td><span class="badge"><?= htmlspecialchars($fila['categoria'], ENT_QUOTES, 'UTF-8') ?></span></td>
             <td>
               <div class="acciones-container">
-                <a href="Historial_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="boton boton-morado">Historial Clínico</a>
-                <a href="editar_titular.php?id=<?= urlencode($fila['pk_titular']) ?>" class="boton boton-naranja">Editar Titular</a>
-                <a href="bajas.php" class="boton boton-rojo delete-link" data-id="<?=urlencode($fila['pk_titular'])?>">Dar de Baja</a>
+                <a href="restaurar.php" class="btn-accion btn-editar delete-link" data-id="<?=urlencode($fila['pk_titular'])?>" title="Restaurar">
+                  <i class="fa-solid fa-rotate-right"></i>
+                  Restaurar Titular
+                </a>
               </div>
             </td>
           </tr>
@@ -188,7 +154,7 @@
   })();
 </script>
 
-<script src="js/bajas.js"></script>
+<script src="js/restaurar.js"></script>
 
 <footer>
   Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo. 

@@ -1,13 +1,19 @@
-
+/**
+ * Muestra un modal de confirmación y devuelve una promesa
+ * que resuelve a `true` si confirma, `false` si cancela.
+ */
 function showConfirm(message) {
   return new Promise(resolve => {
+    // Overlay
     const overlay = document.createElement('div');
     overlay.className = 'modal-overlay';
 
+    // Caja
     const box = document.createElement('div');
     box.className = 'modal-box';
     box.innerHTML = `<p>${message}</p>`;
 
+    // Botones
     const buttons = document.createElement('div');
     buttons.className = 'modal-buttons';
 
@@ -40,14 +46,15 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const id = link.dataset.id;
 
-      const ok = await showConfirm('¿Seguro que deseas eliminar este registro?');
+      // *** Usamos showConfirm en lugar de confirm() ***
+      const ok = await showConfirm('¿Seguro que deseas dar de baja a este titular?');
       if (!ok) return;
 
       try {
         const formData = new FormData();
         formData.append('id', id);
 
-        const res = await fetch('controladores/eliminar_afiliado.php', {
+        const res = await fetch('controladores/bajas.php', {
           method: 'POST',
           body: formData
         });
@@ -59,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showAlert(json.message, json.success);
 
         if (json.success) {
-          setTimeout(() => location.reload(), 2500);
+          setTimeout(() => location.reload(), 2000);
         }
 
       } catch (error) {

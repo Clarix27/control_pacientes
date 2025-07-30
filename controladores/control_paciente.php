@@ -2,6 +2,7 @@
     try {
         header('Content-Type: application/json');
         require_once 'conexion.php';
+        date_default_timezone_set('America/Mazatlan');
 
         // Validar campos obligatorios de titular/tarjetón
         $requiredPaciente = ['nombre_p', 'paterno_p', 'area', 'parentesco'];
@@ -89,7 +90,7 @@
             $paterno_t = $paterno_p;
             $materno_t = $materno_p;
         }
-        $categoria = 'Normal';
+        $categoria = 'NORMAL';
         $var_area = isset($_POST['area']) ? trim($_POST['area']) : '';
         $area = mb_strtoupper($var_area);
         $fecha = date('Y-m-d');

@@ -43,8 +43,8 @@
 
 <div class="main-content">
   <div class="form-container">
-    <h2 style=" filter: brightness(0) invert(1);" class="form-title">Editar titular</h2>
-    <form id="formEditarTitular" method="POST" action="controladores/procesar_edicion.php">
+    <h2 style=" filter: brightness(0) invert(1);" class="form-title">EDITAR TITULAR</h2>
+    <form id="formEditarTitular">
       <input type="hidden" name="id" value="<?= htmlspecialchars($titular['pk_titular']) ?>">
 
       <div class="form-row">
@@ -91,10 +91,10 @@
 
       <div class="form-group">
         <select name="categoria" required>
-          <option value="" disabled>CATEGORÍA</option>
-          <option value="confianza" <?= $titular['categoria'] === 'confianza' ? 'selected' : '' ?>>Confianza</option>
-          <option value="sindicalizado" <?= $titular['categoria'] === 'sindicalizado' ? 'selected' : '' ?>>Sindicalizado</option>
-          <option value="seguridad" <?= $titular['categoria'] === 'seguridad' ? 'selected' : '' ?>>Seguridad Pública</option>
+          <option value="<? $titular['categoria'] ?>"><?= htmlspecialchars($titular['categoria']) ?></option>
+          <option value="confianza">Confianza</option>
+          <option value="sindicalizado">Sindicalizado</option>
+          <option value="seguridad pública">Seguridad Pública</option>
         </select>
       </div>
 
@@ -107,6 +107,8 @@
     Este sistema es propiedad del Sistema DIF Municipal Escuinapa y está destinado exclusivamente para uso administrativo. 
     <a href="aviso_privacidad.php">Aviso de privacidad</a>
   </footer>
+
+  <script src="js/editar_titular.js"></script>
 </body>
 </html>
 
@@ -131,4 +133,3 @@
     }
   });
 </script>
-

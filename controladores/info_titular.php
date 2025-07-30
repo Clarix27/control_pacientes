@@ -5,7 +5,7 @@
     // Consulta para mostrar información del titular
     function info_titilar(){
         $pdo = Conexion::getPDO();
-        $sql = $pdo->query("SELECT ti.pk_titular, ti.nombre, ti.a_paterno, ti.a_materno, d.calle, tar.puesto, tar.direccion, ti.categoria FROM titular ti INNER JOIN tarjeton tar ON ti.pk_titular=tar.fk_titular INNER JOIN direccion d ON ti.pk_titular=d.fk_titular ORDER BY ti.pk_titular DESC");
+        $sql = $pdo->query("SELECT ti.pk_titular, ti.nombre, ti.a_paterno, ti.a_materno, d.calle, tar.puesto, tar.direccion, ti.categoria FROM titular ti INNER JOIN tarjeton tar ON ti.pk_titular=tar.fk_titular INNER JOIN direccion d ON ti.pk_titular=d.fk_titular WHERE ti.estatus = 1 ORDER BY ti.pk_titular DESC");
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -66,16 +66,11 @@
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    /*
-    Por si se necesita despues
-    if ($respuesta['success']) {
-        // Mostrar tabla, por ej.
-        foreach ($respuesta['data'] as $usuario) {
-            echo $usuario['nombre'] . "<br>";
-        }
-    } else {
-        echo "Error: " . $respuesta['message'];
+    // Consulta para mostrar información del titular
+    function bajas_titilar(){
+        $pdo = Conexion::getPDO();
+        $sql = $pdo->query("SELECT ti.pk_titular, ti.nombre, ti.a_paterno, ti.a_materno, d.calle, tar.puesto, tar.direccion, ti.categoria FROM titular ti INNER JOIN tarjeton tar ON ti.pk_titular=tar.fk_titular INNER JOIN direccion d ON ti.pk_titular=d.fk_titular WHERE ti.estatus = 0 ORDER BY ti.pk_titular DESC");
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
-    */
     
 ?>

@@ -56,7 +56,7 @@
   <!-- FORMULARIO -->
   <div class="main-content">
     <div class="form-container">
-      <h2 style=" filter: brightness(0) invert(1);" class="form-title">Registro del afiliado</h2>
+      <h2 style=" filter: brightness(0) invert(1);" class="form-title">REGISTRO DEL BENEFICIARIO</h2>
       <form id="formBeneficiario">
         <div class="form-row">
           <div class="form-group">
@@ -82,7 +82,7 @@
               <option value="">-- Selecciona el Sexo --</option>
               <option value="M">M</option>
               <option value="F">F</option>
-              <option value="N">Otro</option>
+              <option value="Otro">Otro</option>
             </select>
           </div>
           <div class="form-group">
