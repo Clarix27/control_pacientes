@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('formRecetas_t');
-  const btn  = form.querySelector('btn-submit');
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
-    btn.disabled = true;
     
     const formData = new FormData(this);
     const idPersona = formData.get('pk_titular');

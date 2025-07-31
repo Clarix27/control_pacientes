@@ -91,7 +91,7 @@
 
       <div class="form-group">
         <select name="categoria" required>
-          <option value="<? $titular['categoria'] ?>"><?= htmlspecialchars($titular['categoria']) ?></option>
+          <option value="<?= htmlspecialchars($titular['categoria'], ENT_QUOTES, 'UTF-8') ?>" selected><?= htmlspecialchars($titular['categoria']) ?></option>
           <option value="confianza">Confianza</option>
           <option value="sindicalizado">Sindicalizado</option>
           <option value="seguridad pública">Seguridad Pública</option>
