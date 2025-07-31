@@ -71,7 +71,7 @@
           <th>Nombre Paciente:</th>
           <th>Tarjetón:</th>
           <th>Área:</th>
-          <th>Dependencia:</th>
+          <th>Categoria:</th>
           <th>Apoyo/Pago:</th>
           <th>Fecha:</th>
         </tr>
@@ -97,7 +97,7 @@
                   <?= htmlspecialchars($exp['tipo_consulta'], ENT_QUOTES, 'UTF-8') ?>
                 </span>
               </td>
-              <td><?= !empty($exp['categoria']) ? htmlspecialchars($exp['categoria'], ENT_QUOTES, 'UTF-8'): 'Sin Dependencia'?></td>
+              <td><?= !empty($exp['categoria']) ? htmlspecialchars($exp['categoria'], ENT_QUOTES, 'UTF-8'): 'Sin Categoria'?></td>
               <td><?= htmlspecialchars($exp['pago'],   ENT_QUOTES, 'UTF-8') ?></td>
               <td><?= htmlspecialchars($exp['fecha'],   ENT_QUOTES, 'UTF-8') ?></td>
             </tr>
